@@ -461,6 +461,49 @@ export class DatabaseStorage implements IStorage {
       eq(customMetrics.customerId, customerId)
     ));
   }
+
+  // Additional admin methods
+  async getAllCustomers(): Promise<Customer[]> {
+    return await db.select().from(customers).orderBy(desc(customers.createdAt));
+  }
+
+  async getCustomerById(id: string): Promise<Customer | undefined> {
+    const [customer] = await db.select().from(customers).where(eq(customers.id, id));
+    return customer || undefined;
+  }
+
+  async getAllUsers(): Promise<User[]> {
+    return await db.select().from(users).orderBy(desc(users.createdAt));
+  }
+
+  async getUsersByCustomer(customerId: string): Promise<User[]> {
+    return await db.select().from(users).where(eq(users.customerId, customerId)).orderBy(desc(users.createdAt));
+  }
+
+  async getCustomerUsageStats(customerId: string): Promise<any> {
+    const [datasetCount] = await db.select({ count: sql<number>`count(*)` })
+      .from(datasets)
+      .where(eq(datasets.customerId, customerId));
+
+    const [dashboardCount] = await db.select({ count: sql<number>`count(*)` })
+      .from(dashboards)
+      .where(eq(dashboards.customerId, customerId));
+
+    const [chartCount] = await db.select({ count: sql<number>`count(*)` })
+      .from(charts)
+      .where(eq(charts.customerId, customerId));
+
+    const [userCount] = await db.select({ count: sql<number>`count(*)` })
+      .from(users)
+      .where(eq(users.customerId, customerId));
+
+    return {
+      datasets: datasetCount?.count || 0,
+      dashboards: dashboardCount?.count || 0,
+      charts: chartCount?.count || 0,
+      users: userCount?.count || 0,
+    };
+  }
 }
 
 export const storage = new DatabaseStorage();

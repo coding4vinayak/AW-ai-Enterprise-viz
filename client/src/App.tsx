@@ -95,6 +95,7 @@ function Router() {
               <Route path="/insights" component={Insights} />
               <Route path="/analytics" component={Analytics} />
               <Route path="/settings" component={Settings} />
+              <Route path="/admin" component={AdminPage} />
               <Route path="/login" component={Login} />
               <Route component={NotFound} />
             </Switch>

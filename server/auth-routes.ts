@@ -134,16 +134,24 @@ router.post('/logout', (req, res) => {
 });
 
 // Get current user
-router.get('/me', authenticateUser, (req, res) => {
-  res.json({
-    user: {
-      id: req.user!.id,
-      email: req.user!.email,
-      username: req.user!.username,
-      role: req.user!.role,
-      customerId: req.user!.customerId,
-    },
-  });
+router.get('/me', authenticateUser, async (req, res) => {
+  try {
+    if (!req.user) {
+      return res.status(401).json({ error: 'Not authenticated' });
+    }
+
+    const user = await storage.getUserById(req.user.id);
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    const { password, ...userWithoutPassword } = user;
+    res.json(userWithoutPassword);
+  } catch (error) {
+    console.error('Failed to fetch current user:', error);
+    res.status(500).json({ error: 'Failed to fetch user' });
+  }
 });
 
 export default router;

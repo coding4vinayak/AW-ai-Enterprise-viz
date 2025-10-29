@@ -6,6 +6,7 @@ import authRoutes from "./auth-routes";
 import { setupVite, serveStatic, log } from "./vite";
 import { seedDatabase } from "./seed";
 import { db } from "./db";
+import { authenticateUser } from "./middleware/auth"; // Assuming authenticateUser is in middleware/auth
 
 const app = express();
 const PgSession = connectPgSimple(session);
@@ -86,7 +87,7 @@ app.use((req, res, next) => {
 
   // Register admin routes
   const adminRoutes = (await import('./admin-routes')).default;
-  app.use('/api/admin', adminRoutes);
+  app.use('/api/admin', authenticateUser, adminRoutes); // Applied authenticateUser middleware
 
   const server = await registerRoutes(app);
 
@@ -94,8 +95,9 @@ app.use((req, res, next) => {
     const status = err.status || err.statusCode || 500;
     const message = err.message || "Internal Server Error";
 
+    log(`Error: ${message} at ${_req.method} ${_req.path}`); // Added logging for errors
     res.status(status).json({ message });
-    throw err;
+    // Removed 'throw err;' to prevent double error handling or uncaught exceptions
   });
 
   // importantly only setup vite in development and after

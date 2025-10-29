@@ -1,8 +1,11 @@
-import { Sparkles, TrendingUp, AlertCircle, Target, Brain } from "lucide-react";
+import { Sparkles, TrendingUp, AlertCircle, Target, Brain, Lightbulb, Plus, Download, Calendar, Filter } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { InsightCard } from "@/components/ai/insight-card";
 import { Button } from "@/components/ui/button";
+import { useInsights, useGenerateInsight, useDatasets } from "@/lib/api-hooks";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useState } from "react";
 
 export default function Insights() {
   // Mock insights - will be replaced with AI-generated content

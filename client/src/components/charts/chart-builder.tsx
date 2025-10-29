@@ -30,19 +30,16 @@ export function ChartBuilder() {
   const [selectedDataset, setSelectedDataset] = useState<string>("");
   const { data: datasets } = useDatasets();
 
-  const selectedDatasetColumns = selectedDataset && datasets 
-    ? datasets.find(d => d.id === selectedDataset)?.columns || []
-    : [];
+  const selectedDatasetObj = selectedDataset && datasets 
+    ? datasets.find(d => d.id === selectedDataset)
+    : null;
+  
+  const selectedDatasetColumns = selectedDatasetObj?.columns || [];
 
-  // Mock data for preview
-  const previewData = [
-    { month: "Jan", value: 4500 },
-    { month: "Feb", value: 5200 },
-    { month: "Mar", value: 4800 },
-    { month: "Apr", value: 5800 },
-    { month: "May", value: 5300 },
-    { month: "Jun", value: 6100 },
-  ];
+  // Use actual dataset data for preview (first 10 rows)
+  const previewData = selectedDatasetObj 
+    ? (selectedDatasetObj.uploadedData as any[] || []).slice(0, 10)
+    : [];
 
   const chartTypes = [
     { value: "line", label: "Line", icon: LineChart },

@@ -51,9 +51,12 @@ router.post('/customers', authenticateUser, requireRole(['super_admin']), async 
     }
 
     const customer = await storage.createCustomer({
+      id: randomUUID(),
       name,
       slug,
       status: status || 'active',
+      settings: {},
+      createdAt: new Date(),
     });
 
     res.json(customer);
@@ -63,14 +66,18 @@ router.post('/customers', authenticateUser, requireRole(['super_admin']), async 
   }
 });
 
-// Update customer
-router.put('/customers/:id', authenticateUser, requireRole(['super_admin']), async (req, res) => {
+// Update customer (super_admin only)
+router.patch('/customers/:id', authenticateUser, requireRole(['super_admin']), async (req, res) => {
   try {
     const { id } = req.params;
-    const updates = req.body;
+    const { name, status, settings } = req.body;
 
-    const customer = await storage.updateCustomer(id, updates);
-    
+    const customer = await storage.updateCustomer(id, {
+      name,
+      status,
+      settings,
+    });
+
     if (!customer) {
       return res.status(404).json({ error: 'Customer not found' });
     }
@@ -79,6 +86,46 @@ router.put('/customers/:id', authenticateUser, requireRole(['super_admin']), asy
   } catch (error) {
     console.error('Failed to update customer:', error);
     res.status(500).json({ error: 'Failed to update customer' });
+  }
+});
+
+// Get users for a customer
+router.get('/customers/:customerId/users', authenticateUser, async (req, res) => {
+  try {
+    const { customerId } = req.params;
+
+    // Check permissions
+    if (req.user!.role !== 'super_admin' && req.user!.customerId !== customerId) {
+      return res.status(403).json({ error: 'Access denied' });
+    }
+
+    const users = await storage.getUsersByCustomer(customerId);
+    
+    // Remove password hashes from response
+    const sanitizedUsers = users.map(({ password, ...user }) => user);
+    
+    res.json(sanitizedUsers);
+  } catch (error) {
+    console.error('Failed to fetch users:', error);
+    res.status(500).json({ error: 'Failed to fetch users' });
+  }
+});
+
+// Get usage statistics for a customer
+router.get('/customers/:customerId/usage', authenticateUser, async (req, res) => {
+  try {
+    const { customerId } = req.params;
+
+    // Check permissions
+    if (req.user!.role !== 'super_admin' && req.user!.customerId !== customerId) {
+      return res.status(403).json({ error: 'Access denied' });
+    }
+
+    const stats = await storage.getCustomerUsageStats(customerId);
+    res.json(stats);
+  } catch (error) {
+    console.error('Failed to fetch usage stats:', error);
+    res.status(500).json({ error: 'Failed to fetch usage stats' });
   }
 });
 
@@ -203,85 +250,6 @@ router.delete('/users/:id', authenticateUser, async (req, res) => {
   } catch (error) {
     console.error('Failed to delete user:', error);
     res.status(500).json({ error: 'Failed to delete user' });
-  }
-});
-
-    const customer = await storage.createCustomer({
-      id: randomUUID(),
-      name,
-      slug,
-      status: status || 'active',
-      settings: {},
-      createdAt: new Date(),
-    });
-
-    res.json(customer);
-  } catch (error) {
-    console.error('Failed to create customer:', error);
-    res.status(500).json({ error: 'Failed to create customer' });
-  }
-});
-
-// Update customer (super_admin only)
-router.patch('/customers/:id', authenticateUser, requireRole(['super_admin']), async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { name, status, settings } = req.body;
-
-    const customer = await storage.updateCustomer(id, {
-      name,
-      status,
-      settings,
-    });
-
-    if (!customer) {
-      return res.status(404).json({ error: 'Customer not found' });
-    }
-
-    res.json(customer);
-  } catch (error) {
-    console.error('Failed to update customer:', error);
-    res.status(500).json({ error: 'Failed to update customer' });
-  }
-});
-
-// Get users for a customer
-router.get('/customers/:customerId/users', authenticateUser, async (req, res) => {
-  try {
-    const { customerId } = req.params;
-
-    // Check permissions
-    if (req.user!.role !== 'super_admin' && req.user!.customerId !== customerId) {
-      return res.status(403).json({ error: 'Access denied' });
-    }
-
-    const users = await storage.getUsersByCustomer(customerId);
-    
-    // Remove password hashes from response
-    const sanitizedUsers = users.map(({ password, ...user }) => user);
-    
-    res.json(sanitizedUsers);
-  } catch (error) {
-    console.error('Failed to fetch users:', error);
-    res.status(500).json({ error: 'Failed to fetch users' });
-  }
-});
-
-// Get usage statistics for a customer
-router.get('/customers/:customerId/usage', authenticateUser, async (req, res) => {
-  try {
-    const { customerId } = req.params;
-
-    // Check permissions
-    if (req.user!.role !== 'super_admin' && req.user!.customerId !== customerId) {
-      return res.status(403).json({ error: 'Access denied' });
-    }
-
-    const stats = await storage.getCustomerUsageStats(customerId);
-    res.json(stats);
-  } catch (error) {
-    console.error('Failed to fetch usage stats:', error);
-    res.status(500).json({ error: 'Failed to fetch usage stats' });
   }
 });
 

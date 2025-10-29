@@ -47,8 +47,8 @@ const SettingsPage = () => <div>Settings Page</div>; // Placeholder
 const NotFoundPage = () => <div>Not Found Page</div>; // Placeholder
 const SidebarInset = ({ children }) => <div>{children}</div>; // Placeholder
 
-function Router() {
-  const location = useLocation();
+function ProtectedRoutes() {
+  const [location] = useLocation();
   const authContext = useAuth();
 
   if (!authContext) {
@@ -71,7 +71,7 @@ function Router() {
 
   // Public routes that don't require authentication
   if (location === '/login') {
-    return user ? <Navigate to="/" /> : <LoginPage />;
+    return user ? <Navigate to="/" /> : <Login />;
   }
 
   // Protected routes - redirect to login if not authenticated
@@ -85,17 +85,20 @@ function Router() {
       <AppSidebar />
       <SidebarInset>
         <div className="flex flex-1 flex-col">
-          {location === '/' && <DashboardPage />}
-          {location === '/data-sources' && <DataSourcesPage />}
-          {location === '/analytics' && <AnalyticsPage />}
-          {location === '/insights' && <InsightsPage />}
-          {location === '/settings' && <SettingsPage />}
-          {location === '/admin' && <AdminPage />}
-          {location === '/ai-settings' && <AISettingsPage />}
-          {location === '/usage' && <UsageDashboardPage />}
-          {!['/', '/data-sources', '/analytics', '/insights', '/settings', '/admin', '/ai-settings', '/usage'].includes(location) && <NotFoundPage />}
+          <Switch>
+            <Route path="/" component={Dashboard} />
+            <Route path="/data-sources" component={DataSources} />
+            <Route path="/analytics" component={Analytics} />
+            <Route path="/insights" component={Insights} />
+            <Route path="/settings" component={Settings} />
+            <Route path="/admin" component={AdminPage} />
+            <Route path="/ai-settings" component={AISettingsPage} />
+            <Route path="/usage" component={UsageDashboard} />
+            <Route component={NotFound} />
+          </Switch>
         </div>
       </SidebarInset>
+      <Toaster />
     </SidebarProvider>
   );
 }
@@ -104,9 +107,11 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider defaultTheme="light">
-        <AuthProvider>
-          <Router />
-        </AuthProvider>
+        <TooltipProvider>
+          <AuthProvider>
+            <ProtectedRoutes />
+          </AuthProvider>
+        </TooltipProvider>
       </ThemeProvider>
     </QueryClientProvider>
   );

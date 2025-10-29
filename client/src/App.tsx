@@ -1,4 +1,4 @@
-import { Switch, Route } from "wouter";
+import { Switch, Route, useLocation } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -8,41 +8,80 @@ import { AppSidebar } from "@/components/app-sidebar";
 import { ThemeProvider } from "@/lib/theme-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { AIChatPanel } from "@/components/ai/ai-chat-panel";
+import { AuthProvider, useAuth } from "@/lib/auth-context";
 import NotFound from "@/pages/not-found";
 import Dashboard from "@/pages/dashboard";
 import DataSources from "@/pages/data-sources";
 import Insights from "@/pages/insights";
 import Analytics from "@/pages/analytics";
 import Settings from "@/pages/settings";
-import { useState } from "react";
+import Login from "@/pages/login";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { PanelRightClose, PanelRightOpen } from "lucide-react";
+
+function ProtectedRoute({ component: Component }: { component: () => JSX.Element }) {
+  const { user, loading } = useAuth();
+  const [, setLocation] = useLocation();
+
+  useEffect(() => {
+    if (!loading && !user) {
+      setLocation("/login");
+    }
+  }, [user, loading, setLocation]);
+
+  if (loading) {
+    return <div className="flex items-center justify-center h-screen">Loading...</div>;
+  }
+
+  if (!user) {
+    return null;
+  }
+
+  return <Component />;
+}
 
 function Router() {
   return (
     <Switch>
-      <Route path="/" component={Dashboard} />
-      <Route path="/data" component={DataSources} />
-      <Route path="/insights" component={Insights} />
-      <Route path="/analytics" component={Analytics} />
-      <Route path="/settings" component={Settings} />
+      <Route path="/login" component={Login} />
+      <Route path="/">
+        {() => <ProtectedRoute component={Dashboard} />}
+      </Route>
+      <Route path="/data">
+        {() => <ProtectedRoute component={DataSources} />}
+      </Route>
+      <Route path="/insights">
+        {() => <ProtectedRoute component={Insights} />}
+      </Route>
+      <Route path="/analytics">
+        {() => <ProtectedRoute component={Analytics} />}
+      </Route>
+      <Route path="/settings">
+        {() => <ProtectedRoute component={Settings} />}
+      </Route>
       <Route component={NotFound} />
     </Switch>
   );
 }
 
-function App() {
+function AppContent() {
   const [showAIPanel, setShowAIPanel] = useState(false);
+  const { user } = useAuth();
+  const [location] = useLocation();
 
   const sidebarStyle = {
     "--sidebar-width": "20rem",
     "--sidebar-width-icon": "4rem",
   };
 
+  // Don't show sidebar on login page
+  if (location === "/login" || !user) {
+    return <Router />;
+  }
+
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider defaultTheme="light">
-        <TooltipProvider>
+    <TooltipProvider>
           <SidebarProvider style={sidebarStyle as React.CSSProperties}>
             <div className="flex h-screen w-full">
               <AppSidebar />
@@ -93,6 +132,16 @@ function App() {
           </SidebarProvider>
           <Toaster />
         </TooltipProvider>
+  );
+}
+
+function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider defaultTheme="light">
+        <AuthProvider>
+          <AppContent />
+        </AuthProvider>
       </ThemeProvider>
     </QueryClientProvider>
   );

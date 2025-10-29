@@ -1,9 +1,34 @@
 import express, { type Request, Response, NextFunction } from "express";
+import session from "express-session";
+import connectPgSimple from "connect-pg-simple";
 import { registerRoutes } from "./routes";
+import authRoutes from "./auth-routes";
 import { setupVite, serveStatic, log } from "./vite";
 import { seedDatabase } from "./seed";
+import { db } from "./db";
 
 const app = express();
+const PgSession = connectPgSimple(session);
+
+// Session configuration
+app.use(
+  session({
+    store: new PgSession({
+      pool: db as any,
+      tableName: 'sessions',
+      createTableIfMissing: true,
+    }),
+    secret: process.env.SESSION_SECRET || 'dev-secret-change-in-production',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+    },
+  })
+);
 
 declare module 'http' {
   interface IncomingMessage {
@@ -56,6 +81,9 @@ app.use((req, res, next) => {
     log("Failed to seed database:", error);
   }
 
+  // Register auth routes
+  app.use('/api/auth', authRoutes);
+  
   const server = await registerRoutes(app);
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {

@@ -29,7 +29,7 @@ import {
   type InsertCustomerLlmConfig,
 } from "@shared/schema";
 import { db } from "./db";
-import { eq, desc, and } from "drizzle-orm";
+import { eq, desc, and, sql } from "drizzle-orm";
 import { randomUUID } from "crypto";
 
 export interface IStorage {
@@ -66,27 +66,27 @@ export interface IStorage {
   deleteCustomerLlmConfig(id: string): Promise<void>;
 
   // Dataset methods
-  createDataset(dataset: InsertDataset): Promise<Dataset>;
+  createDataset(dataset: InsertDataset, customerId: string): Promise<Dataset>;
   getDatasets(customerId: string): Promise<Dataset[]>;
   getDataset(id: string, customerId: string): Promise<Dataset | undefined>;
   deleteDataset(id: string, customerId: string): Promise<void>;
 
   // Dashboard methods
-  createDashboard(dashboard: InsertDashboard): Promise<Dashboard>;
+  createDashboard(dashboard: InsertDashboard, customerId: string): Promise<Dashboard>;
   getDashboards(customerId: string, userId?: string): Promise<Dashboard[]>;
   getDashboard(id: string, customerId: string): Promise<Dashboard | undefined>;
   updateDashboard(id: string, customerId: string, dashboard: Partial<InsertDashboard>): Promise<Dashboard | undefined>;
   deleteDashboard(id: string, customerId: string): Promise<void>;
 
   // Chart methods
-  createChart(chart: InsertChart): Promise<Chart>;
-  getCharts(dashboardId: string, customerId: string): Promise<Chart[]>;
+  createChart(chart: InsertChart, customerId: string): Promise<Chart>;
+  getCharts(customerId: string): Promise<Chart[]>;
   getChart(id: string, customerId: string): Promise<Chart | undefined>;
   updateChart(id: string, customerId: string, chart: Partial<InsertChart>): Promise<Chart | undefined>;
   deleteChart(id: string, customerId: string): Promise<void>;
 
   // Insight methods
-  createInsight(insight: InsertInsight): Promise<Insight>;
+  createInsight(insight: InsertInsight, customerId: string): Promise<Insight>;
   getInsights(customerId: string, dashboardId?: string, datasetId?: string): Promise<Insight[]>;
 
   // Custom metric methods
@@ -242,7 +242,7 @@ export class DatabaseStorage implements IStorage {
   }
 
   // Dataset methods
-  async createDataset(data: InsertDataset): Promise<Dataset> {
+  async createDataset(data: InsertDataset, customerId: string): Promise<Dataset> {
     const id = randomUUID();
 
     // Extract column names from schema or data
@@ -259,6 +259,7 @@ export class DatabaseStorage implements IStorage {
       .values({
         id,
         ...data,
+        customerId,
         columns,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -294,10 +295,10 @@ export class DatabaseStorage implements IStorage {
   }
 
   // Dashboard methods
-  async createDashboard(insertDashboard: InsertDashboard): Promise<Dashboard> {
+  async createDashboard(data: InsertDashboard, customerId: string): Promise<Dashboard> {
     const [dashboard] = await db
       .insert(dashboards)
-      .values(insertDashboard)
+      .values({ ...data, customerId })
       .returning();
     return dashboard;
   }
@@ -355,22 +356,19 @@ export class DatabaseStorage implements IStorage {
   }
 
   // Chart methods
-  async createChart(insertChart: InsertChart): Promise<Chart> {
+  async createChart(data: InsertChart, customerId: string): Promise<Chart> {
     const [chart] = await db
       .insert(charts)
-      .values(insertChart)
+      .values({ ...data, customerId })
       .returning();
     return chart;
   }
 
-  async getCharts(dashboardId: string, customerId: string): Promise<Chart[]> {
+  async getCharts(customerId: string): Promise<Chart[]> {
     return await db
       .select()
       .from(charts)
-      .where(and(
-        eq(charts.dashboardId, dashboardId),
-        eq(charts.customerId, customerId)
-      ))
+      .where(eq(charts.customerId, customerId))
       .orderBy(desc(charts.createdAt));
   }
 
@@ -409,40 +407,32 @@ export class DatabaseStorage implements IStorage {
   }
 
   // Insight methods
-  async createInsight(insertInsight: InsertInsight): Promise<Insight> {
+  async createInsight(data: InsertInsight, customerId: string): Promise<Insight> {
     const [insight] = await db
       .insert(insights)
-      .values(insertInsight)
+      .values({ ...data, customerId })
       .returning();
     return insight;
   }
 
   async getInsights(customerId: string, dashboardId?: string, datasetId?: string): Promise<Insight[]> {
-    if (dashboardId) {
-      return await db
-        .select()
-        .from(insights)
-        .where(and(
-          eq(insights.customerId, customerId),
-          eq(insights.dashboardId, dashboardId)
-        ))
-        .orderBy(desc(insights.generatedAt));
-    }
-    if (datasetId) {
-      return await db
-        .select()
-        .from(insights)
-        .where(and(
-          eq(insights.customerId, customerId),
-          eq(insights.datasetId, datasetId)
-        ))
-        .orderBy(desc(insights.generatedAt));
-    }
-    return await db
-      .select()
+    let query = db.select()
       .from(insights)
-      .where(eq(insights.customerId, customerId))
-      .orderBy(desc(insights.generatedAt));
+      .where(eq(insights.customerId, customerId));
+
+    if (dashboardId) {
+      query = query.where(and(
+        eq(insights.customerId, customerId),
+        eq(insights.dashboardId, dashboardId)
+      ));
+    } else if (datasetId) {
+      query = query.where(and(
+        eq(insights.customerId, customerId),
+        eq(insights.datasetId, datasetId)
+      ));
+    }
+
+    return query.orderBy(desc(insights.generatedAt));
   }
 
   // Custom metric methods

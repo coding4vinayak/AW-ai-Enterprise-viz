@@ -6,6 +6,7 @@ import { z } from "zod";
 import Papa from "papaparse";
 import ExcelJS from "exceljs";
 import { generateInsight, chatWithAI, isOpenAIConfigured } from "./lib/openai";
+import { authenticateUser, requireRole } from "./middleware/auth";
 
 // TODO: Replace with proper auth middleware that gets customerId from session
 async function getCustomerId(): Promise<string> {
@@ -18,9 +19,9 @@ async function getCustomerId(): Promise<string> {
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Dataset routes
-  app.post("/api/datasets", async (req, res) => {
+  app.post("/api/datasets", authenticateUser, async (req, res) => {
     try {
-      const customerId = await getCustomerId();
+      const customerId = req.user!.customerId;
       const { name, type, data } = req.body;
 
       console.log("Dataset upload request:", { name, type, dataType: typeof data, dataLength: Array.isArray(data) ? data.length : 'not array' });
@@ -40,10 +41,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         } else if (typeof data === 'string') {
           // If data is a string, try to parse it as CSV
           console.log("Parsing CSV string data");
-          const parseResult = Papa.parse(data, { 
-            header: true, 
+          const parseResult = Papa.parse(data, {
+            header: true,
             dynamicTyping: true,
-            skipEmptyLines: true 
+            skipEmptyLines: true
           });
           parsedData = parseResult.data;
           console.log("Parsed data rows:", parsedData.length);
@@ -83,30 +84,29 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       console.log("Creating dataset with", parsedData.length, "rows and", columns.length, "columns");
 
+      // Create the dataset with tenant isolation
       const dataset = await storage.createDataset({
-        customerId,
-        userId: null,
         name,
         type,
         uploadedData: parsedData,
         schemaInfo: { columns },
         rowCount: parsedData.length,
-      });
+      }, customerId);
 
       console.log("Dataset created successfully:", dataset.id);
       res.json(dataset);
     } catch (error) {
       console.error("Upload error:", error);
-      res.status(500).json({ 
+      res.status(500).json({
         error: "Failed to upload dataset",
         details: error instanceof Error ? error.message : String(error)
       });
     }
   });
 
-  app.get("/api/datasets", async (req, res) => {
+  app.get("/api/datasets", authenticateUser, async (req, res) => {
     try {
-      const customerId = await getCustomerId();
+      const customerId = req.user!.customerId;
       const datasets = await storage.getDatasets(customerId);
       res.json(datasets);
     } catch (error) {
@@ -115,10 +115,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/datasets/:id", async (req, res) => {
+  app.get("/api/datasets/:id", authenticateUser, async (req, res) => {
     try {
-      const customerId = await getCustomerId();
-      const dataset = await storage.getDataset(req.params.id, customerId);
+      const customerId = req.user!.customerId;
+      const dataset = await storage.getDatasetById(req.params.id, customerId);
       if (!dataset) {
         return res.status(404).json({ error: "Dataset not found" });
       }
@@ -129,9 +129,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.delete("/api/datasets/:id", async (req, res) => {
+  app.delete("/api/datasets/:id", authenticateUser, requireRole(['customer_admin', 'analyst', 'super_admin']), async (req, res) => {
     try {
-      const customerId = await getCustomerId();
+      const customerId = req.user!.customerId;
       await storage.deleteDataset(req.params.id, customerId);
       res.json({ success: true });
     } catch (error) {
@@ -140,10 +140,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Dashboard routes
-  app.get("/api/dashboards", async (req, res) => {
+  // Dashboard routes - require authentication
+  app.post("/api/dashboards", authenticateUser, requireRole(['customer_admin', 'analyst', 'super_admin']), async (req, res) => {
     try {
-      const dashboards = await storage.getDashboards();
+      const customerId = req.user!.customerId;
+      const validatedData = insertDashboardSchema.parse(req.body);
+      const newDashboard = await storage.createDashboard(validatedData, customerId);
+
+      res.json(newDashboard);
+    } catch (error: any) {
+      console.error("Dashboard creation error:", error);
+      res.status(400).json({ error: error.message || "Failed to create dashboard" });
+    }
+  });
+
+  app.get("/api/dashboards", authenticateUser, async (req, res) => {
+    try {
+      const customerId = req.user!.customerId;
+      const dashboards = await storage.getDashboards(customerId);
       res.json(dashboards);
     } catch (error) {
       console.error("Get dashboards error:", error);
@@ -151,23 +165,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/dashboards", async (req, res) => {
+  app.get("/api/dashboards/:id", authenticateUser, async (req, res) => {
     try {
-      const validated = insertDashboardSchema.parse(req.body);
-      const dashboard = await storage.createDashboard(validated);
-      res.json(dashboard);
-    } catch (error) {
-      if (error instanceof z.ZodError) {
-        return res.status(400).json({ error: error.errors });
-      }
-      console.error("Create dashboard error:", error);
-      res.status(500).json({ error: "Failed to create dashboard" });
-    }
-  });
-
-  app.get("/api/dashboards/:id", async (req, res) => {
-    try {
-      const dashboard = await storage.getDashboard(req.params.id);
+      const customerId = req.user!.customerId;
+      const dashboard = await storage.getDashboard(req.params.id, customerId);
       if (!dashboard) {
         return res.status(404).json({ error: "Dashboard not found" });
       }
@@ -178,9 +179,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.put("/api/dashboards/:id", async (req, res) => {
+  app.put("/api/dashboards/:id", authenticateUser, requireRole(['customer_admin', 'analyst', 'super_admin']), async (req, res) => {
     try {
-      const dashboard = await storage.updateDashboard(req.params.id, req.body);
+      const customerId = req.user!.customerId;
+      const dashboard = await storage.updateDashboard(req.params.id, req.body, customerId);
       if (!dashboard) {
         return res.status(404).json({ error: "Dashboard not found" });
       }
@@ -191,9 +193,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.delete("/api/dashboards/:id", async (req, res) => {
+  app.delete("/api/dashboards/:id", authenticateUser, requireRole(['customer_admin', 'analyst', 'super_admin']), async (req, res) => {
     try {
-      await storage.deleteDashboard(req.params.id);
+      const customerId = req.user!.customerId;
+      await storage.deleteDashboard(req.params.id, customerId);
       res.json({ success: true });
     } catch (error) {
       console.error("Delete dashboard error:", error);
@@ -202,10 +205,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Chart routes
-  app.post("/api/charts", async (req, res) => {
+  app.post("/api/charts", authenticateUser, requireRole(['customer_admin', 'analyst', 'super_admin']), async (req, res) => {
     try {
+      const customerId = req.user!.customerId;
       const validated = insertChartSchema.parse(req.body);
-      const chart = await storage.createChart(validated);
+      const chart = await storage.createChart({...validated, customerId});
       res.json(chart);
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -216,13 +220,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/charts", async (req, res) => {
+  app.get("/api/charts", authenticateUser, async (req, res) => {
     try {
+      const customerId = req.user!.customerId;
       const { dashboardId } = req.query;
       if (!dashboardId || typeof dashboardId !== "string") {
         return res.status(400).json({ error: "dashboardId is required" });
       }
-      const charts = await storage.getCharts(dashboardId);
+      const charts = await storage.getCharts(dashboardId, customerId);
       res.json(charts);
     } catch (error) {
       console.error("Get charts error:", error);
@@ -230,9 +235,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.put("/api/charts/:id", async (req, res) => {
+  app.put("/api/charts/:id", authenticateUser, requireRole(['customer_admin', 'analyst', 'super_admin']), async (req, res) => {
     try {
-      const chart = await storage.updateChart(req.params.id, req.body);
+      const customerId = req.user!.customerId;
+      const chart = await storage.updateChart(req.params.id, req.body, customerId);
       if (!chart) {
         return res.status(404).json({ error: "Chart not found" });
       }
@@ -243,9 +249,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.delete("/api/charts/:id", async (req, res) => {
+  app.delete("/api/charts/:id", authenticateUser, requireRole(['customer_admin', 'analyst', 'super_admin']), async (req, res) => {
     try {
-      await storage.deleteChart(req.params.id);
+      const customerId = req.user!.customerId;
+      await storage.deleteChart(req.params.id, customerId);
       res.json({ success: true });
     } catch (error) {
       console.error("Delete chart error:", error);
@@ -253,9 +260,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Insights routes
-  app.post("/api/insights/generate", async (req, res) => {
+  // Insights routes - require authentication
+  app.post("/api/insights/generate", authenticateUser, requireRole(['customer_admin', 'analyst', 'super_admin']), async (req, res) => {
     try {
+      const customerId = req.user!.customerId;
       const { datasetId, dashboardId, type = "summary" } = req.body;
 
       if (!isOpenAIConfigured()) {
@@ -266,9 +274,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       let dataContext = "";
-      
+
       if (datasetId) {
-        const dataset = await storage.getDataset(datasetId);
+        const dataset = await storage.getDataset(datasetId, customerId);
         if (dataset) {
           const sampleData = (dataset.uploadedData as any[]).slice(0, 20);
           dataContext = `Dataset: ${dataset.name}\nRows: ${dataset.rowCount}\nSample Data:\n${JSON.stringify(sampleData, null, 2)}`;
@@ -277,28 +285,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       const content = await generateInsight(dataContext);
 
-      const insight = await storage.createInsight({
-        datasetId: datasetId || null,
-        dashboardId: dashboardId || null,
+      const newInsight = await storage.createInsight({
         type,
         content,
-        metadata: null,
-      });
+        datasetId: datasetId || null,
+        dashboardId: dashboardId || null,
+      }, customerId);
 
-      res.json({ configured: true, insight });
+
+      res.json({ configured: true, insight: newInsight });
     } catch (error) {
       console.error("Generate insight error:", error);
       res.status(500).json({ error: "Failed to generate insight" });
     }
   });
 
-  app.get("/api/insights", async (req, res) => {
+  app.get("/api/insights", authenticateUser, async (req, res) => {
     try {
-      const { dashboardId, datasetId } = req.query;
-      const insights = await storage.getInsights(
-        dashboardId as string,
-        datasetId as string
-      );
+      const customerId = req.user!.customerId;
+      const limit = req.query.limit ? parseInt(req.query.limit as string) : 10;
+      const datasetId = req.query.datasetId as string | undefined;
+      const insights = await storage.getInsights(customerId, limit, datasetId);
       res.json(insights);
     } catch (error) {
       console.error("Get insights error:", error);
@@ -307,8 +314,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // AI Chat route
-  app.post("/api/chat", async (req, res) => {
+  app.post("/api/chat", authenticateUser, async (req, res) => {
     try {
+      const customerId = req.user!.customerId;
       const { messages, datasetId } = req.body;
 
       if (!isOpenAIConfigured()) {
@@ -319,9 +327,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       let dataContext = undefined;
-      
+
       if (datasetId) {
-        const dataset = await storage.getDataset(datasetId);
+        const dataset = await storage.getDataset(datasetId, customerId);
         if (dataset) {
           const sampleData = (dataset.uploadedData as any[]).slice(0, 20);
           dataContext = `Dataset: ${dataset.name}\nRows: ${dataset.rowCount}\nSchema: ${JSON.stringify((dataset.schemaInfo as any).columns)}\nSample Data:\n${JSON.stringify(sampleData, null, 2)}`;
@@ -337,10 +345,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Custom metrics routes
-  app.post("/api/metrics", async (req, res) => {
+  app.post("/api/metrics", authenticateUser, requireRole(['customer_admin', 'analyst', 'super_admin']), async (req, res) => {
     try {
+      const customerId = req.user!.customerId;
       const validated = insertCustomMetricSchema.parse(req.body);
-      const metric = await storage.createCustomMetric(validated);
+      const metric = await storage.createCustomMetric({...validated, customerId});
       res.json(metric);
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -351,9 +360,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/metrics/:datasetId", async (req, res) => {
+  app.get("/api/metrics/:datasetId", authenticateUser, async (req, res) => {
     try {
-      const metrics = await storage.getCustomMetrics(req.params.datasetId);
+      const customerId = req.user!.customerId;
+      const metrics = await storage.getCustomMetrics(req.params.datasetId, customerId);
       res.json(metrics);
     } catch (error) {
       console.error("Get metrics error:", error);
@@ -361,9 +371,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.delete("/api/metrics/:id", async (req, res) => {
+  app.delete("/api/metrics/:id", authenticateUser, requireRole(['customer_admin', 'analyst', 'super_admin']), async (req, res) => {
     try {
-      await storage.deleteCustomMetric(req.params.id);
+      const customerId = req.user!.customerId;
+      await storage.deleteCustomMetric(req.params.id, customerId);
       res.json({ success: true });
     } catch (error) {
       console.error("Delete metric error:", error);
@@ -372,15 +383,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Export route
-  app.post("/api/export", async (req, res) => {
+  app.post("/api/export", authenticateUser, async (req, res) => {
     try {
+      const customerId = req.user!.customerId;
       const { format, datasetId, chartData } = req.body;
 
       if (format === "csv") {
         let data = chartData;
-        
+
         if (datasetId) {
-          const dataset = await storage.getDataset(datasetId);
+          const dataset = await storage.getDataset(datasetId, customerId);
           if (dataset) {
             data = dataset.uploadedData;
           }

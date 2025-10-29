@@ -30,7 +30,7 @@ export async function generateInsight(
       : `Analyze the following data and provide key insights, trends, and actionable recommendations:\n\n${dataContext}`;
 
     const response = await openaiClient.chat.completions.create({
-      model: "gpt-5",
+      model: "gpt-4",
       messages: [
         {
           role: "system",
@@ -41,7 +41,7 @@ export async function generateInsight(
           content: prompt,
         },
       ],
-      max_completion_tokens: 1024,
+      max_tokens: 1024,
     });
 
     return response.choices[0].message.content || "Unable to generate insights.";
@@ -65,7 +65,7 @@ export async function chatWithAI(
       : "You are a helpful data analytics assistant. Help users understand their data and create visualizations.";
 
     const response = await openaiClient.chat.completions.create({
-      model: "gpt-5",
+      model: "gpt-4",
       messages: [
         { role: "system", content: systemMessage },
         ...messages.map((msg) => ({
@@ -73,7 +73,7 @@ export async function chatWithAI(
           content: msg.content,
         })),
       ],
-      max_completion_tokens: 1024,
+      max_tokens: 1024,
     });
 
     return response.choices[0].message.content || "I'm having trouble responding right now.";
@@ -97,7 +97,7 @@ export async function detectAnomalies(
     const dataStr = JSON.stringify(data.slice(0, 50)); // Limit data size
 
     const response = await openaiClient.chat.completions.create({
-      model: "gpt-5",
+      model: "gpt-4",
       messages: [
         {
           role: "system",
@@ -109,7 +109,7 @@ export async function detectAnomalies(
         },
       ],
       response_format: { type: "json_object" },
-      max_completion_tokens: 1024,
+      max_tokens: 1024,
     });
 
     const result = JSON.parse(response.choices[0].message.content || "{}");

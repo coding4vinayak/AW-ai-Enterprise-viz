@@ -9,13 +9,13 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useState } from "react";
 
 export default function Insights() {
-  const [selectedDataset, setSelectedDataset] = useState<string>("");
+  const [selectedDataset, setSelectedDataset] = useState<string>("all");
   const { data: datasets } = useDatasets();
-  const { data: insights, isLoading } = useInsights(undefined, selectedDataset || undefined);
+  const { data: insights, isLoading } = useInsights(undefined, selectedDataset !== "all" ? selectedDataset : undefined);
   const generateInsight = useGenerateInsight();
 
   const handleGenerateInsight = () => {
-    if (selectedDataset) {
+    if (selectedDataset && selectedDataset !== "all") {
       generateInsight.mutate({ datasetId: selectedDataset });
     } else {
       generateInsight.mutate({});
@@ -61,7 +61,7 @@ export default function Insights() {
                 <SelectValue placeholder="All Datasets" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Datasets</SelectItem>
+                <SelectItem value="all">All Datasets</SelectItem>
                 {datasets?.map((dataset) => (
                   <SelectItem key={dataset.id} value={dataset.id}>
                     {dataset.name}

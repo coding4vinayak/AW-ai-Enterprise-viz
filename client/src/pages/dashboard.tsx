@@ -211,7 +211,7 @@ export default function Dashboard() {
                 <p className="text-base text-muted-foreground mb-6 max-w-md">
                   Upload your first dataset to start creating visualizations and insights
                 </p>
-                <Link href="/data">
+                <Link href="/data-sources">
                   <Button variant="default" size="lg" data-testid="button-connect-data">
                     <Plus className="h-4 w-4" />
                     Connect Data Source

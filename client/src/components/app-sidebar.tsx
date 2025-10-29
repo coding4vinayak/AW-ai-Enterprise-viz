@@ -22,7 +22,7 @@ const menuItems = [
   },
   {
     title: "Data Sources",
-    url: "/data",
+    url: "/data-sources",
     icon: Database,
     testId: "link-data",
   },

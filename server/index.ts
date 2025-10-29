@@ -5,7 +5,7 @@ import { registerRoutes } from "./routes";
 import authRoutes from "./auth-routes";
 import { setupVite, serveStatic, log } from "./vite";
 import { seedDatabase } from "./seed";
-import { db } from "./db";
+import { db, pool } from "./db";
 import { authenticateUser } from "./middleware/auth";
 import { trackAPICall } from "./middleware/usage-tracker";
 
@@ -16,7 +16,7 @@ const PgSession = connectPgSimple(session);
 app.use(
   session({
     store: new PgSession({
-      pool: db as any,
+      pool: pool as any,
       tableName: 'sessions',
       createTableIfMissing: true,
     }),
@@ -83,7 +83,7 @@ app.use((req, res, next) => {
   try {
     await seedDatabase();
   } catch (error) {
-    log("Failed to seed database:", error);
+    log("Failed to seed database:", String(error));
   }
 
   // Register auth routes

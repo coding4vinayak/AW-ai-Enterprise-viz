@@ -103,6 +103,7 @@ export default function Login() {
                       onChange={(e) => setLoginIdentifier(e.target.value)}
                       required
                       disabled={loading}
+                      data-testid="input-login-identifier"
                     />
                   </div>
                   <div className="space-y-2">
@@ -115,11 +116,12 @@ export default function Login() {
                       onChange={(e) => setLoginPassword(e.target.value)}
                       required
                       disabled={loading}
+                      data-testid="input-login-password"
                     />
                   </div>
                 </CardContent>
                 <CardFooter>
-                  <Button type="submit" className="w-full" disabled={loading}>
+                  <Button type="submit" className="w-full" disabled={loading} data-testid="button-login">
                     {loading ? (
                       <>
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -154,6 +156,7 @@ export default function Login() {
                       onChange={(e) => setRegisterEmail(e.target.value)}
                       required
                       disabled={loading}
+                      data-testid="input-register-email"
                     />
                   </div>
                   <div className="space-y-2">
@@ -166,6 +169,7 @@ export default function Login() {
                       onChange={(e) => setRegisterUsername(e.target.value)}
                       required
                       disabled={loading}
+                      data-testid="input-register-username"
                     />
                   </div>
                   <div className="space-y-2">
@@ -178,6 +182,7 @@ export default function Login() {
                       onChange={(e) => setRegisterPassword(e.target.value)}
                       required
                       disabled={loading}
+                      data-testid="input-register-password"
                     />
                   </div>
                   <div className="space-y-2">
@@ -190,11 +195,12 @@ export default function Login() {
                       onChange={(e) => setRegisterConfirmPassword(e.target.value)}
                       required
                       disabled={loading}
+                      data-testid="input-register-confirm"
                     />
                   </div>
                 </CardContent>
                 <CardFooter>
-                  <Button type="submit" className="w-full" disabled={loading}>
+                  <Button type="submit" className="w-full" disabled={loading} data-testid="button-register">
                     {loading ? (
                       <>
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />

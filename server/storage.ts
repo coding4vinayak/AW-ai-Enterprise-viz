@@ -435,23 +435,28 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getInsights(customerId: string, dashboardId?: string, datasetId?: string): Promise<Insight[]> {
-    let query = db.select()
-      .from(insights)
-      .where(eq(insights.customerId, customerId));
-
     if (dashboardId) {
-      query = query.where(and(
-        eq(insights.customerId, customerId),
-        eq(insights.dashboardId, dashboardId)
-      ));
+      return await db.select()
+        .from(insights)
+        .where(and(
+          eq(insights.customerId, customerId),
+          eq(insights.dashboardId, dashboardId)
+        ))
+        .orderBy(desc(insights.generatedAt));
     } else if (datasetId) {
-      query = query.where(and(
-        eq(insights.customerId, customerId),
-        eq(insights.datasetId, datasetId)
-      ));
+      return await db.select()
+        .from(insights)
+        .where(and(
+          eq(insights.customerId, customerId),
+          eq(insights.datasetId, datasetId)
+        ))
+        .orderBy(desc(insights.generatedAt));
     }
 
-    return query.orderBy(desc(insights.generatedAt));
+    return await db.select()
+      .from(insights)
+      .where(eq(insights.customerId, customerId))
+      .orderBy(desc(insights.generatedAt));
   }
 
   // Custom metric methods
@@ -531,16 +536,20 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getUsageMetrics(customerId: string, metricType?: string, startDate?: Date, endDate?: Date): Promise<UsageMetric[]> {
-    let query = db.select().from(usageMetrics).where(eq(usageMetrics.customerId, customerId));
-
     if (metricType) {
-      query = query.where(and(
-        eq(usageMetrics.customerId, customerId),
-        eq(usageMetrics.metricType, metricType)
-      ));
+      return await db.select()
+        .from(usageMetrics)
+        .where(and(
+          eq(usageMetrics.customerId, customerId),
+          eq(usageMetrics.metricType, metricType)
+        ))
+        .orderBy(desc(usageMetrics.timestamp));
     }
 
-    return query.orderBy(desc(usageMetrics.timestamp));
+    return await db.select()
+      .from(usageMetrics)
+      .where(eq(usageMetrics.customerId, customerId))
+      .orderBy(desc(usageMetrics.timestamp));
   }
 
   async getUsageStats(customerId: string, period: 'day' | 'week' | 'month'): Promise<any> {

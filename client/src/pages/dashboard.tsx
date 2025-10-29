@@ -16,7 +16,15 @@ export default function Dashboard() {
   // Mock KPI data - would come from datasets in full implementation
   // Calculate real statistics from datasets
   const totalRecords = datasets?.reduce((sum, ds) => sum + ds.rowCount, 0) || 0;
-  const totalColumns = datasets?.reduce((sum, ds) => sum + (ds.columns?.length || 0), 0) || 0;
+  const totalColumns = datasets?.reduce((sum, ds) => {
+    // Get columns from uploadedData if columns array is empty
+    const cols = ds.columns && ds.columns.length > 0 
+      ? ds.columns.length 
+      : (ds.uploadedData as any[] || []).length > 0 
+        ? Object.keys((ds.uploadedData as any[])[0]).length 
+        : 0;
+    return sum + cols;
+  }, 0) || 0;
 
   const kpiData = [
     {
@@ -137,7 +145,13 @@ export default function Dashboard() {
                           <div>
                             <CardTitle>{dataset.name}</CardTitle>
                             <CardDescription className="mt-1">
-                              {dataset.rowCount.toLocaleString()} rows • {dataset.columns?.length || 0} columns
+                              {dataset.rowCount.toLocaleString()} rows • {
+                                dataset.columns && dataset.columns.length > 0 
+                                  ? dataset.columns.length 
+                                  : (dataset.uploadedData as any[] || []).length > 0 
+                                    ? Object.keys((dataset.uploadedData as any[])[0]).length 
+                                    : 0
+                              } columns
                             </CardDescription>
                           </div>
                           <Link href="/analytics">
@@ -150,19 +164,33 @@ export default function Dashboard() {
                       </CardHeader>
                       <CardContent>
                         <div className="flex flex-wrap gap-2">
-                          {(dataset.columns || []).slice(0, 8).map((col) => (
-                            <span
-                              key={col}
-                              className="px-2 py-1 text-xs bg-muted rounded-md"
-                            >
-                              {col}
-                            </span>
-                          ))}
-                          {(dataset.columns?.length || 0) > 8 && (
-                            <span className="px-2 py-1 text-xs text-muted-foreground">
-                              +{(dataset.columns?.length || 0) - 8} more
-                            </span>
-                          )}
+                          {(() => {
+                            const cols = dataset.columns && dataset.columns.length > 0 
+                              ? dataset.columns 
+                              : (dataset.uploadedData as any[] || []).length > 0 
+                                ? Object.keys((dataset.uploadedData as any[])[0])
+                                : [];
+                            return cols.slice(0, 8).map((col) => (
+                              <span
+                                key={col}
+                                className="px-2 py-1 text-xs bg-muted rounded-md"
+                              >
+                                {col}
+                              </span>
+                            ));
+                          })()}
+                          {(() => {
+                            const colsLength = dataset.columns && dataset.columns.length > 0 
+                              ? dataset.columns.length 
+                              : (dataset.uploadedData as any[] || []).length > 0 
+                                ? Object.keys((dataset.uploadedData as any[])[0]).length
+                                : 0;
+                            return colsLength > 8 && (
+                              <span className="px-2 py-1 text-xs text-muted-foreground">
+                                +{colsLength - 8} more
+                              </span>
+                            );
+                          })()}
                         </div>
                       </CardContent>
                     </Card>

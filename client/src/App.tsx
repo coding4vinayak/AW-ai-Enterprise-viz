@@ -16,28 +16,22 @@ import Insights from "@/pages/insights";
 import Analytics from "@/pages/analytics";
 import Settings from "@/pages/settings";
 import Login from "@/pages/login";
-import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { PanelRightClose, PanelRightOpen, LogOut } from "lucide-react";
-import { Redirect } from "wouter";
 import AdminPage from "./pages/admin";
 import AISettingsPage from "@/pages/ai-settings";
 import UsageDashboard from "@/pages/usage-dashboard";
-
-
-function ProtectedRoute({ component: Component, ...rest }: { component: React.ComponentType; path?: string }) {
-  const { isAuthenticated, loading } = useAuth();
-
-  if (loading) {
-    return <div className="flex items-center justify-center h-screen">Loading...</div>;
-  }
-
-  if (!isAuthenticated) {
-    return <Redirect to="/login" />;
-  }
-
-  return <Component {...rest} />;
-}
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { PanelRightClose, PanelRightOpen, LogOut, User } from "lucide-react";
+import { Redirect } from "wouter";
+import { Sheet, SheetContent } from "@/components/ui/sheet";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 function Router() {
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -58,126 +52,97 @@ function Router() {
     );
   }
 
-  return (
-    <SidebarProvider>
-      <div className="flex h-screen w-full">
-        <AppSidebar />
-        <main className="flex-1 overflow-y-auto">
-          <div className="container py-6">
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center gap-2">
-                <SidebarTrigger />
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-sm text-muted-foreground mr-2">
-                  {user?.username}
-                </span>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={() => setIsChatOpen(!isChatOpen)}
-                  title={isChatOpen ? "Close AI Chat" : "Open AI Chat"}
-                >
-                  {isChatOpen ? <PanelRightClose className="h-4 w-4" /> : <PanelRightOpen className="h-4 w-4" />}
-                </Button>
-                <ThemeToggle />
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={handleLogout}
-                  title="Logout"
-                >
-                  <LogOut className="h-4 w-4" />
-                </Button>
-              </div>
-            </div>
-            <Switch>
-              <Route path="/" component={Dashboard} />
-              <Route path="/data" component={DataSources} />
-              <Route path="/insights" component={Insights} />
-              <Route path="/analytics" component={Analytics} />
-              <Route path="/settings" component={Settings} />
-              <Route path="/admin" component={AdminPage} />
-              <Route path="/ai-settings" component={AISettingsPage} />
-              <Route path="/usage" component={UsageDashboard} />
-              <Route path="/login" component={Login} />
-              <Route component={NotFound} />
-            </Switch>
-          </div>
-        </main>
-        <AIChatPanel open={isChatOpen} onOpenChange={setIsChatOpen} />
-      </div>
-    </SidebarProvider>
-  );
-}
-
-function AppContent() {
-  const [showAIPanel, setShowAIPanel] = useState(false);
-  const { isAuthenticated, user } = useAuth();
-  const [location] = useLocation();
-
   const sidebarStyle = {
-    "--sidebar-width": "20rem",
-    "--sidebar-width-icon": "4rem",
+    "--sidebar-width": "16rem",
+    "--sidebar-width-icon": "3rem",
   };
-
-  // Don't show sidebar on login page
-  if (location === "/login" || !isAuthenticated) {
-    return <Router />;
-  }
 
   return (
     <TooltipProvider>
-          <SidebarProvider style={sidebarStyle as React.CSSProperties}>
-            <div className="flex h-screen w-full">
-              <AppSidebar />
-              <div className="flex flex-col flex-1 min-w-0">
-                {/* Top Bar */}
-                <header className="flex items-center justify-between h-16 px-4 border-b border-border shrink-0">
-                  <div className="flex items-center gap-3">
-                    <SidebarTrigger data-testid="button-sidebar-toggle" />
-                    <div className="hidden md:block">
-                      <h2 className="text-sm font-medium text-muted-foreground">
-                        Enterprise Analytics Platform
-                      </h2>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => setShowAIPanel(!showAIPanel)}
-                      data-testid="button-ai-panel-toggle"
-                      aria-label="Toggle AI panel"
-                    >
-                      {showAIPanel ? (
-                        <PanelRightClose className="h-5 w-5" />
-                      ) : (
-                        <PanelRightOpen className="h-5 w-5" />
-                      )}
-                    </Button>
-                    <ThemeToggle />
-                  </div>
-                </header>
-
-                {/* Main Content Area */}
-                <div className="flex flex-1 min-h-0">
-                  <main className="flex-1 overflow-hidden">
-                    <Router />
-                  </main>
-
-                  {/* AI Chat Panel */}
-                  {showAIPanel && (
-                    <div className="w-[400px] border-l border-border shrink-0">
-                      <AIChatPanel />
-                    </div>
-                  )}
+      <SidebarProvider style={sidebarStyle as React.CSSProperties}>
+        <div className="flex h-screen w-full overflow-hidden">
+          <AppSidebar />
+          <div className="flex flex-col flex-1 min-w-0">
+            <header className="flex items-center justify-between h-14 px-3 sm:px-4 border-b border-border shrink-0 gap-2">
+              <div className="flex items-center gap-2 min-w-0">
+                <SidebarTrigger data-testid="button-sidebar-toggle" />
+                <div className="hidden sm:block truncate">
+                  <h2 className="text-xs sm:text-sm font-medium text-muted-foreground truncate">
+                    Enterprise Analytics Platform
+                  </h2>
                 </div>
               </div>
+              <div className="flex items-center gap-1 sm:gap-2 shrink-0">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setIsChatOpen(!isChatOpen)}
+                  data-testid="button-ai-panel-toggle"
+                  aria-label="Toggle AI panel"
+                  className="shrink-0"
+                >
+                  {isChatOpen ? (
+                    <PanelRightClose className="h-4 w-4 sm:h-5 sm:w-5" />
+                  ) : (
+                    <PanelRightOpen className="h-4 w-4 sm:h-5 sm:w-5" />
+                  )}
+                </Button>
+                <ThemeToggle />
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" size="icon" data-testid="button-user-menu" className="shrink-0">
+                      <User className="h-4 w-4 sm:h-5 sm:w-5" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-56">
+                    <DropdownMenuLabel>
+                      <div className="flex flex-col space-y-1">
+                        <p className="text-sm font-medium">{user?.username}</p>
+                        <p className="text-xs text-muted-foreground">{user?.email}</p>
+                      </div>
+                    </DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={handleLogout} data-testid="button-logout">
+                      <LogOut className="mr-2 h-4 w-4" />
+                      Logout
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+            </header>
+
+            <div className="flex flex-1 min-h-0 overflow-hidden">
+              <main className="flex-1 overflow-y-auto">
+                <Switch>
+                  <Route path="/" component={Dashboard} />
+                  <Route path="/data" component={DataSources} />
+                  <Route path="/insights" component={Insights} />
+                  <Route path="/analytics" component={Analytics} />
+                  <Route path="/settings" component={Settings} />
+                  <Route path="/admin" component={AdminPage} />
+                  <Route path="/ai-settings" component={AISettingsPage} />
+                  <Route path="/usage" component={UsageDashboard} />
+                  <Route component={NotFound} />
+                </Switch>
+              </main>
+
+              {/* Desktop AI Chat Panel */}
+              <div className={`hidden lg:block border-l border-border shrink-0 transition-all duration-300 ${isChatOpen ? 'w-96' : 'w-0 overflow-hidden'}`}>
+                {isChatOpen && <AIChatPanel />}
+              </div>
             </div>
-          </SidebarProvider>
-          <Toaster />
-        </TooltipProvider>
+          </div>
+        </div>
+
+        {/* Mobile AI Chat Panel */}
+        <Sheet open={isChatOpen && window.innerWidth < 1024} onOpenChange={setIsChatOpen}>
+          <SheetContent side="right" className="w-full sm:w-96 p-0">
+            <AIChatPanel />
+          </SheetContent>
+        </Sheet>
+      </SidebarProvider>
+      <Toaster />
+    </TooltipProvider>
   );
 }
 
@@ -186,7 +151,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider defaultTheme="light">
         <AuthProvider>
-          <AppContent />
+          <Router />
         </AuthProvider>
       </ThemeProvider>
     </QueryClientProvider>

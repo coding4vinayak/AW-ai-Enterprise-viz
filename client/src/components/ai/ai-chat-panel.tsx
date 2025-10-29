@@ -51,12 +51,12 @@ export function AIChatPanel() {
           role: m.role,
           content: m.content,
         })),
-      });
+      }) as { configured: boolean; message: string };
 
       const aiMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: "assistant",
-        content: result.message,
+        content: result.configured ? result.message : "AI is not configured. Please configure LLM settings in the AI Settings page.",
         timestamp: new Date(),
       };
 

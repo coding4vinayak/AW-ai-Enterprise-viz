@@ -96,27 +96,30 @@ export default function Dashboard() {
               Monitor your key metrics and visualize your data
             </p>
           </div>
-          <div className="flex flex-wrap items-center gap-3">
-            <Button variant="outline" size="default" data-testid="button-date-filter">
+          <div className="flex flex-wrap items-center gap-2">
+            <Button variant="outline" size="default" data-testid="button-date-filter" className="flex-1 sm:flex-initial">
               <Calendar className="h-4 w-4" />
-              Last 30 Days
+              <span className="hidden sm:inline">Last 30 Days</span>
+              <span className="sm:hidden">30d</span>
             </Button>
-            <Button variant="outline" size="default" data-testid="button-filters">
+            <Button variant="outline" size="default" data-testid="button-filters" className="flex-1 sm:flex-initial">
               <Filter className="h-4 w-4" />
-              Filters
+              <span className="hidden sm:inline">Filters</span>
             </Button>
-            <Button variant="outline" size="default" data-testid="button-export">
+            <Button variant="outline" size="default" data-testid="button-export" className="flex-1 sm:flex-initial">
               <Download className="h-4 w-4" />
-              Export
+              <span className="hidden sm:inline">Export</span>
             </Button>
             <Button
               variant="default"
               size="default"
               onClick={() => setIsCreateDialogOpen(true)}
               data-testid="button-add-chart"
+              className="w-full sm:w-auto"
             >
               <Plus className="h-4 w-4" />
-              Add Chart
+              <span className="hidden sm:inline">Add Chart</span>
+              <span className="sm:hidden">Add</span>
             </Button>
           </div>
         </div>

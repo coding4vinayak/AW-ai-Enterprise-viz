@@ -167,11 +167,11 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="flex flex-col gap-6 p-6">
-      <div className="flex items-center justify-between">
+    <div className="flex flex-col gap-4 sm:gap-6 p-4 sm:p-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
         <div>
-          <h1 className="text-3xl font-bold">Admin Panel</h1>
-          <p className="text-muted-foreground">Manage customers and users</p>
+          <h1 className="text-2xl sm:text-3xl font-bold">Admin Panel</h1>
+          <p className="text-sm sm:text-base text-muted-foreground">Manage customers and users</p>
         </div>
       </div>
 
@@ -248,58 +248,60 @@ export default function AdminPage() {
 
           <Card>
             <CardContent className="p-0">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Name</TableHead>
-                    <TableHead>Slug</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>AI Provider</TableHead>
-                    <TableHead>Created</TableHead>
-                    <TableHead>Actions</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {loadingCustomers ? (
+              <div className="overflow-x-auto">
+                <Table>
+                  <TableHeader>
                     <TableRow>
-                      <TableCell colSpan={6} className="text-center">Loading...</TableCell>
+                      <TableHead className="whitespace-nowrap">Name</TableHead>
+                      <TableHead className="whitespace-nowrap">Slug</TableHead>
+                      <TableHead className="whitespace-nowrap">Status</TableHead>
+                      <TableHead className="whitespace-nowrap">AI Provider</TableHead>
+                      <TableHead className="whitespace-nowrap">Created</TableHead>
+                      <TableHead className="whitespace-nowrap">Actions</TableHead>
                     </TableRow>
-                  ) : customers.length === 0 ? (
-                    <TableRow>
-                      <TableCell colSpan={6} className="text-center">No customers found</TableCell>
-                    </TableRow>
-                  ) : (
-                    customers.map((customer) => (
-                      <TableRow key={customer.id}>
-                        <TableCell className="font-medium">{customer.name}</TableCell>
-                        <TableCell>{customer.slug}</TableCell>
-                        <TableCell>
-                          <Badge variant={customer.status === "active" ? "default" : "secondary"}>
-                            {customer.status}
-                          </Badge>
-                        </TableCell>
-                        <TableCell>{customer.aiProvider || "None"}</TableCell>
-                        <TableCell>{new Date(customer.createdAt).toLocaleDateString()}</TableCell>
-                        <TableCell>
-                          <Select
-                            value={customer.status}
-                            onValueChange={(status) => updateCustomerStatus.mutate({ id: customer.id, status })}
-                          >
-                            <SelectTrigger className="w-32">
-                              <SelectValue />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="active">Active</SelectItem>
-                              <SelectItem value="inactive">Inactive</SelectItem>
-                              <SelectItem value="suspended">Suspended</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </TableCell>
+                  </TableHeader>
+                  <TableBody>
+                    {loadingCustomers ? (
+                      <TableRow>
+                        <TableCell colSpan={6} className="text-center">Loading...</TableCell>
                       </TableRow>
-                    ))
-                  )}
-                </TableBody>
-              </Table>
+                    ) : customers.length === 0 ? (
+                      <TableRow>
+                        <TableCell colSpan={6} className="text-center">No customers found</TableCell>
+                      </TableRow>
+                    ) : (
+                      customers.map((customer) => (
+                        <TableRow key={customer.id}>
+                          <TableCell className="font-medium whitespace-nowrap">{customer.name}</TableCell>
+                          <TableCell className="whitespace-nowrap">{customer.slug}</TableCell>
+                          <TableCell>
+                            <Badge variant={customer.status === "active" ? "default" : "secondary"}>
+                              {customer.status}
+                            </Badge>
+                          </TableCell>
+                          <TableCell className="whitespace-nowrap">{customer.aiProvider || "None"}</TableCell>
+                          <TableCell className="whitespace-nowrap">{new Date(customer.createdAt).toLocaleDateString()}</TableCell>
+                          <TableCell>
+                            <Select
+                              value={customer.status}
+                              onValueChange={(status) => updateCustomerStatus.mutate({ id: customer.id, status })}
+                            >
+                              <SelectTrigger className="w-32">
+                                <SelectValue />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="active">Active</SelectItem>
+                                <SelectItem value="inactive">Inactive</SelectItem>
+                                <SelectItem value="suspended">Suspended</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </TableCell>
+                        </TableRow>
+                      ))
+                    )}
+                  </TableBody>
+                </Table>
+              </div>
             </CardContent>
           </Card>
         </TabsContent>
@@ -390,62 +392,64 @@ export default function AdminPage() {
 
           <Card>
             <CardContent className="p-0">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Username</TableHead>
-                    <TableHead>Email</TableHead>
-                    <TableHead>Role</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Last Login</TableHead>
-                    <TableHead>Actions</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {loadingUsers ? (
+              <div className="overflow-x-auto">
+                <Table>
+                  <TableHeader>
                     <TableRow>
-                      <TableCell colSpan={6} className="text-center">Loading...</TableCell>
+                      <TableHead className="whitespace-nowrap">Username</TableHead>
+                      <TableHead className="whitespace-nowrap">Email</TableHead>
+                      <TableHead className="whitespace-nowrap">Role</TableHead>
+                      <TableHead className="whitespace-nowrap">Status</TableHead>
+                      <TableHead className="whitespace-nowrap">Last Login</TableHead>
+                      <TableHead className="whitespace-nowrap">Actions</TableHead>
                     </TableRow>
-                  ) : users.length === 0 ? (
-                    <TableRow>
-                      <TableCell colSpan={6} className="text-center">No users found</TableCell>
-                    </TableRow>
-                  ) : (
-                    users.map((user) => (
-                      <TableRow key={user.id}>
-                        <TableCell className="font-medium">{user.username}</TableCell>
-                        <TableCell>{user.email}</TableCell>
-                        <TableCell>
-                          <Badge>{user.role.replace('_', ' ')}</Badge>
-                        </TableCell>
-                        <TableCell>
-                          <Badge variant={user.status === "active" ? "default" : "secondary"}>
-                            {user.status}
-                          </Badge>
-                        </TableCell>
-                        <TableCell>
-                          {user.lastLoginAt ? new Date(user.lastLoginAt).toLocaleDateString() : "Never"}
-                        </TableCell>
-                        <TableCell>
-                          <Select
-                            value={user.status}
-                            onValueChange={(status) => updateUserStatus.mutate({ id: user.id, status })}
-                          >
-                            <SelectTrigger className="w-32">
-                              <SelectValue />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="active">Active</SelectItem>
-                              <SelectItem value="inactive">Inactive</SelectItem>
-                              <SelectItem value="suspended">Suspended</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </TableCell>
+                  </TableHeader>
+                  <TableBody>
+                    {loadingUsers ? (
+                      <TableRow>
+                        <TableCell colSpan={6} className="text-center">Loading...</TableCell>
                       </TableRow>
-                    ))
-                  )}
-                </TableBody>
-              </Table>
+                    ) : users.length === 0 ? (
+                      <TableRow>
+                        <TableCell colSpan={6} className="text-center">No users found</TableCell>
+                      </TableRow>
+                    ) : (
+                      users.map((user) => (
+                        <TableRow key={user.id}>
+                          <TableCell className="font-medium whitespace-nowrap">{user.username}</TableCell>
+                          <TableCell className="whitespace-nowrap">{user.email}</TableCell>
+                          <TableCell>
+                            <Badge>{user.role.replace('_', ' ')}</Badge>
+                          </TableCell>
+                          <TableCell>
+                            <Badge variant={user.status === "active" ? "default" : "secondary"}>
+                              {user.status}
+                            </Badge>
+                          </TableCell>
+                          <TableCell className="whitespace-nowrap">
+                            {user.lastLoginAt ? new Date(user.lastLoginAt).toLocaleDateString() : "Never"}
+                          </TableCell>
+                          <TableCell>
+                            <Select
+                              value={user.status}
+                              onValueChange={(status) => updateUserStatus.mutate({ id: user.id, status })}
+                            >
+                              <SelectTrigger className="w-32">
+                                <SelectValue />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="active">Active</SelectItem>
+                                <SelectItem value="inactive">Inactive</SelectItem>
+                                <SelectItem value="suspended">Suspended</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </TableCell>
+                        </TableRow>
+                      ))
+                    )}
+                  </TableBody>
+                </Table>
+              </div>
             </CardContent>
           </Card>
         </TabsContent>

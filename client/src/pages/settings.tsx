@@ -48,7 +48,7 @@ export default function Settings() {
             <CardContent className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="api-key">OpenAI API Key</Label>
-                <div className="flex gap-3">
+                <div className="flex flex-col sm:flex-row gap-3">
                   <Input
                     id="api-key"
                     type="password"
@@ -56,11 +56,12 @@ export default function Settings() {
                     value={apiKey}
                     onChange={(e) => setApiKey(e.target.value)}
                     data-testid="input-api-key"
-                    className="font-mono"
+                    className="font-mono flex-1"
                   />
                   <Button
                     onClick={handleSaveApiKey}
                     data-testid="button-save-api-key"
+                    className="w-full sm:w-auto"
                   >
                     Save
                   </Button>

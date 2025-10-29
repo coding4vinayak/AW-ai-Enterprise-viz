@@ -55,9 +55,9 @@ export default function Insights() {
               AI-powered analysis and recommendations for your data
             </p>
           </div>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             <Select value={selectedDataset} onValueChange={setSelectedDataset}>
-              <SelectTrigger className="w-[200px]">
+              <SelectTrigger className="w-full sm:w-[200px]">
                 <SelectValue placeholder="All Datasets" />
               </SelectTrigger>
               <SelectContent>
@@ -75,9 +75,11 @@ export default function Insights() {
               onClick={handleGenerateInsight}
               disabled={generateInsight.isPending}
               data-testid="button-generate-insights"
+              className="w-full sm:w-auto"
             >
               <Sparkles className="h-4 w-4" />
-              {generateInsight.isPending ? "Generating..." : "Generate New Insights"}
+              <span className="hidden sm:inline">{generateInsight.isPending ? "Generating..." : "Generate New Insights"}</span>
+              <span className="sm:hidden">{generateInsight.isPending ? "Generating..." : "Generate"}</span>
             </Button>
           </div>
         </div>

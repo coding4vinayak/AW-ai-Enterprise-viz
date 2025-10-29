@@ -16,18 +16,20 @@ export default function Analytics() {
               Create custom visualizations and analyze your data
             </p>
           </div>
-          <div className="flex items-center gap-3">
-            <Button variant="outline" size="default" data-testid="button-save-chart">
+          <div className="flex flex-wrap items-center gap-2">
+            <Button variant="outline" size="default" data-testid="button-save-chart" className="flex-1 sm:flex-initial">
               <Save className="h-4 w-4" />
-              Save Chart
+              <span className="hidden sm:inline">Save Chart</span>
+              <span className="sm:hidden">Save</span>
             </Button>
-            <Button variant="outline" size="default" data-testid="button-export-chart">
+            <Button variant="outline" size="default" data-testid="button-export-chart" className="flex-1 sm:flex-initial">
               <Download className="h-4 w-4" />
               Export
             </Button>
-            <Button variant="default" size="default" data-testid="button-apply-changes">
+            <Button variant="default" size="default" data-testid="button-apply-changes" className="w-full sm:w-auto">
               <Play className="h-4 w-4" />
-              Apply Changes
+              <span className="hidden sm:inline">Apply Changes</span>
+              <span className="sm:hidden">Apply</span>
             </Button>
           </div>
         </div>

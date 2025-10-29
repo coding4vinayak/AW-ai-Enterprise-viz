@@ -72,6 +72,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         title: 'Welcome back!',
         description: `Logged in as ${data.user.username}`,
       });
+      
+      return data.user;
     } catch (error) {
       toast({
         title: 'Login failed',
@@ -103,6 +105,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         title: 'Account created!',
         description: `Welcome, ${data.user.username}`,
       });
+      
+      return data.user;
     } catch (error) {
       toast({
         title: 'Registration failed',

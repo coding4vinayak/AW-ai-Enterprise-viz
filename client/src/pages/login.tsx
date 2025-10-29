@@ -36,10 +36,10 @@ export default function Login() {
     
     try {
       await login(loginIdentifier, loginPassword);
-      setLocation('/');
+      // Force a page reload to ensure auth state is properly set
+      window.location.href = '/';
     } catch (error) {
       // Error is handled by auth context
-    } finally {
       setLoading(false);
     }
   };
@@ -56,10 +56,10 @@ export default function Login() {
     
     try {
       await register(registerEmail, registerUsername, registerPassword);
-      setLocation('/');
+      // Force a page reload to ensure auth state is properly set
+      window.location.href = '/';
     } catch (error) {
       // Error is handled by auth context
-    } finally {
       setLoading(false);
     }
   };

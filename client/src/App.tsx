@@ -33,19 +33,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-// Mock implementations for missing components and hooks
+// Navigate component for redirects
 const Navigate = ({ to }) => {
   window.location.href = to;
   return null;
 };
-const LoginPage = () => <div>Login Page</div>; // Placeholder
-const DashboardPage = () => <div>Dashboard Page</div>; // Placeholder
-const DataSourcesPage = () => <div>Data Sources Page</div>; // Placeholder
-const AnalyticsPage = () => <div>Analytics Page</div>; // Placeholder
-const InsightsPage = () => <div>Insights Page</div>; // Placeholder
-const SettingsPage = () => <div>Settings Page</div>; // Placeholder
-const NotFoundPage = () => <div>Not Found Page</div>; // Placeholder
-const SidebarInset = ({ children }) => <div>{children}</div>; // Placeholder
 
 function ProtectedRoutes() {
   const [location] = useLocation();
@@ -83,21 +75,19 @@ function ProtectedRoutes() {
   return (
     <SidebarProvider>
       <AppSidebar />
-      <SidebarInset>
-        <div className="flex flex-1 flex-col">
-          <Switch>
-            <Route path="/" component={Dashboard} />
-            <Route path="/data-sources" component={DataSources} />
-            <Route path="/analytics" component={Analytics} />
-            <Route path="/insights" component={Insights} />
-            <Route path="/settings" component={Settings} />
-            <Route path="/admin" component={AdminPage} />
-            <Route path="/ai-settings" component={AISettingsPage} />
-            <Route path="/usage" component={UsageDashboard} />
-            <Route component={NotFound} />
-          </Switch>
-        </div>
-      </SidebarInset>
+      <div className="flex flex-1 flex-col min-h-screen">
+        <Switch>
+          <Route path="/" component={Dashboard} />
+          <Route path="/data-sources" component={DataSources} />
+          <Route path="/analytics" component={Analytics} />
+          <Route path="/insights" component={Insights} />
+          <Route path="/settings" component={Settings} />
+          <Route path="/admin" component={AdminPage} />
+          <Route path="/ai-settings" component={AISettingsPage} />
+          <Route path="/usage" component={UsageDashboard} />
+          <Route component={NotFound} />
+        </Switch>
+      </div>
       <Toaster />
     </SidebarProvider>
   );

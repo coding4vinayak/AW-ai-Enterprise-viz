@@ -354,7 +354,7 @@ export default function AdminPage() {
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="customer">Customer</Label>
-                    <Select value={userForm.customerId} onValueChange={(v) => setUserForm({ ...userForm, customerId: v })}>
+                    <Select value={userForm.customerId || undefined} onValueChange={(v) => setUserForm({ ...userForm, customerId: v })}>
                       <SelectTrigger>
                         <SelectValue placeholder="Select customer" />
                       </SelectTrigger>

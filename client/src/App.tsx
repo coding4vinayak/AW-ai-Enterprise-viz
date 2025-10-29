@@ -20,6 +20,8 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { PanelRightClose, PanelRightOpen, LogOut } from "lucide-react";
 import { Redirect } from "wouter";
+import AdminPage from "./pages/admin";
+
 
 function ProtectedRoute({ component: Component, ...rest }: { component: React.ComponentType; path?: string }) {
   const { isAuthenticated, loading } = useAuth();

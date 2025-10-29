@@ -6,7 +6,8 @@ import { z } from "zod";
 import Papa from "papaparse";
 import ExcelJS from "exceljs";
 import { generateInsight, chatWithAI, isOpenAIConfigured } from "./lib/openai";
-import { authenticateUser, requireRole } from "./middleware/auth";
+import { authenticateUser } from "./middleware/auth";
+import { requireRole } from "./middleware/rbac";
 
 // TODO: Replace with proper auth middleware that gets customerId from session
 async function getCustomerId(): Promise<string> {

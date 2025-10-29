@@ -1,4 +1,4 @@
-import { LayoutDashboard, Database, Sparkles, Settings, TrendingUp } from "lucide-react";
+import { LayoutDashboard, Database, Sparkles, Settings, TrendingUp, Shield } from "lucide-react";
 import { Link, useLocation } from "wouter";
 import {
   Sidebar,
@@ -43,6 +43,12 @@ const menuItems = [
     url: "/settings",
     icon: Settings,
     testId: "link-settings",
+  },
+  {
+    title: "Admin",
+    url: "/admin",
+    icon: Shield,
+    testId: "link-admin",
   },
 ];
 

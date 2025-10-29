@@ -6,7 +6,8 @@ import authRoutes from "./auth-routes";
 import { setupVite, serveStatic, log } from "./vite";
 import { seedDatabase } from "./seed";
 import { db } from "./db";
-import { authenticateUser } from "./middleware/auth"; // Assuming authenticateUser is in middleware/auth
+import { authenticateUser } from "./middleware/auth";
+import { trackAPICall } from "./middleware/usage-tracker";
 
 const app = express();
 const PgSession = connectPgSimple(session);
@@ -43,6 +44,9 @@ app.use(express.json({
   }
 }));
 app.use(express.urlencoded({ extended: false, limit: '50mb' }));
+
+// Usage tracking middleware (should be before routes)
+app.use(trackAPICall);
 
 app.use((req, res, next) => {
   const start = Date.now();
@@ -92,6 +96,10 @@ app.use((req, res, next) => {
   // Register AI config routes
   const aiConfigRoutes = (await import('./ai-config-routes')).default;
   app.use('/api', aiConfigRoutes);
+
+  // Register usage routes
+  const usageRoutes = (await import('./usage-routes')).default;
+  app.use('/api', usageRoutes);
 
   const server = await registerRoutes(app);
 

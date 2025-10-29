@@ -9,6 +9,8 @@ import {
   customMetrics,
   llmProviders,
   customerLlmConfigs,
+  usageMetrics,
+  customerQuotas,
   type Customer,
   type InsertCustomer,
   type User,
@@ -27,6 +29,10 @@ import {
   type InsertLlmProvider,
   type CustomerLlmConfig,
   type InsertCustomerLlmConfig,
+  type UsageMetric,
+  type InsertUsageMetric,
+  type CustomerQuota,
+  type InsertCustomerQuota,
 } from "@shared/schema";
 import { db } from "./db";
 import { eq, desc, and, sql } from "drizzle-orm";
@@ -93,6 +99,19 @@ export interface IStorage {
   createCustomMetric(metric: InsertCustomMetric): Promise<CustomMetric>;
   getCustomMetrics(customerId: string, datasetId: string): Promise<CustomMetric[]>;
   deleteCustomMetric(id: string, customerId: string): Promise<void>;
+
+  // Usage metrics methods
+  createUsageMetric(metric: InsertUsageMetric): Promise<UsageMetric>;
+  getUsageMetrics(customerId: string, metricType?: string, startDate?: Date, endDate?: Date): Promise<UsageMetric[]>;
+  getUsageStats(customerId: string, period: 'day' | 'week' | 'month'): Promise<any>;
+
+  // Quota methods
+  createCustomerQuota(quota: InsertCustomerQuota): Promise<CustomerQuota>;
+  getCustomerQuotas(customerId: string): Promise<CustomerQuota[]>;
+  getCustomerQuota(customerId: string, quotaType: string): Promise<CustomerQuota | undefined>;
+  updateQuotaUsage(id: string, used: number): Promise<CustomerQuota | undefined>;
+  incrementQuotaUsage(customerId: string, quotaType: string, amount: number): Promise<void>;
+  resetQuotas(): Promise<void>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -503,6 +522,112 @@ export class DatabaseStorage implements IStorage {
       charts: chartCount?.count || 0,
       users: userCount?.count || 0,
     };
+  }
+
+  // Usage metrics methods
+  async createUsageMetric(metric: InsertUsageMetric): Promise<UsageMetric> {
+    const [result] = await db.insert(usageMetrics).values(metric).returning();
+    return result;
+  }
+
+  async getUsageMetrics(customerId: string, metricType?: string, startDate?: Date, endDate?: Date): Promise<UsageMetric[]> {
+    let query = db.select().from(usageMetrics).where(eq(usageMetrics.customerId, customerId));
+
+    if (metricType) {
+      query = query.where(and(
+        eq(usageMetrics.customerId, customerId),
+        eq(usageMetrics.metricType, metricType)
+      ));
+    }
+
+    return query.orderBy(desc(usageMetrics.timestamp));
+  }
+
+  async getUsageStats(customerId: string, period: 'day' | 'week' | 'month'): Promise<any> {
+    const now = new Date();
+    const startDate = new Date();
+    
+    switch (period) {
+      case 'day':
+        startDate.setDate(now.getDate() - 1);
+        break;
+      case 'week':
+        startDate.setDate(now.getDate() - 7);
+        break;
+      case 'month':
+        startDate.setMonth(now.getMonth() - 1);
+        break;
+    }
+
+    const metrics = await db.select()
+      .from(usageMetrics)
+      .where(and(
+        eq(usageMetrics.customerId, customerId),
+        sql`${usageMetrics.timestamp} >= ${startDate}`
+      ));
+
+    const stats: any = {
+      api_calls: 0,
+      ai_tokens: 0,
+      storage: 0,
+    };
+
+    metrics.forEach(metric => {
+      if (metric.metricType in stats) {
+        stats[metric.metricType] += metric.value;
+      }
+    });
+
+    return stats;
+  }
+
+  // Quota methods
+  async createCustomerQuota(quota: InsertCustomerQuota): Promise<CustomerQuota> {
+    const [result] = await db.insert(customerQuotas).values(quota).returning();
+    return result;
+  }
+
+  async getCustomerQuotas(customerId: string): Promise<CustomerQuota[]> {
+    return await db.select()
+      .from(customerQuotas)
+      .where(eq(customerQuotas.customerId, customerId));
+  }
+
+  async getCustomerQuota(customerId: string, quotaType: string): Promise<CustomerQuota | undefined> {
+    const [quota] = await db.select()
+      .from(customerQuotas)
+      .where(and(
+        eq(customerQuotas.customerId, customerId),
+        eq(customerQuotas.quotaType, quotaType)
+      ));
+    return quota || undefined;
+  }
+
+  async updateQuotaUsage(id: string, used: number): Promise<CustomerQuota | undefined> {
+    const [updated] = await db.update(customerQuotas)
+      .set({ used, updatedAt: new Date() })
+      .where(eq(customerQuotas.id, id))
+      .returning();
+    return updated || undefined;
+  }
+
+  async incrementQuotaUsage(customerId: string, quotaType: string, amount: number): Promise<void> {
+    await db.update(customerQuotas)
+      .set({ 
+        used: sql`${customerQuotas.used} + ${amount}`,
+        updatedAt: new Date()
+      })
+      .where(and(
+        eq(customerQuotas.customerId, customerId),
+        eq(customerQuotas.quotaType, quotaType)
+      ));
+  }
+
+  async resetQuotas(): Promise<void> {
+    const now = new Date();
+    await db.update(customerQuotas)
+      .set({ used: 0, resetAt: now, updatedAt: now })
+      .where(sql`${customerQuotas.resetAt} <= ${now}`);
   }
 }
 

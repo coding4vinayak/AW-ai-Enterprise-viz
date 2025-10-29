@@ -55,6 +55,12 @@ const menuItems = [
     url: "/ai-settings",
     icon: Brain,
   },
+  {
+    title: "Usage",
+    url: "/usage",
+    icon: TrendingUp,
+    testId: "link-usage",
+  },
 ];
 
 export function AppSidebar() {

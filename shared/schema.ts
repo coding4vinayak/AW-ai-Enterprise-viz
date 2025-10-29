@@ -235,3 +235,32 @@ export interface ForecastData {
   predicted: number;
   confidence?: { lower: number; upper: number };
 }
+
+
+// Usage Metrics Schema
+export const usageMetrics = pgTable("usage_metrics", {
+  id: varchar("id").primaryKey(),
+  customerId: varchar("customer_id").notNull().references(() => customers.id, { onDelete: "cascade" }),
+  userId: varchar("user_id").references(() => users.id, { onDelete: "set null" }),
+  metricType: text("metric_type").notNull(), // 'api_call', 'storage', 'ai_tokens'
+  value: integer("value").notNull(),
+  metadata: jsonb("metadata"), // { endpoint, model, duration, etc }
+  timestamp: timestamp("timestamp").notNull().defaultNow(),
+});
+
+export const customerQuotas = pgTable("customer_quotas", {
+  id: varchar("id").primaryKey(),
+  customerId: varchar("customer_id").notNull().references(() => customers.id, { onDelete: "cascade" }),
+  quotaType: text("quota_type").notNull(), // 'datasets', 'users', 'ai_calls', 'storage'
+  limit: integer("limit").notNull(),
+  used: integer("used").notNull().default(0),
+  period: text("period").notNull(), // 'monthly', 'daily', 'total'
+  resetAt: timestamp("reset_at").notNull(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+export type UsageMetric = typeof usageMetrics.$inferSelect;
+export type InsertUsageMetric = typeof usageMetrics.$inferInsert;
+export type CustomerQuota = typeof customerQuotas.$inferSelect;
+export type InsertCustomerQuota = typeof customerQuotas.$inferInsert;

@@ -6,7 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 import { ThemeProvider } from "@/lib/theme-provider";
-import { ThemeToggle } from "@/components/theme-theme-toggle";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { AIChatPanel } from "@/components/ai/ai-chat-panel";
 import { AuthProvider, useAuth } from "@/lib/auth-context";
 import NotFound from "@/pages/not-found";
@@ -22,6 +22,7 @@ import { PanelRightClose, PanelRightOpen, LogOut } from "lucide-react";
 import { Redirect } from "wouter";
 import AdminPage from "./pages/admin";
 import AISettingsPage from "@/pages/ai-settings";
+import UsageDashboard from "@/pages/usage-dashboard";
 
 
 function ProtectedRoute({ component: Component, ...rest }: { component: React.ComponentType; path?: string }) {
@@ -98,6 +99,7 @@ function Router() {
               <Route path="/settings" component={Settings} />
               <Route path="/admin" component={AdminPage} />
               <Route path="/ai-settings" component={AISettingsPage} />
+              <Route path="/usage" component={UsageDashboard} />
               <Route path="/login" component={Login} />
               <Route component={NotFound} />
             </Switch>

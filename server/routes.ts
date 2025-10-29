@@ -119,7 +119,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/datasets/:id", authenticateUser, async (req, res) => {
     try {
       const customerId = req.user!.customerId;
-      const dataset = await storage.getDatasetById(req.params.id, customerId);
+      const dataset = await storage.getDataset(req.params.id, customerId);
       if (!dataset) {
         return res.status(404).json({ error: "Dataset not found" });
       }

@@ -30,10 +30,10 @@ export function ChartBuilder() {
   const [selectedDataset, setSelectedDataset] = useState<string>("");
   const { data: datasets } = useDatasets();
 
-  const selectedDatasetObj = selectedDataset && datasets 
+  const selectedDatasetObj = selectedDataset && datasets
     ? datasets.find(d => d.id === selectedDataset)
     : null;
-  
+
   const selectedDatasetColumns = selectedDatasetObj?.columns && selectedDatasetObj.columns.length > 0
     ? selectedDatasetObj.columns
     : selectedDatasetObj && (selectedDatasetObj.uploadedData as any[] || []).length > 0
@@ -41,7 +41,7 @@ export function ChartBuilder() {
       : [];
 
   // Use actual dataset data for preview (first 10 rows)
-  const previewData = selectedDatasetObj 
+  const previewData = selectedDatasetObj
     ? (selectedDatasetObj.uploadedData as any[] || []).slice(0, 10)
     : [];
 
@@ -70,10 +70,10 @@ export function ChartBuilder() {
                   <SelectContent>
                     {datasets && datasets.length > 0 ? (
                       datasets.map((dataset) => {
-                        const columnCount = dataset.columns && dataset.columns.length > 0 
-                          ? dataset.columns.length 
-                          : (dataset.uploadedData as any[] || []).length > 0 
-                            ? Object.keys((dataset.uploadedData as any[])[0]).length 
+                        const columnCount = dataset.columns && dataset.columns.length > 0
+                          ? dataset.columns.length
+                          : (dataset.uploadedData as any[] || []).length > 0
+                            ? Object.keys((dataset.uploadedData as any[])[0]).length
                             : 0;
                         return (
                           <SelectItem key={dataset.id} value={dataset.id}>
@@ -82,7 +82,7 @@ export function ChartBuilder() {
                         );
                       })
                     ) : (
-                      <SelectItem value="none" disabled>No datasets available</SelectItem>
+                      <SelectItem value="no-datasets" disabled>No datasets available</SelectItem>
                     )}
                   </SelectContent>
                 </Select>

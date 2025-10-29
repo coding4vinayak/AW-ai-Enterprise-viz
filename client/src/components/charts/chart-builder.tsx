@@ -34,7 +34,11 @@ export function ChartBuilder() {
     ? datasets.find(d => d.id === selectedDataset)
     : null;
   
-  const selectedDatasetColumns = selectedDatasetObj?.columns || [];
+  const selectedDatasetColumns = selectedDatasetObj?.columns && selectedDatasetObj.columns.length > 0
+    ? selectedDatasetObj.columns
+    : selectedDatasetObj && (selectedDatasetObj.uploadedData as any[] || []).length > 0
+      ? Object.keys((selectedDatasetObj.uploadedData as any[])[0])
+      : [];
 
   // Use actual dataset data for preview (first 10 rows)
   const previewData = selectedDatasetObj 
@@ -65,11 +69,18 @@ export function ChartBuilder() {
                   </SelectTrigger>
                   <SelectContent>
                     {datasets && datasets.length > 0 ? (
-                      datasets.map((dataset) => (
-                        <SelectItem key={dataset.id} value={dataset.id}>
-                          {dataset.name} ({dataset.rowCount} rows, {dataset.columns.length} columns)
-                        </SelectItem>
-                      ))
+                      datasets.map((dataset) => {
+                        const columnCount = dataset.columns && dataset.columns.length > 0 
+                          ? dataset.columns.length 
+                          : (dataset.uploadedData as any[] || []).length > 0 
+                            ? Object.keys((dataset.uploadedData as any[])[0]).length 
+                            : 0;
+                        return (
+                          <SelectItem key={dataset.id} value={dataset.id}>
+                            {dataset.name} ({dataset.rowCount} rows, {columnCount} columns)
+                          </SelectItem>
+                        );
+                      })
                     ) : (
                       <SelectItem value="none" disabled>No datasets available</SelectItem>
                     )}

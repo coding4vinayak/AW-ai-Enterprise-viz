@@ -7,10 +7,20 @@ import Papa from "papaparse";
 import ExcelJS from "exceljs";
 import { generateInsight, chatWithAI, isOpenAIConfigured } from "./lib/openai";
 
+// TODO: Replace with proper auth middleware that gets customerId from session
+async function getCustomerId(): Promise<string> {
+  const defaultCustomer = await storage.getCustomerBySlug("default");
+  if (!defaultCustomer) {
+    throw new Error("Default customer not found. Please run seed script.");
+  }
+  return defaultCustomer.id;
+}
+
 export async function registerRoutes(app: Express): Promise<Server> {
   // Dataset routes
   app.post("/api/datasets", async (req, res) => {
     try {
+      const customerId = await getCustomerId();
       const { name, type, data } = req.body;
 
       console.log("Dataset upload request:", { name, type, dataType: typeof data, dataLength: Array.isArray(data) ? data.length : 'not array' });
@@ -74,6 +84,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.log("Creating dataset with", parsedData.length, "rows and", columns.length, "columns");
 
       const dataset = await storage.createDataset({
+        customerId,
+        userId: null,
         name,
         type,
         uploadedData: parsedData,
@@ -94,7 +106,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/datasets", async (req, res) => {
     try {
-      const datasets = await storage.getDatasets();
+      const customerId = await getCustomerId();
+      const datasets = await storage.getDatasets(customerId);
       res.json(datasets);
     } catch (error) {
       console.error("Get datasets error:", error);
@@ -104,7 +117,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/datasets/:id", async (req, res) => {
     try {
-      const dataset = await storage.getDataset(req.params.id);
+      const customerId = await getCustomerId();
+      const dataset = await storage.getDataset(req.params.id, customerId);
       if (!dataset) {
         return res.status(404).json({ error: "Dataset not found" });
       }
@@ -117,7 +131,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.delete("/api/datasets/:id", async (req, res) => {
     try {
-      await storage.deleteDataset(req.params.id);
+      const customerId = await getCustomerId();
+      await storage.deleteDataset(req.params.id, customerId);
       res.json({ success: true });
     } catch (error) {
       console.error("Delete dataset error:", error);

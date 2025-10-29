@@ -3,16 +3,70 @@ import { pgTable, text, varchar, jsonb, timestamp, integer, boolean } from "driz
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
-// Users table
+// Customers/Tenants table - multi-tenancy support
+export const customers = pgTable("customers", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  name: text("name").notNull(),
+  slug: text("slug").notNull().unique(),
+  status: text("status").notNull().default("active"),
+  branding: jsonb("branding"),
+  settings: jsonb("settings"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Users table with enhanced fields for authentication and roles
 export const users = pgTable("users", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  customerId: varchar("customer_id").references(() => customers.id),
+  email: text("email").notNull().unique(),
   username: text("username").notNull().unique(),
   password: text("password").notNull(),
+  role: text("role").notNull().default("user"),
+  firstName: text("first_name"),
+  lastName: text("last_name"),
+  status: text("status").notNull().default("active"),
+  lastLoginAt: timestamp("last_login_at"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Sessions table for authentication
+export const sessions = pgTable("sessions", {
+  sid: varchar("sid").primaryKey(),
+  sess: jsonb("sess").notNull(),
+  expire: timestamp("expire").notNull(),
+});
+
+// LLM Providers table - stores available AI providers
+export const llmProviders = pgTable("llm_providers", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  name: text("name").notNull(),
+  type: text("type").notNull(),
+  baseUrl: text("base_url"),
+  defaultModel: text("default_model"),
+  isActive: boolean("is_active").notNull().default(true),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Customer LLM Configuration - links customers to their LLM providers
+export const customerLlmConfigs = pgTable("customer_llm_configs", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  customerId: varchar("customer_id").notNull().references(() => customers.id),
+  providerId: varchar("provider_id").notNull().references(() => llmProviders.id),
+  apiKey: text("api_key").notNull(),
+  model: text("model"),
+  settings: jsonb("settings"),
+  isDefault: boolean("is_default").notNull().default(false),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
 
 // Datasets table - stores uploaded CSV/Excel data
 export const datasets = pgTable("datasets", {
   id: text("id").primaryKey(),
+  customerId: varchar("customer_id").references(() => customers.id),
+  userId: varchar("user_id").references(() => users.id),
   name: text("name").notNull(),
   type: text("type").notNull(), // csv, excel, json, etc.
   uploadedData: jsonb("uploaded_data").notNull(),
@@ -26,7 +80,8 @@ export const datasets = pgTable("datasets", {
 // Dashboards table - stores user dashboard configurations
 export const dashboards = pgTable("dashboards", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  userId: varchar("user_id"),
+  customerId: varchar("customer_id").references(() => customers.id),
+  userId: varchar("user_id").references(() => users.id),
   name: text("name").notNull(),
   description: text("description"),
   isPreset: boolean("is_preset").notNull().default(false),
@@ -38,6 +93,7 @@ export const dashboards = pgTable("dashboards", {
 // Charts table - stores individual chart configurations
 export const charts = pgTable("charts", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  customerId: varchar("customer_id").references(() => customers.id),
   dashboardId: varchar("dashboard_id").notNull(),
   datasetId: varchar("dataset_id").notNull(),
   type: text("type").notNull(), // 'line' | 'bar' | 'pie' | 'area' | 'scatter' | 'kpi'
@@ -51,6 +107,7 @@ export const charts = pgTable("charts", {
 // Insights table - stores AI-generated insights
 export const insights = pgTable("insights", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  customerId: varchar("customer_id").references(() => customers.id),
   dashboardId: varchar("dashboard_id"),
   datasetId: varchar("dataset_id"),
   type: text("type").notNull(), // 'summary' | 'trend' | 'anomaly' | 'forecast'
@@ -62,6 +119,7 @@ export const insights = pgTable("insights", {
 // Custom metrics table - stores user-defined calculated metrics
 export const customMetrics = pgTable("custom_metrics", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  customerId: varchar("customer_id").references(() => customers.id),
   name: text("name").notNull(),
   formula: text("formula").notNull(), // e.g., "(selling_price - cost_price) / selling_price"
   datasetId: varchar("dataset_id").notNull(),
@@ -69,9 +127,28 @@ export const customMetrics = pgTable("custom_metrics", {
 });
 
 // Insert schemas
-export const insertUserSchema = createInsertSchema(users).pick({
-  username: true,
-  password: true,
+export const insertCustomerSchema = createInsertSchema(customers).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertUserSchema = createInsertSchema(users).omit({
+  id: true,
+  lastLoginAt: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertLlmProviderSchema = createInsertSchema(llmProviders).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertCustomerLlmConfigSchema = createInsertSchema(customerLlmConfigs).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
 });
 
 export const insertDatasetSchema = createInsertSchema(datasets).omit({
@@ -103,8 +180,17 @@ export const insertCustomMetricSchema = createInsertSchema(customMetrics).omit({
 });
 
 // Types
+export type Customer = typeof customers.$inferSelect;
+export type InsertCustomer = z.infer<typeof insertCustomerSchema>;
+
 export type User = typeof users.$inferSelect;
 export type InsertUser = z.infer<typeof insertUserSchema>;
+
+export type LlmProvider = typeof llmProviders.$inferSelect;
+export type InsertLlmProvider = z.infer<typeof insertLlmProviderSchema>;
+
+export type CustomerLlmConfig = typeof customerLlmConfigs.$inferSelect;
+export type InsertCustomerLlmConfig = z.infer<typeof insertCustomerLlmConfigSchema>;
 
 export type Dataset = typeof datasets.$inferSelect;
 export type InsertDataset = z.infer<typeof insertDatasetSchema>;

@@ -1,4 +1,5 @@
-import { Sparkles, TrendingUp, AlertCircle, Target, Brain, Lightbulb, Plus, Download, Calendar, Filter } from "lucide-react";
+
+import { Sparkles, TrendingUp, AlertCircle, Target, Brain } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { InsightCard } from "@/components/ai/insight-card";
@@ -8,55 +9,36 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useState } from "react";
 
 export default function Insights() {
-  // Mock insights - will be replaced with AI-generated content
-  const mockInsights = [
-    {
-      id: "1",
-      type: "trend" as const,
-      title: "Revenue Growth Acceleration",
-      content:
-        "Sales have increased by 12.5% compared to last month, primarily driven by the North region with an 18% surge. This growth is attributed to the new product launch and seasonal demand.",
-      severity: "positive" as const,
-      confidence: 0.92,
-      generatedAt: new Date("2025-01-15T10:30:00"),
-    },
-    {
-      id: "2",
-      type: "anomaly" as const,
-      title: "Unusual Churn Pattern Detected",
-      content:
-        "Customer churn rate dropped to 3.2% this week, down from the usual 4.5%. Analysis shows improved customer satisfaction scores and reduced support ticket resolution time.",
-      severity: "positive" as const,
-      confidence: 0.87,
-      generatedAt: new Date("2025-01-15T09:15:00"),
-    },
-    {
-      id: "3",
-      type: "forecast" as const,
-      title: "Q1 Revenue Forecast",
-      content:
-        "Based on current trends, Q1 2025 revenue is projected to reach $385,000, representing a 15% increase year-over-year. Key drivers include expanding customer base and improved retention.",
-      severity: "neutral" as const,
-      confidence: 0.84,
-      generatedAt: new Date("2025-01-15T08:00:00"),
-    },
-    {
-      id: "4",
-      type: "summary" as const,
-      title: "Product Performance Analysis",
-      content:
-        "Electronics category leads with 42% of total sales, followed by Home & Garden at 28%. Average order value increased by 5.3% due to successful cross-selling initiatives.",
-      severity: "neutral" as const,
-      confidence: 0.95,
-      generatedAt: new Date("2025-01-14T16:45:00"),
-    },
-  ];
+  const [selectedDataset, setSelectedDataset] = useState<string>("");
+  const { data: datasets } = useDatasets();
+  const { data: insights, isLoading } = useInsights(undefined, selectedDataset || undefined);
+  const generateInsight = useGenerateInsight();
+
+  const handleGenerateInsight = () => {
+    if (selectedDataset) {
+      generateInsight.mutate({ datasetId: selectedDataset });
+    } else {
+      generateInsight.mutate({});
+    }
+  };
 
   const insightStats = [
-    { label: "Total Insights", value: "47", icon: Brain },
-    { label: "Trends Identified", value: "12", icon: TrendingUp },
-    { label: "Anomalies Found", value: "3", icon: AlertCircle },
-    { label: "Forecasts", value: "8", icon: Target },
+    { label: "Total Insights", value: insights?.length.toString() || "0", icon: Brain },
+    { 
+      label: "Trends Identified", 
+      value: insights?.filter(i => i.type === "trend").length.toString() || "0", 
+      icon: TrendingUp 
+    },
+    { 
+      label: "Anomalies Found", 
+      value: insights?.filter(i => i.type === "anomaly").length.toString() || "0", 
+      icon: AlertCircle 
+    },
+    { 
+      label: "Forecasts", 
+      value: insights?.filter(i => i.type === "forecast").length.toString() || "0", 
+      icon: Target 
+    },
   ];
 
   return (
@@ -73,10 +55,31 @@ export default function Insights() {
               AI-powered analysis and recommendations for your data
             </p>
           </div>
-          <Button variant="default" size="default" data-testid="button-generate-insights">
-            <Sparkles className="h-4 w-4" />
-            Generate New Insights
-          </Button>
+          <div className="flex gap-2">
+            <Select value={selectedDataset} onValueChange={setSelectedDataset}>
+              <SelectTrigger className="w-[200px]">
+                <SelectValue placeholder="All Datasets" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="">All Datasets</SelectItem>
+                {datasets?.map((dataset) => (
+                  <SelectItem key={dataset.id} value={dataset.id}>
+                    {dataset.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <Button 
+              variant="default" 
+              size="default" 
+              onClick={handleGenerateInsight}
+              disabled={generateInsight.isPending}
+              data-testid="button-generate-insights"
+            >
+              <Sparkles className="h-4 w-4" />
+              {generateInsight.isPending ? "Generating..." : "Generate New Insights"}
+            </Button>
+          </div>
         </div>
       </div>
 
@@ -125,11 +128,42 @@ export default function Insights() {
           {/* Insights Feed */}
           <div>
             <h2 className="text-2xl font-semibold mb-4">Recent Insights</h2>
-            <div className="space-y-4">
-              {mockInsights.map((insight) => (
-                <InsightCard key={insight.id} insight={insight} />
-              ))}
-            </div>
+            {isLoading ? (
+              <div className="text-center py-8 text-muted-foreground">
+                Loading insights...
+              </div>
+            ) : insights && insights.length > 0 ? (
+              <div className="space-y-4">
+                {insights.map((insight) => (
+                  <InsightCard 
+                    key={insight.id} 
+                    insight={{
+                      id: insight.id,
+                      type: insight.type as "trend" | "anomaly" | "forecast" | "summary",
+                      title: `${insight.type.charAt(0).toUpperCase() + insight.type.slice(1)} Insight`,
+                      content: insight.content,
+                      severity: "neutral" as const,
+                      confidence: 0.85,
+                      generatedAt: new Date(insight.createdAt),
+                    }}
+                  />
+                ))}
+              </div>
+            ) : (
+              <Card>
+                <CardContent className="p-8 text-center">
+                  <Brain className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
+                  <h3 className="text-lg font-semibold mb-2">No Insights Yet</h3>
+                  <p className="text-muted-foreground mb-4">
+                    Generate AI-powered insights from your uploaded data
+                  </p>
+                  <Button onClick={handleGenerateInsight} disabled={generateInsight.isPending}>
+                    <Sparkles className="h-4 w-4" />
+                    Generate First Insight
+                  </Button>
+                </CardContent>
+              </Card>
+            )}
           </div>
         </div>
       </div>

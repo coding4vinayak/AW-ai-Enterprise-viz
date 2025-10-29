@@ -23,9 +23,16 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { useDatasets } from "@/lib/api-hooks";
 
 export function ChartBuilder() {
   const [selectedType, setSelectedType] = useState("line");
+  const [selectedDataset, setSelectedDataset] = useState<string>("");
+  const { data: datasets } = useDatasets();
+
+  const selectedDatasetColumns = selectedDataset && datasets 
+    ? datasets.find(d => d.id === selectedDataset)?.columns || []
+    : [];
 
   // Mock data for preview
   const previewData = [
@@ -55,42 +62,52 @@ export function ChartBuilder() {
             <div className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="dataset">Dataset</Label>
-                <Select>
+                <Select value={selectedDataset} onValueChange={setSelectedDataset}>
                   <SelectTrigger id="dataset" data-testid="select-builder-dataset">
                     <SelectValue placeholder="Select dataset" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="sales">Sales Data Q4 2024</SelectItem>
-                    <SelectItem value="customers">Customer Database</SelectItem>
+                    {datasets && datasets.length > 0 ? (
+                      datasets.map((dataset) => (
+                        <SelectItem key={dataset.id} value={dataset.id}>
+                          {dataset.name} ({dataset.rowCount} rows, {dataset.columns.length} columns)
+                        </SelectItem>
+                      ))
+                    ) : (
+                      <SelectItem value="none" disabled>No datasets available</SelectItem>
+                    )}
                   </SelectContent>
                 </Select>
               </div>
 
               <div className="space-y-2">
                 <Label htmlFor="metric">Metric</Label>
-                <Select>
+                <Select disabled={!selectedDataset}>
                   <SelectTrigger id="metric" data-testid="select-builder-metric">
                     <SelectValue placeholder="Select metric" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="revenue">Revenue</SelectItem>
-                    <SelectItem value="quantity">Quantity</SelectItem>
-                    <SelectItem value="customers">Customers</SelectItem>
+                    {selectedDatasetColumns.map((column) => (
+                      <SelectItem key={column} value={column}>
+                        {column}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
 
               <div className="space-y-2">
                 <Label htmlFor="dimension">Dimension</Label>
-                <Select>
+                <Select disabled={!selectedDataset}>
                   <SelectTrigger id="dimension" data-testid="select-builder-dimension">
                     <SelectValue placeholder="Select dimension" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="date">Date</SelectItem>
-                    <SelectItem value="region">Region</SelectItem>
-                    <SelectItem value="product">Product</SelectItem>
-                    <SelectItem value="category">Category</SelectItem>
+                    {selectedDatasetColumns.map((column) => (
+                      <SelectItem key={column} value={column}>
+                        {column}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>

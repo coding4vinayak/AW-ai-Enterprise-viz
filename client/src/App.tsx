@@ -21,6 +21,7 @@ import { Button } from "@/components/ui/button";
 import { PanelRightClose, PanelRightOpen, LogOut } from "lucide-react";
 import { Redirect } from "wouter";
 import AdminPage from "./pages/admin";
+import AISettingsPage from "@/pages/ai-settings";
 
 
 function ProtectedRoute({ component: Component, ...rest }: { component: React.ComponentType; path?: string }) {
@@ -96,6 +97,7 @@ function Router() {
               <Route path="/analytics" component={Analytics} />
               <Route path="/settings" component={Settings} />
               <Route path="/admin" component={AdminPage} />
+              <Route path="/ai-settings" component={AISettingsPage} />
               <Route path="/login" component={Login} />
               <Route component={NotFound} />
             </Switch>
@@ -109,7 +111,7 @@ function Router() {
 
 function AppContent() {
   const [showAIPanel, setShowAIPanel] = useState(false);
-  const { user } = useAuth();
+  const { isAuthenticated, user } = useAuth();
   const [location] = useLocation();
 
   const sidebarStyle = {
@@ -118,7 +120,7 @@ function AppContent() {
   };
 
   // Don't show sidebar on login page
-  if (location === "/login" || !user) {
+  if (location === "/login" || !isAuthenticated) {
     return <Router />;
   }
 

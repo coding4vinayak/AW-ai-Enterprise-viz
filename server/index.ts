@@ -87,7 +87,11 @@ app.use((req, res, next) => {
 
   // Register admin routes
   const adminRoutes = (await import('./admin-routes')).default;
-  app.use('/api/admin', authenticateUser, adminRoutes); // Applied authenticateUser middleware
+  app.use('/api/admin', authenticateUser, adminRoutes);
+
+  // Register AI config routes
+  const aiConfigRoutes = (await import('./ai-config-routes')).default;
+  app.use('/api', aiConfigRoutes);
 
   const server = await registerRoutes(app);
 

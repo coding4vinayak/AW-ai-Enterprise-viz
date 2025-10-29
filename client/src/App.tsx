@@ -6,7 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 import { ThemeProvider } from "@/lib/theme-provider";
-import { ThemeToggle } from "@/components/theme-toggle";
+import { ThemeToggle } from "@/components/theme-theme-toggle";
 import { AIChatPanel } from "@/components/ai/ai-chat-panel";
 import { AuthProvider, useAuth } from "@/lib/auth-context";
 import NotFound from "@/pages/not-found";
@@ -18,50 +18,89 @@ import Settings from "@/pages/settings";
 import Login from "@/pages/login";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { PanelRightClose, PanelRightOpen } from "lucide-react";
+import { PanelRightClose, PanelRightOpen, LogOut } from "lucide-react";
+import { Redirect } from "wouter";
 
-function ProtectedRoute({ component: Component }: { component: () => JSX.Element }) {
-  const { user, loading } = useAuth();
-  const [, setLocation] = useLocation();
-
-  useEffect(() => {
-    if (!loading && !user) {
-      setLocation("/login");
-    }
-  }, [user, loading, setLocation]);
+function ProtectedRoute({ component: Component, ...rest }: { component: React.ComponentType; path?: string }) {
+  const { isAuthenticated, loading } = useAuth();
 
   if (loading) {
     return <div className="flex items-center justify-center h-screen">Loading...</div>;
   }
 
-  if (!user) {
-    return null;
+  if (!isAuthenticated) {
+    return <Redirect to="/login" />;
   }
 
-  return <Component />;
+  return <Component {...rest} />;
 }
 
 function Router() {
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const { isAuthenticated, logout, user } = useAuth();
+  const [, setLocation] = useLocation();
+
+  const handleLogout = async () => {
+    await logout();
+    setLocation('/login');
+  };
+
+  if (!isAuthenticated) {
+    return (
+      <Switch>
+        <Route path="/login" component={Login} />
+        <Route><Redirect to="/login" /></Route>
+      </Switch>
+    );
+  }
+
   return (
-    <Switch>
-      <Route path="/login" component={Login} />
-      <Route path="/">
-        {() => <ProtectedRoute component={Dashboard} />}
-      </Route>
-      <Route path="/data">
-        {() => <ProtectedRoute component={DataSources} />}
-      </Route>
-      <Route path="/insights">
-        {() => <ProtectedRoute component={Insights} />}
-      </Route>
-      <Route path="/analytics">
-        {() => <ProtectedRoute component={Analytics} />}
-      </Route>
-      <Route path="/settings">
-        {() => <ProtectedRoute component={Settings} />}
-      </Route>
-      <Route component={NotFound} />
-    </Switch>
+    <SidebarProvider>
+      <div className="flex h-screen w-full">
+        <AppSidebar />
+        <main className="flex-1 overflow-y-auto">
+          <div className="container py-6">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-2">
+                <SidebarTrigger />
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-sm text-muted-foreground mr-2">
+                  {user?.username}
+                </span>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={() => setIsChatOpen(!isChatOpen)}
+                  title={isChatOpen ? "Close AI Chat" : "Open AI Chat"}
+                >
+                  {isChatOpen ? <PanelRightClose className="h-4 w-4" /> : <PanelRightOpen className="h-4 w-4" />}
+                </Button>
+                <ThemeToggle />
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={handleLogout}
+                  title="Logout"
+                >
+                  <LogOut className="h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+            <Switch>
+              <Route path="/" component={Dashboard} />
+              <Route path="/data" component={DataSources} />
+              <Route path="/insights" component={Insights} />
+              <Route path="/analytics" component={Analytics} />
+              <Route path="/settings" component={Settings} />
+              <Route path="/login" component={Login} />
+              <Route component={NotFound} />
+            </Switch>
+          </div>
+        </main>
+        <AIChatPanel open={isChatOpen} onOpenChange={setIsChatOpen} />
+      </div>
+    </SidebarProvider>
   );
 }
 

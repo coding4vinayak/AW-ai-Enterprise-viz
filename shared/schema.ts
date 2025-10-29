@@ -12,13 +12,15 @@ export const users = pgTable("users", {
 
 // Datasets table - stores uploaded CSV/Excel data
 export const datasets = pgTable("datasets", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  id: text("id").primaryKey(),
   name: text("name").notNull(),
-  type: text("type").notNull(), // 'csv' | 'excel' | 'api'
-  uploadedData: jsonb("uploaded_data").notNull(), // Array of data rows
-  schemaInfo: jsonb("schema_info").notNull(), // Column definitions { columns: [{name, type}] }
+  type: text("type").notNull(), // csv, excel, json, etc.
+  uploadedData: jsonb("uploaded_data").notNull(),
+  schemaInfo: jsonb("schema_info"),
+  columns: text("columns").array(),
   rowCount: integer("row_count").notNull().default(0),
   createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
 
 // Dashboards table - stores user dashboard configurations
@@ -75,6 +77,7 @@ export const insertUserSchema = createInsertSchema(users).pick({
 export const insertDatasetSchema = createInsertSchema(datasets).omit({
   id: true,
   createdAt: true,
+  updatedAt: true,
 });
 
 export const insertDashboardSchema = createInsertSchema(dashboards).omit({

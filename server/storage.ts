@@ -18,6 +18,7 @@ import {
 } from "@shared/schema";
 import { db } from "./db";
 import { eq, desc } from "drizzle-orm";
+import { randomUUID } from "crypto";
 
 export interface IStorage {
   // Dataset methods
@@ -52,10 +53,32 @@ export interface IStorage {
 
 export class DatabaseStorage implements IStorage {
   // Dataset methods
-  async createDataset(insertDataset: InsertDataset): Promise<Dataset> {
+  async createDataset(data: {
+    name: string;
+    type: string;
+    uploadedData: any;
+    schemaInfo: any;
+    rowCount: number;
+  }): Promise<Dataset> {
+    const id = randomUUID();
+
+    // Extract column names from schema or data
+    let columns: string[] = [];
+    if (data.schemaInfo?.columns) {
+      columns = data.schemaInfo.columns.map((c: any) => c.name);
+    } else if (Array.isArray(data.uploadedData) && data.uploadedData.length > 0) {
+      columns = Object.keys(data.uploadedData[0]);
+    }
+
     const [dataset] = await db
       .insert(datasets)
-      .values(insertDataset)
+      .values({
+        id,
+        ...data,
+        columns,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      })
       .returning();
     return dataset;
   }

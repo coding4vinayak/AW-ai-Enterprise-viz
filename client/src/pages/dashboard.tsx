@@ -14,6 +14,10 @@ export default function Dashboard() {
   const { data: datasets, isLoading } = useDatasets();
 
   // Mock KPI data - would come from datasets in full implementation
+  // Calculate real statistics from datasets
+  const totalRecords = datasets?.reduce((sum, ds) => sum + ds.rowCount, 0) || 0;
+  const totalColumns = datasets?.reduce((sum, ds) => sum + (ds.columns?.length || 0), 0) || 0;
+
   const kpiData = [
     {
       id: "1",
@@ -26,26 +30,26 @@ export default function Dashboard() {
     {
       id: "2",
       title: "Total Records",
-      value: datasets?.reduce((sum, ds) => sum + ds.rowCount, 0).toLocaleString() || "0",
+      value: totalRecords.toLocaleString(),
       change: 0,
       trend: "up" as const,
-      sparklineData: [0, 0, 0, 0, 0, 0, datasets?.reduce((sum, ds) => sum + ds.rowCount, 0) || 0],
+      sparklineData: [0, 0, 0, 0, 0, 0, totalRecords],
     },
     {
       id: "3",
-      title: "Active Charts",
-      value: "0",
+      title: "Total Columns",
+      value: totalColumns.toString(),
       change: 0,
       trend: "up" as const,
-      sparklineData: [0, 0, 0, 0, 0, 0, 0],
+      sparklineData: [0, 0, 0, 0, 0, 0, totalColumns],
     },
     {
       id: "4",
-      title: "AI Insights",
-      value: "0",
+      title: "Data Sources",
+      value: datasets?.length.toString() || "0",
       change: 0,
       trend: "up" as const,
-      sparklineData: [0, 0, 0, 0, 0, 0, 0],
+      sparklineData: [0, 0, 0, 0, 0, 0, datasets?.length || 0],
     },
   ];
 
@@ -122,28 +126,48 @@ export default function Dashboard() {
                 ))}
               </div>
 
-              {/* Charts Grid */}
-              <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-                <ChartCard
-                  title="Revenue Trend"
-                  type="line"
-                  description="Monthly revenue over time"
-                />
-                <ChartCard
-                  title="Sales by Region"
-                  type="bar"
-                  description="Geographic distribution"
-                />
-                <ChartCard
-                  title="Product Category Mix"
-                  type="pie"
-                  description="Sales breakdown by category"
-                />
-                <ChartCard
-                  title="Customer Growth"
-                  type="area"
-                  description="New customers acquired"
-                />
+              {/* Datasets Overview */}
+              <div className="space-y-4">
+                <h2 className="text-2xl font-semibold">Your Datasets</h2>
+                <div className="grid grid-cols-1 gap-4">
+                  {datasets?.map((dataset) => (
+                    <Card key={dataset.id}>
+                      <CardHeader>
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <CardTitle>{dataset.name}</CardTitle>
+                            <CardDescription className="mt-1">
+                              {dataset.rowCount.toLocaleString()} rows • {dataset.columns?.length || 0} columns
+                            </CardDescription>
+                          </div>
+                          <Link href="/analytics">
+                            <Button variant="outline" size="sm">
+                              <Plus className="h-4 w-4 mr-2" />
+                              Create Chart
+                            </Button>
+                          </Link>
+                        </div>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="flex flex-wrap gap-2">
+                          {(dataset.columns || []).slice(0, 8).map((col) => (
+                            <span
+                              key={col}
+                              className="px-2 py-1 text-xs bg-muted rounded-md"
+                            >
+                              {col}
+                            </span>
+                          ))}
+                          {(dataset.columns?.length || 0) > 8 && (
+                            <span className="px-2 py-1 text-xs text-muted-foreground">
+                              +{(dataset.columns?.length || 0) - 8} more
+                            </span>
+                          )}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
               </div>
             </>
           ) : (

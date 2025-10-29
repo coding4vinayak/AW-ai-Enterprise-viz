@@ -24,57 +24,52 @@ export function useUploadDataset() {
 
   return useMutation({
     mutationFn: async (file: File) => {
-      return new Promise<Dataset>((resolve, reject) => {
-        const fileType = file.name.endsWith(".csv") ? "csv" : "excel";
+      let parsedData: any[] = [];
+      const fileType = file.name.endsWith(".csv") ? "csv" : "excel";
 
-        if (fileType === "csv") {
-          Papa.parse(file, {
-            header: true,
-            dynamicTyping: true,
-            complete: async (results) => {
-              try {
-                const response = await apiRequest<Dataset>(
-                  "POST",
-                  "/api/datasets",
-                  {
-                    name: file.name,
-                    type: "csv",
-                    data: results.data,
-                  }
-                );
-                resolve(response);
-              } catch (error) {
-                reject(error);
-              }
-            },
-            error: (error: Error) => {
-              reject(error);
-            },
-          });
-        } else {
-          // For Excel, we'll send the file as base64 for now
-          // In a full implementation, you'd use ExcelJS on the client
-          const reader = new FileReader();
-          reader.onload = async (e) => {
-            try {
-              const response = await apiRequest<Dataset>(
-                "POST",
-                "/api/datasets",
-                {
-                  name: file.name,
-                  type: "excel",
-                  data: [], // Simplified for MVP
-                }
-              );
-              resolve(response);
-            } catch (error) {
-              reject(error);
-            }
-          };
-          reader.onerror = () => reject(new Error("Failed to read file"));
-          reader.readAsArrayBuffer(file);
+      if (fileType === "csv") {
+        const text = await file.text();
+        console.log("CSV file size:", text.length, "bytes");
+
+        const result = Papa.parse(text, {
+          header: true,
+          dynamicTyping: true,
+          skipEmptyLines: true,
+          transformHeader: (header) => header.trim()
+        });
+
+        parsedData = result.data.filter((row: any) => {
+          // Filter out completely empty rows
+          return Object.values(row).some(val => val !== null && val !== undefined && val !== '');
+        });
+
+        console.log("Parsed CSV rows:", parsedData.length);
+
+        if (result.errors && result.errors.length > 0) {
+          console.warn("CSV parsing warnings:", result.errors);
         }
+      }
+
+      if (parsedData.length === 0) {
+        throw new Error("No data found in file");
+      }
+
+      const response = await fetch("/api/datasets", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: file.name,
+          type: fileType,
+          data: parsedData,
+        }),
       });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || errorData.details || "Upload failed");
+      }
+
+      return response.json();
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/datasets"] });

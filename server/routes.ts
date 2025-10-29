@@ -13,6 +13,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { name, type, data } = req.body;
 
+      console.log("Dataset upload request:", { name, type, dataType: typeof data, dataLength: Array.isArray(data) ? data.length : 'not array' });
+
       if (!name || !type || !data) {
         return res.status(400).json({ error: "Missing required fields" });
       }
@@ -21,35 +23,55 @@ export async function registerRoutes(app: Express): Promise<Server> {
       let parsedData: any[] = [];
       let columns: any[] = [];
 
-      if (type === "csv") {
-        // Data is already parsed from frontend
-        parsedData = Array.isArray(data) ? data : [];
-      } else if (type === "excel") {
-        parsedData = Array.isArray(data) ? data : [];
+      if (type === "csv" || type === "excel") {
+        // Data should be already parsed from frontend
+        if (Array.isArray(data)) {
+          parsedData = data;
+        } else if (typeof data === 'string') {
+          // If data is a string, try to parse it as CSV
+          console.log("Parsing CSV string data");
+          const parseResult = Papa.parse(data, { 
+            header: true, 
+            dynamicTyping: true,
+            skipEmptyLines: true 
+          });
+          parsedData = parseResult.data;
+          console.log("Parsed data rows:", parsedData.length);
+        } else {
+          return res.status(400).json({ error: "Invalid data format" });
+        }
+      }
+
+      if (parsedData.length === 0) {
+        return res.status(400).json({ error: "No data rows found in file" });
       }
 
       // Detect schema from first few rows
-      if (parsedData.length > 0) {
-        const firstRow = parsedData[0];
-        columns = Object.keys(firstRow).map((key) => {
-          const sample = firstRow[key];
-          let colType: "string" | "number" | "date" | "boolean" = "string";
+      const firstRow = parsedData[0];
+      columns = Object.keys(firstRow).map((key) => {
+        const sample = firstRow[key];
+        let colType: "string" | "number" | "date" | "boolean" = "string";
 
-          if (typeof sample === "number") {
-            colType = "number";
-          } else if (typeof sample === "boolean") {
-            colType = "boolean";
-          } else if (!isNaN(Date.parse(String(sample)))) {
+        if (typeof sample === "number") {
+          colType = "number";
+        } else if (typeof sample === "boolean") {
+          colType = "boolean";
+        } else if (sample && !isNaN(Date.parse(String(sample)))) {
+          // Check if it looks like a date
+          const dateStr = String(sample);
+          if (dateStr.match(/^\d{1,2}\/\d{1,2}\/\d{4}$/)) {
             colType = "date";
           }
+        }
 
-          return {
-            name: key,
-            type: colType,
-            sample: sample,
-          };
-        });
-      }
+        return {
+          name: key,
+          type: colType,
+          sample: sample,
+        };
+      });
+
+      console.log("Creating dataset with", parsedData.length, "rows and", columns.length, "columns");
 
       const dataset = await storage.createDataset({
         name,
@@ -59,10 +81,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
         rowCount: parsedData.length,
       });
 
+      console.log("Dataset created successfully:", dataset.id);
       res.json(dataset);
     } catch (error) {
       console.error("Upload error:", error);
-      res.status(500).json({ error: "Failed to upload dataset" });
+      res.status(500).json({ 
+        error: "Failed to upload dataset",
+        details: error instanceof Error ? error.message : String(error)
+      });
     }
   });
 

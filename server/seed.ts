@@ -28,7 +28,7 @@ export async function seedDatabase() {
     email: "admin@example.com",
     username: "admin",
     password: hashedPassword,
-    role: "admin",
+    role: "super_admin",
     firstName: "Admin",
     lastName: "User",
     status: "active",

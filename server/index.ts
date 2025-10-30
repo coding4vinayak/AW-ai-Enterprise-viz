@@ -90,9 +90,14 @@ app.use((req, res, next) => {
 (async () => {
   // Seed database with initial data
   try {
-    await seedDatabase();
+    const seedTimeout = new Promise((_, reject) => 
+      setTimeout(() => reject(new Error('Seed timeout after 10s')), 10000)
+    );
+    await Promise.race([seedDatabase(), seedTimeout]);
+    log("Database seeding completed successfully");
   } catch (error) {
     log("Failed to seed database:", String(error));
+    log("Continuing with server startup...");
   }
 
   // Register auth routes
@@ -133,6 +138,10 @@ app.use((req, res, next) => {
   app.use('/api', dashboardSharingRoutes);
   app.use('/api', emailReportsRoutes);
   app.use('/api', webhookRoutes);
+
+  // Register dashboard export routes
+  const dashboardExportRoutes = (await import('./dashboard-export-routes')).default;
+  app.use('/api', dashboardExportRoutes);
 
   const server = await registerRoutes(app);
 

@@ -42,6 +42,12 @@ router.post('/api/data-sources/test-connection', authenticateUser, async (req, r
     let connector;
     if (type === 'rest_api') {
       connector = new RestApiConnector(connectionConfig, req.user!.customerId);
+    } else if (type === 'graphql') {
+      const { GraphQLConnector } = await import('./lib/data-connectors/graphql');
+      connector = new GraphQLConnector(connectionConfig, req.user!.customerId);
+    } else if (type === 'database') {
+      const { DatabaseConnector } = await import('./lib/data-connectors/database');
+      connector = new DatabaseConnector(connectionConfig, req.user!.customerId);
     } else {
       throw new Error('Unsupported connector type');
     }
@@ -83,6 +89,12 @@ async function performDataSync(dataSource: any, syncJobId: string) {
     let connector;
     if (dataSource.type === 'rest_api') {
       connector = new RestApiConnector(dataSource.connectionConfig, dataSource.customerId);
+    } else if (dataSource.type === 'graphql') {
+      const { GraphQLConnector } = await import('./lib/data-connectors/graphql');
+      connector = new GraphQLConnector(dataSource.connectionConfig, dataSource.customerId);
+    } else if (dataSource.type === 'database') {
+      const { DatabaseConnector } = await import('./lib/data-connectors/database');
+      connector = new DatabaseConnector(dataSource.connectionConfig, dataSource.customerId);
     } else {
       throw new Error('Unsupported connector type');
     }

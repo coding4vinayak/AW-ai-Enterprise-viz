@@ -4,11 +4,16 @@ import bcrypt from "bcryptjs";
 export async function seedDatabase() {
   console.log("Seeding database...");
 
-  // Check if we already have customers
-  const existingCustomers = await storage.getCustomers();
-  if (existingCustomers.length > 0) {
-    console.log("Database already seeded, skipping...");
-    return;
+  try {
+    // Check if we already have customers
+    const existingCustomers = await storage.getCustomers();
+    if (existingCustomers.length > 0) {
+      console.log("Database already seeded, skipping...");
+      return;
+    }
+  } catch (error) {
+    console.error("Error checking existing customers:", error);
+    // Continue with seeding if check fails
   }
 
   // Create default customer

@@ -1,10 +1,12 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 import { Responsive, WidthProvider, Layout as RGLLayout, Layouts } from "react-grid-layout";
 import { Button } from "@/components/ui/button";
-import { Edit3, Save, X } from "lucide-react";
+import { Edit3, Save, X, GripVertical, Maximize2, Minimize2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import type { Chart } from '@shared/types';
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
@@ -27,6 +29,8 @@ interface DashboardGridProps {
   onSave?: (layout: GridItem[]) => void;
   children: React.ReactNode;
   editable?: boolean;
+  charts: Chart[];
+  isEditMode?: boolean;
 }
 
 export function DashboardGrid({
@@ -35,12 +39,14 @@ export function DashboardGrid({
   onSave,
   children,
   editable = true,
+  charts,
+  isEditMode = false,
 }: DashboardGridProps) {
-  const [isEditMode, setIsEditMode] = useState(false);
   const [currentLayout, setCurrentLayout] = useState<GridItem[]>(initialLayout);
   const [currentLayouts, setCurrentLayouts] = useState<Layouts>({ lg: initialLayout });
   const savedLayoutsSnapshot = useRef<Layouts>({ lg: initialLayout });
   const { toast } = useToast();
+  const [expandedChart, setExpandedChart] = useState<string | null>(null);
 
   useEffect(() => {
     setCurrentLayout(initialLayout);
@@ -65,10 +71,10 @@ export function DashboardGrid({
         maxH: item.maxH,
         static: item.static,
       }));
-      
+
       setCurrentLayout(formattedLayout);
       setCurrentLayouts(allLayouts);
-      
+
       if (isEditMode && onLayoutChange) {
         onLayoutChange(formattedLayout);
       }
@@ -90,15 +96,15 @@ export function DashboardGrid({
   const handleCancel = () => {
     const restoredLayouts = JSON.parse(JSON.stringify(savedLayoutsSnapshot.current));
     const restoredLgLayout = (restoredLayouts.lg || []) as GridItem[];
-    
+
     setCurrentLayouts(restoredLayouts);
     setCurrentLayout(restoredLgLayout);
     setIsEditMode(false);
-    
+
     if (onLayoutChange) {
       onLayoutChange(restoredLgLayout);
     }
-    
+
     toast({
       title: "Changes discarded",
       description: "Layout changes have been discarded.",
@@ -130,7 +136,7 @@ export function DashboardGrid({
               </span>
             )}
           </div>
-          
+
           <div className="flex gap-2">
             {!isEditMode ? (
               <Button
@@ -169,22 +175,65 @@ export function DashboardGrid({
       )}
 
       {/* Grid Layout */}
-      <ResponsiveGridLayout
-        className="layout"
-        layouts={currentLayouts}
-        breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
-        cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
-        rowHeight={80}
-        isDraggable={isEditMode}
-        isResizable={isEditMode}
-        onLayoutChange={handleLayoutChange}
-        compactType="vertical"
-        preventCollision={false}
-        margin={[16, 16]}
-        containerPadding={[0, 0]}
-      >
-        {children}
-      </ResponsiveGridLayout>
+      {expandedChart ? (
+        <Card className="col-span-full">
+          <CardHeader className="flex flex-row items-center justify-between pb-3">
+            <CardTitle className="text-lg">
+              {charts.find(c => c.id === expandedChart)?.name}
+            </CardTitle>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setExpandedChart(null)}
+            >
+              <Minimize2 className="h-4 w-4" />
+            </Button>
+          </CardHeader>
+          <CardContent className="h-[600px]">
+            <AdvancedChartRenderer 
+              chart={charts.find(c => c.id === expandedChart)!} 
+            />
+          </CardContent>
+        </Card>
+      ) : (
+        <ResponsiveGridLayout
+          className="layout"
+          layouts={currentLayouts}
+          breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
+          cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
+          rowHeight={80}
+          isDraggable={isEditMode}
+          isResizable={isEditMode}
+          onLayoutChange={handleLayoutChange}
+          compactType="vertical"
+          preventCollision={false}
+          margin={[16, 16]}
+          containerPadding={[0, 0]}
+        >
+          {charts.map((chart) => (
+            <Card key={chart.id} className="overflow-hidden group">
+              <CardHeader className="flex flex-row items-center justify-between pb-3">
+                <CardTitle className="text-lg flex items-center gap-2">
+                  {isEditMode && <GripVertical className="h-4 w-4 text-muted-foreground cursor-move" />}
+                  {chart.name}
+                </CardTitle>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="opacity-0 group-hover:opacity-100 transition-opacity"
+                  onClick={() => setExpandedChart(chart.id)}
+                >
+                  <Maximize2 className="h-4 w-4" />
+                </Button>
+              </CardHeader>
+              <CardContent>
+                <AdvancedChartRenderer chart={chart} />
+              </CardContent>
+            </Card>
+          ))}
+          {children}
+        </ResponsiveGridLayout>
+      )}
     </div>
   );
 }

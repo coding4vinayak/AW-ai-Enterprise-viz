@@ -88,14 +88,15 @@ app.use((req, res, next) => {
 });
 
 (async () => {
-  // Seed database with initial data (non-blocking)
+  // Seed database on first run (non-blocking)
   seedDatabase()
     .then(() => {
-      log("Database seeding completed successfully");
+      log('Database seeding completed successfully', 'express');
     })
     .catch((error) => {
-      log("Failed to seed database:", String(error));
-      log("You may need to run seed manually or check database connection");
+      log(`Failed to seed database: ${error.message}`, 'express');
+      log('You can manually seed by calling POST /api/admin/seed-database as super_admin', 'express');
+      log('Continuing with server startup...', 'express');
     });
 
   // Register auth routes

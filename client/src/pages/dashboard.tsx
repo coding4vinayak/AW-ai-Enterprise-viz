@@ -110,6 +110,13 @@ export default function Dashboard() {
               <Download className="h-4 w-4" />
               <span className="hidden sm:inline">Export</span>
             </Button>
+            <Link href="/dashboard-wizard">
+              <Button variant="outline" size="default" className="flex-1 sm:flex-initial">
+                <Plus className="h-4 w-4" />
+                <span className="hidden sm:inline">Quick Start</span>
+                <span className="sm:hidden">Quick</span>
+              </Button>
+            </Link>
             <Button
               variant="default"
               size="default"

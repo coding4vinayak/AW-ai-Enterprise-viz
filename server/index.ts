@@ -3,6 +3,10 @@ import session from "express-session";
 import connectPgSimple from "connect-pg-simple";
 import { registerRoutes } from "./routes";
 import authRoutes from "./auth-routes";
+import aiConfigRoutes from "./ai-config-routes";
+import usageRoutes from "./usage-routes";
+import adminRoutes from "./admin-routes";
+import dashboardTemplatesRoutes from "./dashboard-templates-routes";
 import { setupVite, serveStatic, log } from "./vite";
 import { seedDatabase } from "./seed";
 import { db, pool } from "./db";
@@ -100,6 +104,10 @@ app.use((req, res, next) => {
   // Register usage routes
   const usageRoutes = (await import('./usage-routes')).default;
   app.use('/api', usageRoutes);
+
+  // Register dashboard templates routes
+  const dashboardTemplatesRoutes = (await import('./dashboard-templates-routes')).default;
+  app.use('/api', dashboardTemplatesRoutes);
 
   const server = await registerRoutes(app);
 

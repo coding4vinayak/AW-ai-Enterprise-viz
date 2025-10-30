@@ -32,6 +32,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import DashboardWizard from "@/pages/dashboard-wizard";
 
 // Navigate component for redirects
 const Navigate = ({ to }: { to: string }) => {
@@ -121,6 +122,7 @@ function ProtectedRoutes() {
               <Route path="/admin" component={AdminPage} />
               <Route path="/ai-settings" component={AISettingsPage} />
               <Route path="/usage" component={UsageDashboard} />
+              <Route path="/dashboard-wizard" component={DashboardWizard} />
               <Route component={NotFound} />
             </Switch>
           </main>

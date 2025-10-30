@@ -7,7 +7,11 @@ import aiConfigRoutes from "./ai-config-routes";
 import usageRoutes from "./usage-routes";
 import adminRoutes from "./admin-routes";
 import dashboardTemplatesRoutes from "./dashboard-templates-routes";
-import dataSourceRoutes from "./data-source-routes";
+import dataSourceRoutes from './data-source-routes';
+import dataProcessingRoutes from './data-processing-routes';
+import dashboardSharingRoutes from './dashboard-sharing-routes';
+import emailReportsRoutes from './email-reports-routes';
+import webhookRoutes from './webhook-routes';
 import { setupVite, serveStatic, log } from "./vite";
 import { seedDatabase } from "./seed";
 import { db, pool } from "./db";
@@ -124,6 +128,11 @@ app.use((req, res, next) => {
   // Register analytics routes
   const analyticsRoutes = (await import('./analytics-routes')).default;
   app.use('/api', analyticsRoutes);
+
+  // Register new routes for dashboard sharing, email reports, and webhooks
+  app.use('/api', dashboardSharingRoutes);
+  app.use('/api', emailReportsRoutes);
+  app.use('/api', webhookRoutes);
 
   const server = await registerRoutes(app);
 

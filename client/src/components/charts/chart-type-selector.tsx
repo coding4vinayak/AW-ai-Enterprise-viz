@@ -21,7 +21,11 @@ const CHART_TYPES: ChartType[] = [
   { id: 'doughnut', name: 'Doughnut Chart', icon: Activity, description: 'Pie chart with center removed' },
   { id: 'scatter', name: 'Scatter Plot', icon: ScatterChart, description: 'Show correlation between variables' },
   { id: 'radar', name: 'Radar Chart', icon: RadarIcon, description: 'Compare multiple variables' },
-  { id: 'kpi', name: 'KPI Card', icon: Gauge, description: 'Display key metric' }
+  { id: 'kpi', name: 'KPI Card', icon: Gauge, description: 'Display key metric' },
+  { id: 'heatmap', name: 'Heatmap', icon: Activity, description: 'Show data density and patterns' },
+  { id: 'funnel', name: 'Funnel Chart', icon: Activity, description: 'Track conversion stages' },
+  { id: 'gauge', name: 'Gauge Chart', icon: Gauge, description: 'Show progress towards goal' },
+  { id: 'treemap', name: 'Treemap', icon: Activity, description: 'Hierarchical data visualization' }
 ];
 
 interface ChartTypeSelectorProps {

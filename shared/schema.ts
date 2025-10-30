@@ -163,6 +163,46 @@ export const insertDashboardSchema = createInsertSchema(dashboards).omit({
   updatedAt: true,
 });
 
+
+
+// Dashboard sharing configuration
+export const dashboardShares = pgTable("dashboard_shares", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  dashboardId: varchar("dashboard_id").notNull().references(() => dashboards.id, { onDelete: "cascade" }),
+  shareToken: text("share_token").notNull().unique(),
+  expiresAt: timestamp("expires_at"),
+  isPublic: boolean("is_public").notNull().default(false),
+  password: text("password"),
+  allowedEmails: text("allowed_emails").array(),
+  permissions: jsonb("permissions"), // { canEdit: false, canExport: true }
+  createdBy: varchar("created_by").references(() => users.id),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+
+// Scheduled email reports
+export const emailReports = pgTable("email_reports", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  customerId: varchar("customer_id").notNull().references(() => customers.id, { onDelete: "cascade" }),
+  dashboardId: varchar("dashboard_id").notNull().references(() => dashboards.id, { onDelete: "cascade" }),
+  name: text("name").notNull(),
+  recipients: text("recipients").array().notNull(),
+  schedule: text("schedule").notNull(), // cron expression
+  format: text("format").notNull().default("pdf"), // pdf, excel, png
+  isActive: boolean("is_active").notNull().default(true),
+  lastSentAt: timestamp("last_sent_at"),
+  nextRunAt: timestamp("next_run_at"),
+  createdBy: varchar("created_by").references(() => users.id),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export type EmailReport = typeof emailReports.$inferSelect;
+export type InsertEmailReport = typeof emailReports.$inferInsert;
+
+
+export type DashboardShare = typeof dashboardShares.$inferSelect;
+export type InsertDashboardShare = typeof dashboardShares.$inferInsert;
+
 export const insertChartSchema = createInsertSchema(charts).omit({
   id: true,
   createdAt: true,

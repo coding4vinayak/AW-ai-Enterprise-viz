@@ -113,6 +113,10 @@ app.use((req, res, next) => {
   // Register data source routes
   app.use('/api', dataSourceRoutes);
 
+  // Register data processing routes
+  const dataProcessingRoutes = (await import('./data-processing-routes')).default;
+  app.use('/api', dataProcessingRoutes);
+
   const server = await registerRoutes(app);
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {

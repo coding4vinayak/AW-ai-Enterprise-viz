@@ -3,9 +3,6 @@ import session from "express-session";
 import connectPgSimple from "connect-pg-simple";
 import { registerRoutes } from "./routes";
 import authRoutes from "./auth-routes";
-import aiConfigRoutes from "./ai-config-routes";
-import usageRoutes from "./usage-routes";
-import adminRoutes from "./admin-routes";
 import dashboardTemplatesRoutes from "./dashboard-templates-routes";
 import dataSourceRoutes from './data-source-routes';
 import dataProcessingRoutes from './data-processing-routes';
@@ -103,19 +100,18 @@ app.use((req, res, next) => {
   app.use('/api/auth', authRoutes);
 
   // Register admin routes
-  const adminRoutes = (await import('./admin-routes')).default;
-  app.use('/api/admin', authenticateUser, adminRoutes);
+  const adminRoutesModule = (await import('./admin-routes')).default;
+  app.use('/api/admin', authenticateUser, adminRoutesModule);
 
   // Register AI config routes
-  const aiConfigRoutes = (await import('./ai-config-routes')).default;
-  app.use('/api', aiConfigRoutes);
+  const aiConfigRoutesModule = (await import('./ai-config-routes')).default;
+  app.use('/api', aiConfigRoutesModule);
 
   // Register usage routes
-  const usageRoutes = (await import('./usage-routes')).default;
-  app.use('/api', usageRoutes);
+  const usageRoutesModule = (await import('./usage-routes')).default;
+  app.use('/api', usageRoutesModule);
 
   // Register dashboard templates routes
-  const dashboardTemplatesRoutes = (await import('./dashboard-templates-routes')).default;
   app.use('/api', dashboardTemplatesRoutes);
 
   // Register data source routes

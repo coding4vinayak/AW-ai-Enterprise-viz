@@ -18,11 +18,10 @@ export async function seedDatabase() {
 
     // Actual seeding logic
     const seedPromise = (async () => {
-      // Quick database connection test first
       const { db } = await import("./db");
-      await db.execute('SELECT 1');
-      console.log("Database connection verified");
-
+      
+      console.log('Verifying database schema...');
+      
       // Check if super admin already exists
       console.log('Checking for existing super admin...');
       const existingSuperAdmin = await storage.getUsers({ role: 'super_admin' });

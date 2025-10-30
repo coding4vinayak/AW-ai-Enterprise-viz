@@ -4,13 +4,16 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Skeleton } from "@/components/ui/skeleton";
 import { KPICard } from "@/components/dashboard/kpi-card";
 import { ChartCard } from "@/components/dashboard/chart-card";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { CreateChartDialog } from "@/components/dashboard/create-chart-dialog";
+import { ExportDialog } from "@/components/dashboard/export-dialog";
 import { useDatasets, useCreateDashboard } from "@/lib/api-hooks";
 import { Link } from "wouter";
 
 export default function Dashboard() {
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
+  const [isExportDialogOpen, setIsExportDialogOpen] = useState(false);
+  const dashboardRef = useRef<HTMLDivElement>(null);
   const { data: datasets, isLoading } = useDatasets();
 
   // Mock KPI data - would come from datasets in full implementation
@@ -106,7 +109,13 @@ export default function Dashboard() {
               <Filter className="h-4 w-4" />
               <span className="hidden sm:inline">Filters</span>
             </Button>
-            <Button variant="outline" size="default" data-testid="button-export" className="flex-1 sm:flex-initial">
+            <Button
+              variant="outline"
+              size="default"
+              data-testid="button-export"
+              className="flex-1 sm:flex-initial"
+              onClick={() => setIsExportDialogOpen(true)}
+            >
               <Download className="h-4 w-4" />
               <span className="hidden sm:inline">Export</span>
             </Button>
@@ -134,7 +143,7 @@ export default function Dashboard() {
 
       {/* Main Content */}
       <div className="flex-1 overflow-auto p-8">
-        <div className="max-w-screen-2xl mx-auto space-y-8">
+        <div className="max-w-screen-2xl mx-auto space-y-8" ref={dashboardRef}>
           {datasets && datasets.length > 0 ? (
             <>
               {/* KPI Grid */}
@@ -233,6 +242,14 @@ export default function Dashboard() {
       <CreateChartDialog
         open={isCreateDialogOpen}
         onOpenChange={setIsCreateDialogOpen}
+      />
+
+      <ExportDialog
+        open={isExportDialogOpen}
+        onOpenChange={setIsExportDialogOpen}
+        dashboardElement={dashboardRef.current}
+        dashboardData={datasets?.flatMap(ds => ds.uploadedData as any[] || [])}
+        dashboardName="Dashboard"
       />
     </div>
   );

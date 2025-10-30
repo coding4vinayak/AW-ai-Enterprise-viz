@@ -24,6 +24,9 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import { useRef } from "react";
+import { exportToPNG, exportChartData } from "@/lib/export-utils";
+import { useToast } from "@/hooks/use-toast";
 
 interface ChartCardProps {
   title: string;
@@ -32,6 +35,8 @@ interface ChartCardProps {
 }
 
 export function ChartCard({ title, type, description }: ChartCardProps) {
+  const chartRef = useRef<HTMLDivElement>(null);
+  const { toast } = useToast();
   // Mock data - will be replaced with real data
   const lineData = [
     { month: "Jan", value: 4500 },
@@ -66,6 +71,57 @@ export function ChartCard({ title, type, description }: ChartCardProps) {
   ];
 
   const COLORS = ["hsl(var(--chart-1))", "hsl(var(--chart-2))", "hsl(var(--chart-3))", "hsl(var(--chart-4))"];
+
+  const getChartData = () => {
+    switch (type) {
+      case "line":
+        return lineData;
+      case "bar":
+        return barData;
+      case "pie":
+        return pieData;
+      case "area":
+        return areaData;
+      default:
+        return [];
+    }
+  };
+
+  const handleExportImage = async () => {
+    if (!chartRef.current) return;
+    
+    try {
+      await exportToPNG(chartRef.current, `${title}-chart`);
+      toast({
+        title: "Export successful",
+        description: `${title} exported as PNG image.`,
+      });
+    } catch (error) {
+      toast({
+        title: "Export failed",
+        description: "Failed to export chart. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleExportData = async () => {
+    try {
+      const data = getChartData();
+      await exportChartData(data, title);
+      toast({
+        title: "Export successful",
+        description: `${title} data exported to Excel.`,
+      });
+    } catch (error) {
+      console.error('Export error:', error);
+      toast({
+        title: "Export failed",
+        description: "Failed to export data. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
 
   const renderChart = () => {
     switch (type) {
@@ -191,14 +247,18 @@ export function ChartCard({ title, type, description }: ChartCardProps) {
               <Settings className="h-4 w-4 mr-2" />
               Configure
             </DropdownMenuItem>
-            <DropdownMenuItem data-testid="menu-item-download">
+            <DropdownMenuItem onClick={handleExportImage} data-testid="menu-item-export-image">
               <Download className="h-4 w-4 mr-2" />
-              Download
+              Export as PNG
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={handleExportData} data-testid="menu-item-export-data">
+              <Download className="h-4 w-4 mr-2" />
+              Export Data
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </CardHeader>
-      <CardContent className="flex-1 min-h-80 pb-6">
+      <CardContent className="flex-1 min-h-80 pb-6" ref={chartRef}>
         {renderChart()}
       </CardContent>
     </Card>

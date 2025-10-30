@@ -1,5 +1,12 @@
 
+import { Router } from 'express';
+import { storage } from './storage';
+import { authenticateUser, hashPassword } from './middleware/auth';
+import { requireRole } from './middleware/rbac';
+import { randomUUID } from 'crypto';
 import { seedDatabase } from './seed';
+
+const router = Router();
 
 // Manual database seed endpoint (super_admin only)
 router.post('/seed-database', authenticateUser, async (req, res) => {
@@ -15,16 +22,6 @@ router.post('/seed-database', authenticateUser, async (req, res) => {
     res.status(500).json({ error: 'Failed to seed database', details: error instanceof Error ? error.message : String(error) });
   }
 });
-
-
-
-import { Router } from 'express';
-import { storage } from './storage';
-import { authenticateUser, hashPassword } from './middleware/auth';
-import { requireRole } from './middleware/rbac';
-import { randomUUID } from 'crypto';
-
-const router = Router();
 
 // Get all customers (super_admin only)
 router.get('/customers', authenticateUser, requireRole(['super_admin']), async (req, res) => {

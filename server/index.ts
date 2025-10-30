@@ -12,6 +12,7 @@ import webhookRoutes from './webhook-routes';
 import { setupVite, serveStatic, log } from "./vite";
 import { seedDatabase } from "./seed";
 import { db, pool } from "./db";
+import { sql } from "drizzle-orm";
 import { authenticateUser } from "./middleware/auth";
 import { trackAPICall } from "./middleware/usage-tracker";
 
@@ -85,6 +86,14 @@ app.use((req, res, next) => {
 });
 
 (async () => {
+  // Test database connection first
+  try {
+    await db.execute(sql`SELECT 1`);
+    log('Database connection verified', 'express');
+  } catch (dbError) {
+    log(`Database connection failed: ${dbError}`, 'express');
+  }
+
   // Seed database on first run (non-blocking)
   seedDatabase()
     .then(() => {

@@ -11,25 +11,22 @@ export async function seedDatabase() {
   const startTime = Date.now();
 
   try {
-    // Create timeout promise (increased to 30s for production data)
+    // Create timeout promise
     const timeoutPromise = new Promise((_, reject) => {
       setTimeout(() => reject(new Error('Seed timeout after 30s')), 30000);
     });
 
     // Actual seeding logic
     const seedPromise = (async () => {
-      const { db } = await import("./db");
-      
-      console.log('Verifying database schema...');
-      
-      // Check if super admin already exists
-      console.log('Checking for existing super admin...');
-      const existingSuperAdmin = await storage.getUsers({ role: 'super_admin' });
-      if (existingSuperAdmin.length > 0) {
-        console.log('Super admin already exists, skipping seed...');
-        return;
-      }
-      console.log('No super admin found, proceeding with seed...');
+      try {
+        // Check if super admin already exists
+        console.log('Checking for existing super admin...');
+        const existingSuperAdmin = await storage.getUsers({ role: 'super_admin' });
+        if (existingSuperAdmin.length > 0) {
+          console.log('Super admin already exists, skipping seed...');
+          return;
+        }
+        console.log('No super admin found, proceeding with seed...');
 
       // Create default customer
       console.log('Creating default customer...');
@@ -104,6 +101,10 @@ export async function seedDatabase() {
       console.log("Email: admin@example.com");
       console.log("Password: admin123");
       console.log("\nNote: Configure LLM API keys in the admin panel for AI features");
+      } catch (seedError) {
+        console.error('Error in seed operations:', seedError);
+        throw seedError;
+      }
     })();
 
     // Race the seed promise against the timeout

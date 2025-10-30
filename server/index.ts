@@ -88,17 +88,15 @@ app.use((req, res, next) => {
 });
 
 (async () => {
-  // Seed database with initial data
-  try {
-    const seedTimeout = new Promise((_, reject) => 
-      setTimeout(() => reject(new Error('Seed timeout after 10s')), 10000)
-    );
-    await Promise.race([seedDatabase(), seedTimeout]);
-    log("Database seeding completed successfully");
-  } catch (error) {
-    log("Failed to seed database:", String(error));
-    log("Continuing with server startup...");
-  }
+  // Seed database with initial data (non-blocking)
+  seedDatabase()
+    .then(() => {
+      log("Database seeding completed successfully");
+    })
+    .catch((error) => {
+      log("Failed to seed database:", String(error));
+      log("You may need to run seed manually or check database connection");
+    });
 
   // Register auth routes
   app.use('/api/auth', authRoutes);

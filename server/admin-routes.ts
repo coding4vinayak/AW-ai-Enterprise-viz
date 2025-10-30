@@ -1,4 +1,23 @@
 
+import { seedDatabase } from './seed';
+
+// Manual database seed endpoint (super_admin only)
+router.post('/seed-database', authenticateUser, async (req, res) => {
+  try {
+    if (req.user!.role !== 'super_admin') {
+      return res.status(403).json({ error: 'Access denied' });
+    }
+
+    await seedDatabase();
+    res.json({ success: true, message: 'Database seeded successfully' });
+  } catch (error) {
+    console.error('Manual seed error:', error);
+    res.status(500).json({ error: 'Failed to seed database', details: error instanceof Error ? error.message : String(error) });
+  }
+});
+
+
+
 import { Router } from 'express';
 import { storage } from './storage';
 import { authenticateUser, hashPassword } from './middleware/auth';

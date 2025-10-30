@@ -5,6 +5,11 @@ export async function seedDatabase() {
   console.log("Seeding database...");
 
   try {
+    // Quick database connection test first
+    const { db } = await import("./db");
+    await db.execute('SELECT 1');
+    console.log("Database connection verified");
+
     // Check if we already have customers
     const existingCustomers = await storage.getCustomers();
     if (existingCustomers.length > 0) {
@@ -13,7 +18,7 @@ export async function seedDatabase() {
     }
   } catch (error) {
     console.error("Error checking existing customers:", error);
-    // Continue with seeding if check fails
+    throw error; // Throw to trigger timeout handling
   }
 
   // Create default customer

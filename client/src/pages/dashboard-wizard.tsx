@@ -1,6 +1,5 @@
-
 import { useState } from 'react';
-import { useNavigate } from 'wouter';
+import { useLocation } from 'wouter';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -48,10 +47,10 @@ export default function DashboardWizard() {
   const [dashboardName, setDashboardName] = useState('');
   const [selectedDataset, setSelectedDataset] = useState('');
   const [fieldMapping, setFieldMapping] = useState<Record<string, string>>({});
-  
+
   const { data: datasets } = useDatasets();
   const { toast } = useToast();
-  const [, navigate] = useNavigate();
+  const [, navigate] = useLocation();
 
   const currentTemplate = templates.find(t => t.id === selectedTemplate);
   const selectedDatasetObj = datasets?.find(d => d.id === selectedDataset);
@@ -77,7 +76,7 @@ export default function DashboardWizard() {
       if (!response.ok) throw new Error('Failed to create dashboard');
 
       const data = await response.json();
-      
+
       toast({
         title: 'Success',
         description: 'Dashboard created successfully',

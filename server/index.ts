@@ -117,6 +117,10 @@ app.use((req, res, next) => {
   const dataProcessingRoutes = (await import('./data-processing-routes')).default;
   app.use('/api', dataProcessingRoutes);
 
+  // Register chart builder routes
+  const chartBuilderRoutes = (await import('./chart-builder-routes')).default;
+  app.use('/api', chartBuilderRoutes);
+
   const server = await registerRoutes(app);
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {

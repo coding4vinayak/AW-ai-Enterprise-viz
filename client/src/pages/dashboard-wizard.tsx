@@ -50,7 +50,7 @@ export default function DashboardWizard() {
 
   const { data: datasets } = useDatasets();
   const { toast } = useToast();
-  const [, navigate] = useLocation();
+  const [, setLocation] = useLocation();
 
   const currentTemplate = templates.find(t => t.id === selectedTemplate);
   const selectedDatasetObj = datasets?.find(d => d.id === selectedDataset);
@@ -82,7 +82,7 @@ export default function DashboardWizard() {
         description: 'Dashboard created successfully',
       });
 
-      navigate(`/dashboard`);
+      setLocation('/dashboard');
     } catch (error: any) {
       toast({
         title: 'Error',

@@ -249,18 +249,67 @@ export const usageMetrics = pgTable("usage_metrics", {
 });
 
 export const customerQuotas = pgTable("customer_quotas", {
-  id: varchar("id").primaryKey(),
-  customerId: varchar("customer_id").notNull().references(() => customers.id, { onDelete: "cascade" }),
-  quotaType: text("quota_type").notNull(), // 'datasets', 'users', 'ai_calls', 'storage'
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  customerId: varchar("customer_id").references(() => customers.id),
+  quotaType: text("quota_type").notNull(),
   limit: integer("limit").notNull(),
   used: integer("used").notNull().default(0),
-  period: text("period").notNull(), // 'monthly', 'daily', 'total'
+  period: text("period").notNull(),
   resetAt: timestamp("reset_at").notNull(),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Data Sources for BI Integration
+export const dataSources = pgTable("data_sources", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  customerId: varchar("customer_id").references(() => customers.id).notNull(),
+  name: text("name").notNull(),
+  type: text("type").notNull(), // 'rest_api' | 'graphql' | 'database' | 'file' | 'webhook'
+  connectionConfig: jsonb("connection_config").notNull(),
+  syncSchedule: text("sync_schedule"),
+  syncEnabled: boolean("sync_enabled").default(false),
+  lastSyncAt: timestamp("last_sync_at"),
+  lastSyncStatus: text("last_sync_status"),
+  dataMapping: jsonb("data_mapping"),
+  status: text("status").default("active"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+export const syncJobs = pgTable("sync_jobs", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  dataSourceId: varchar("data_source_id").references(() => dataSources.id).notNull(),
+  status: text("status").notNull(),
+  startedAt: timestamp("started_at"),
+  completedAt: timestamp("completed_at"),
+  recordsProcessed: integer("records_processed").default(0),
+  recordsInserted: integer("records_inserted").default(0),
+  recordsUpdated: integer("records_updated").default(0),
+  recordsFailed: integer("records_failed").default(0),
+  errorMessage: text("error_message"),
+  errorDetails: jsonb("error_details"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const dataSourceLogs = pgTable("data_source_logs", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  dataSourceId: varchar("data_source_id").references(() => dataSources.id).notNull(),
+  syncJobId: varchar("sync_job_id").references(() => syncJobs.id),
+  level: text("level").notNull(),
+  message: text("message").notNull(),
+  details: jsonb("details"),
+  timestamp: timestamp("timestamp").notNull().defaultNow(),
 });
 
 export type UsageMetric = typeof usageMetrics.$inferSelect;
 export type InsertUsageMetric = typeof usageMetrics.$inferInsert;
 export type CustomerQuota = typeof customerQuotas.$inferSelect;
 export type InsertCustomerQuota = typeof customerQuotas.$inferInsert;
+
+export type DataSource = typeof dataSources.$inferSelect;
+export type InsertDataSource = typeof dataSources.$inferInsert;
+export type SyncJob = typeof syncJobs.$inferSelect;
+export type InsertSyncJob = typeof syncJobs.$inferInsert;
+export type DataSourceLog = typeof dataSourceLogs.$inferSelect;
+export type InsertDataSourceLog = typeof dataSourceLogs.$inferInsert;

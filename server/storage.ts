@@ -11,6 +11,9 @@ import {
   customerLlmConfigs,
   usageMetrics,
   customerQuotas,
+  dataSources,
+  syncJobs,
+  dataSourceLogs,
   type Customer,
   type InsertCustomer,
   type User,
@@ -112,6 +115,16 @@ export interface IStorage {
   updateQuotaUsage(id: string, used: number): Promise<CustomerQuota | undefined>;
   incrementQuotaUsage(customerId: string, quotaType: string, amount: number): Promise<void>;
   resetQuotas(): Promise<void>;
+
+  // Data source methods
+  createDataSource(dataSource: any): Promise<any>;
+  getDataSource(id: string, customerId: string): Promise<any>;
+  getDataSources(customerId: string): Promise<any[]>;
+  updateDataSource(id: string, updates: any): Promise<any>;
+  deleteDataSource(id: string, customerId: string): Promise<void>;
+  createSyncJob(dataSourceId: string): Promise<any>;
+  updateSyncJob(id: string, updates: any): Promise<void>;
+  getSyncJobs(dataSourceId: string): Promise<any[]>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -637,6 +650,62 @@ export class DatabaseStorage implements IStorage {
     await db.update(customerQuotas)
       .set({ used: 0, resetAt: now, updatedAt: now })
       .where(sql`${customerQuotas.resetAt} <= ${now}`);
+  }
+
+  // Data source methods
+  async createDataSource(dataSource: any): Promise<any> {
+    const [result] = await db.insert(dataSources).values(dataSource).returning();
+    return result;
+  }
+
+  async getDataSource(id: string, customerId: string): Promise<any> {
+    const [source] = await db.select()
+      .from(dataSources)
+      .where(and(eq(dataSources.id, id), eq(dataSources.customerId, customerId)));
+    return source;
+  }
+
+  async getDataSources(customerId: string): Promise<any[]> {
+    return await db.select()
+      .from(dataSources)
+      .where(eq(dataSources.customerId, customerId))
+      .orderBy(desc(dataSources.createdAt));
+  }
+
+  async updateDataSource(id: string, updates: any): Promise<any> {
+    const [result] = await db.update(dataSources)
+      .set({ ...updates, updatedAt: new Date() })
+      .where(eq(dataSources.id, id))
+      .returning();
+    return result;
+  }
+
+  async deleteDataSource(id: string, customerId: string): Promise<void> {
+    await db.delete(dataSources)
+      .where(and(eq(dataSources.id, id), eq(dataSources.customerId, customerId)));
+  }
+
+  async createSyncJob(dataSourceId: string): Promise<any> {
+    const [job] = await db.insert(syncJobs)
+      .values({
+        dataSourceId,
+        status: 'pending',
+      })
+      .returning();
+    return job;
+  }
+
+  async updateSyncJob(id: string, updates: any): Promise<void> {
+    await db.update(syncJobs)
+      .set(updates)
+      .where(eq(syncJobs.id, id));
+  }
+
+  async getSyncJobs(dataSourceId: string): Promise<any[]> {
+    return await db.select()
+      .from(syncJobs)
+      .where(eq(syncJobs.dataSourceId, dataSourceId))
+      .orderBy(desc(syncJobs.createdAt));
   }
 }
 

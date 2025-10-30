@@ -7,6 +7,7 @@ import aiConfigRoutes from "./ai-config-routes";
 import usageRoutes from "./usage-routes";
 import adminRoutes from "./admin-routes";
 import dashboardTemplatesRoutes from "./dashboard-templates-routes";
+import dataSourceRoutes from "./data-source-routes";
 import { setupVite, serveStatic, log } from "./vite";
 import { seedDatabase } from "./seed";
 import { db, pool } from "./db";
@@ -108,6 +109,9 @@ app.use((req, res, next) => {
   // Register dashboard templates routes
   const dashboardTemplatesRoutes = (await import('./dashboard-templates-routes')).default;
   app.use('/api', dashboardTemplatesRoutes);
+
+  // Register data source routes
+  app.use('/api', dataSourceRoutes);
 
   const server = await registerRoutes(app);
 

@@ -102,59 +102,41 @@ export default function Dashboard() {
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-2">
-            <Button variant="outline" size="default" data-testid="button-date-filter" className="flex-1 sm:flex-initial">
-              <Calendar className="h-4 w-4" />
+            <Button variant="outline" size="sm" data-testid="button-date-filter">
+              <Calendar className="h-4 w-4 sm:mr-2" />
               <span className="hidden sm:inline">Last 30 Days</span>
-              <span className="sm:hidden">30d</span>
             </Button>
-            <Button variant="outline" size="default" data-testid="button-filters" className="flex-1 sm:flex-initial">
-              <Filter className="h-4 w-4" />
+            <Button variant="outline" size="sm" data-testid="button-filters">
+              <Filter className="h-4 w-4 sm:mr-2" />
               <span className="hidden sm:inline">Filters</span>
             </Button>
             <ShareDashboardDialog dashboardId="main-dashboard" dashboardName="Dashboard" />
             <EmailReportsDialog dashboardId="main-dashboard" dashboardName="Dashboard" />
             <Button
               variant="outline"
-              size="default"
+              size="sm"
               data-testid="button-export"
-              className="flex-1 sm:flex-initial"
               onClick={() => setIsExportDialogOpen(true)}
             >
-              <Download className="h-4 w-4" />
+              <Download className="h-4 w-4 sm:mr-2" />
               <span className="hidden sm:inline">Export</span>
             </Button>
-            <Link href="/dashboard-wizard">
-              <Button variant="outline" size="default" className="flex-1 sm:flex-initial">
-                <Plus className="h-4 w-4" />
-                <span className="hidden sm:inline">Quick Start</span>
-                <span className="sm:hidden">Quick</span>
-              </Button>
-            </Link>
-            <Link href="/dashboard-builder">
-              <Button variant="outline" size="default" className="flex-1 sm:flex-initial" data-testid="button-layout-editor">
-                <Plus className="h-4 w-4" />
-                <span className="hidden sm:inline">Layout Editor</span>
-                <span className="sm:hidden">Layout</span>
-              </Button>
-            </Link>
             <Button
               variant="default"
-              size="default"
+              size="sm"
               onClick={() => setIsCreateDialogOpen(true)}
               data-testid="button-add-chart"
-              className="w-full sm:w-auto"
             >
-              <Plus className="h-4 w-4" />
+              <Plus className="h-4 w-4 sm:mr-2" />
               <span className="hidden sm:inline">Add Chart</span>
-              <span className="sm:hidden">Add</span>
             </Button>
           </div>
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 overflow-auto p-8">
-        <div className="max-w-screen-2xl mx-auto space-y-8" ref={dashboardRef}>
+      <div className="flex-1 overflow-auto p-6">
+        <div className="max-w-screen-2xl mx-auto space-y-6" ref={dashboardRef}>
           {datasets && datasets.length > 0 ? (
             <>
               {/* KPI Grid */}

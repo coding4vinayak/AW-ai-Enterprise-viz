@@ -35,6 +35,8 @@ import {
 import DashboardWizard from "@/pages/dashboard-wizard";
 import DashboardBuilder from "@/pages/dashboard-builder";
 import { lazy } from "react";
+import DataConnectors from "@/pages/data-connectors";
+import GraphQLConnector from "@/pages/data-connectors-graphql";
 
 // Navigate component for redirects
 const Navigate = ({ to }: { to: string }) => {
@@ -120,13 +122,20 @@ function ProtectedRoutes() {
               <Route path="/dashboard-builder" component={DashboardBuilder} />
               <Route path="/chart-builder" component={lazy(() => import('./pages/chart-builder-advanced'))} />
               <Route path="/data-sources" component={DataSources} />
+              <Route path="/data-connectors" component={DataConnectors} />
+              <Route path="/data-connectors/graphql" component={GraphQLConnector} />
               <Route path="/analytics" component={Analytics} />
+              <Route path="/analytics/trends" component={Analytics} />
+              <Route path="/analytics/calculated-fields" component={Analytics} />
               <Route path="/insights" component={Insights} />
               <Route path="/settings" component={Settings} />
               <Route path="/admin" component={AdminPage} />
               <Route path="/ai-settings" component={AISettingsPage} />
               <Route path="/usage" component={UsageDashboard} />
               <Route path="/dashboard-wizard" component={DashboardWizard} />
+              <Route path="/dashboard/share" component={Dashboard} />
+              <Route path="/dashboard/reports" component={Dashboard} />
+              <Route path="/dashboard/filters" component={Dashboard} />
               <Route component={NotFound} />
             </Switch>
           </main>

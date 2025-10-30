@@ -51,12 +51,10 @@ router.post('/customers', authenticateUser, requireRole(['super_admin']), async 
     }
 
     const customer = await storage.createCustomer({
-      id: randomUUID(),
       name,
       slug,
       status: status || 'active',
       settings: {},
-      createdAt: new Date(),
     });
 
     res.json(customer);
@@ -221,7 +219,7 @@ router.put('/users/:id', authenticateUser, async (req, res) => {
     const updatedUser = await storage.updateUser(id, updates);
 
     // Remove password from response
-    const { password: _, ...sanitizedUser } = updatedUser;
+    const { password: _, ...sanitizedUser } = updatedUser as any;
     res.json(sanitizedUser);
   } catch (error) {
     console.error('Failed to update user:', error);

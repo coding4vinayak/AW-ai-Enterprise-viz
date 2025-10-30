@@ -34,7 +34,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 // Navigate component for redirects
-const Navigate = ({ to }) => {
+const Navigate = ({ to }: { to: string }) => {
   window.location.href = to;
   return null;
 };
@@ -72,21 +72,59 @@ function ProtectedRoutes() {
   }
 
   // Main app layout with sidebar
+  const style = {
+    "--sidebar-width": "16rem",
+    "--sidebar-width-icon": "3rem",
+  };
+
   return (
-    <SidebarProvider>
-      <AppSidebar />
-      <div className="flex flex-1 flex-col min-h-screen">
-        <Switch>
-          <Route path="/" component={Dashboard} />
-          <Route path="/data-sources" component={DataSources} />
-          <Route path="/analytics" component={Analytics} />
-          <Route path="/insights" component={Insights} />
-          <Route path="/settings" component={Settings} />
-          <Route path="/admin" component={AdminPage} />
-          <Route path="/ai-settings" component={AISettingsPage} />
-          <Route path="/usage" component={UsageDashboard} />
-          <Route component={NotFound} />
-        </Switch>
+    <SidebarProvider style={style as React.CSSProperties}>
+      <div className="flex h-screen w-full">
+        <AppSidebar />
+        <div className="flex flex-col flex-1">
+          <header className="flex items-center justify-between p-2 border-b" data-testid="header-main">
+            <SidebarTrigger data-testid="button-sidebar-toggle" />
+            <div className="flex items-center gap-2">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="icon" data-testid="button-user-menu">
+                    <User className="h-4 w-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuLabel>
+                    <div className="flex flex-col space-y-1">
+                      <p className="text-sm font-medium" data-testid="text-user-email">{user?.email}</p>
+                      <p className="text-xs text-muted-foreground" data-testid="text-user-role">{user?.role}</p>
+                    </div>
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem asChild>
+                    <a href="/settings" data-testid="link-settings">Settings</a>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={authContext.logout} data-testid="button-logout">
+                    <LogOut className="h-4 w-4 mr-2" />
+                    Logout
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+              <ThemeToggle />
+            </div>
+          </header>
+          <main className="flex-1 overflow-auto">
+            <Switch>
+              <Route path="/" component={Dashboard} />
+              <Route path="/data-sources" component={DataSources} />
+              <Route path="/analytics" component={Analytics} />
+              <Route path="/insights" component={Insights} />
+              <Route path="/settings" component={Settings} />
+              <Route path="/admin" component={AdminPage} />
+              <Route path="/ai-settings" component={AISettingsPage} />
+              <Route path="/usage" component={UsageDashboard} />
+              <Route component={NotFound} />
+            </Switch>
+          </main>
+        </div>
       </div>
       <Toaster />
     </SidebarProvider>

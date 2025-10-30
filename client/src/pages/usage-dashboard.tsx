@@ -51,13 +51,13 @@ export default function UsageDashboard() {
   }
 
   return (
-    <div className="flex flex-col gap-6 p-6">
+    <div className="flex flex-col gap-6 p-6" data-testid="page-usage-dashboard">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold">Usage Dashboard</h1>
-          <p className="text-muted-foreground">Monitor your platform usage and metrics</p>
+          <h1 className="text-3xl font-bold" data-testid="text-page-title">Usage Dashboard</h1>
+          <p className="text-muted-foreground" data-testid="text-page-description">Monitor your platform usage and metrics</p>
         </div>
-        <Select value={period} onValueChange={(v) => setPeriod(v as any)}>
+        <Select value={period} onValueChange={(v) => setPeriod(v as any)} data-testid="select-period">
           <SelectTrigger className="w-32">
             <SelectValue />
           </SelectTrigger>
@@ -71,56 +71,56 @@ export default function UsageDashboard() {
 
       {/* Overview Cards */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <Card>
+        <Card data-testid="card-api-calls">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">API Calls</CardTitle>
             <Activity className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{usageStats?.api_calls?.toLocaleString() || 0}</div>
+            <div className="text-2xl font-bold" data-testid="text-api-calls">{usageStats?.api_calls?.toLocaleString() || 0}</div>
             <p className="text-xs text-muted-foreground">Total requests in period</p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card data-testid="card-ai-tokens">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">AI Tokens</CardTitle>
             <MessageSquare className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{usageStats?.ai_tokens?.toLocaleString() || 0}</div>
+            <div className="text-2xl font-bold" data-testid="text-ai-tokens">{usageStats?.ai_tokens?.toLocaleString() || 0}</div>
             <p className="text-xs text-muted-foreground">Tokens consumed</p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card data-testid="card-datasets">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">Datasets</CardTitle>
             <Database className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{customerData?.datasets || 0}</div>
+            <div className="text-2xl font-bold" data-testid="text-datasets">{customerData?.datasets || 0}</div>
             <p className="text-xs text-muted-foreground">Total datasets created</p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card data-testid="card-active-users">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">Active Users</CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{customerData?.users || 0}</div>
+            <div className="text-2xl font-bold" data-testid="text-active-users">{customerData?.users || 0}</div>
             <p className="text-xs text-muted-foreground">Team members</p>
           </CardContent>
         </Card>
       </div>
 
       {/* Charts */}
-      <Tabs defaultValue="resources" className="space-y-4">
-        <TabsList>
-          <TabsTrigger value="resources">Resources</TabsTrigger>
-          <TabsTrigger value="activity">Activity</TabsTrigger>
+      <Tabs defaultValue="resources" className="space-y-4" data-testid="tabs-usage">
+        <TabsList data-testid="tablist-usage">
+          <TabsTrigger value="resources" data-testid="tab-resources">Resources</TabsTrigger>
+          <TabsTrigger value="activity" data-testid="tab-activity">Activity</TabsTrigger>
         </TabsList>
 
         <TabsContent value="resources" className="space-y-4">

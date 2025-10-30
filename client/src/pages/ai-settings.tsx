@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -58,7 +58,7 @@ export default function AISettingsPage() {
   });
 
   // Update config when data loads
-  useState(() => {
+  useEffect(() => {
     if (currentConfig) {
       setConfig({
         providerId: currentConfig.providerId,
@@ -68,7 +68,7 @@ export default function AISettingsPage() {
         maxTokens: currentConfig.settings?.maxTokens ?? 1000,
       });
     }
-  });
+  }, [currentConfig]);
 
   // Save configuration
   const saveConfig = useMutation({
@@ -143,22 +143,22 @@ export default function AISettingsPage() {
       <div className="flex items-center gap-3">
         <Brain className="h-8 w-8" />
         <div>
-          <h1 className="text-3xl font-bold">AI Configuration</h1>
-          <p className="text-muted-foreground">Configure your AI provider and settings</p>
+          <h1 className="text-3xl font-bold" data-testid="text-page-title">AI Configuration</h1>
+          <p className="text-muted-foreground" data-testid="text-page-description">Configure your AI provider and settings</p>
         </div>
       </div>
 
-      <Card>
+      <Card data-testid="card-ai-settings">
         <CardHeader>
-          <CardTitle>AI Provider Settings</CardTitle>
-          <CardDescription>
+          <CardTitle data-testid="text-card-title">AI Provider Settings</CardTitle>
+          <CardDescription data-testid="text-card-description">
             Select and configure your preferred AI provider for insights and chat features
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="space-y-2">
             <Label htmlFor="provider">AI Provider</Label>
-            <Select value={config.providerId} onValueChange={(v) => setConfig({ ...config, providerId: v })}>
+            <Select value={config.providerId} onValueChange={(v) => setConfig({ ...config, providerId: v })} data-testid="select-provider">
               <SelectTrigger>
                 <SelectValue placeholder="Select a provider" />
               </SelectTrigger>
@@ -180,6 +180,7 @@ export default function AISettingsPage() {
               value={config.apiKey}
               onChange={(e) => setConfig({ ...config, apiKey: e.target.value })}
               placeholder="sk-..."
+              data-testid="input-api-key"
             />
             <p className="text-xs text-muted-foreground">
               Your API key is encrypted and stored securely
@@ -193,6 +194,7 @@ export default function AISettingsPage() {
               value={config.model}
               onChange={(e) => setConfig({ ...config, model: e.target.value })}
               placeholder="gpt-4"
+              data-testid="input-model"
             />
           </div>
 
@@ -204,6 +206,7 @@ export default function AISettingsPage() {
               min={0}
               max={1}
               step={0.1}
+              data-testid="slider-temperature"
             />
             <p className="text-xs text-muted-foreground">
               Lower values = more focused, Higher values = more creative
@@ -219,15 +222,16 @@ export default function AISettingsPage() {
               onChange={(e) => setConfig({ ...config, maxTokens: parseInt(e.target.value) })}
               min={100}
               max={4000}
+              data-testid="input-max-tokens"
             />
           </div>
 
           <div className="flex gap-3">
-            <Button onClick={testConfig} variant="outline" disabled={testing || !config.providerId || !config.apiKey}>
+            <Button onClick={testConfig} variant="outline" disabled={testing || !config.providerId || !config.apiKey} data-testid="button-test-connection">
               {testing ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : <Check className="h-4 w-4 mr-2" />}
               Test Connection
             </Button>
-            <Button onClick={() => saveConfig.mutate()} disabled={saveConfig.isPending || !config.providerId || !config.apiKey}>
+            <Button onClick={() => saveConfig.mutate()} disabled={saveConfig.isPending || !config.providerId || !config.apiKey} data-testid="button-save-config">
               Save Configuration
             </Button>
           </div>

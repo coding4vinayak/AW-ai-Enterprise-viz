@@ -28,13 +28,17 @@ router.post('/register', async (req, res) => {
     // Hash password
     const hashedPassword = await hashPassword(password);
 
-    // Create user with default role 'viewer'
+    // Check if this is the first user (auto-promote to super_admin)
+    const existingUsers = await storage.getAllUsers();
+    const isFirstUser = existingUsers.length === 0;
+
+    // Create user with appropriate role
     const user = await storage.createUser({
       customerId: customerId || null,
       email,
       username,
       password: hashedPassword,
-      role: 'viewer',
+      role: isFirstUser ? 'super_admin' : 'viewer',
       status: 'active',
     });
 

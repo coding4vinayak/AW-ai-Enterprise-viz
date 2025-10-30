@@ -496,8 +496,8 @@ export class DatabaseStorage implements IStorage {
     return customer || undefined;
   }
 
-  async getAllUsers(): Promise<User[]> {
-    return await db.select().from(users).orderBy(desc(users.createdAt));
+  async getAllUsers() {
+    return await db.query.users.findMany();
   }
 
   async getUsersByCustomer(customerId: string): Promise<User[]> {
@@ -555,7 +555,7 @@ export class DatabaseStorage implements IStorage {
   async getUsageStats(customerId: string, period: 'day' | 'week' | 'month'): Promise<any> {
     const now = new Date();
     const startDate = new Date();
-    
+
     switch (period) {
       case 'day':
         startDate.setDate(now.getDate() - 1);
@@ -622,7 +622,7 @@ export class DatabaseStorage implements IStorage {
 
   async incrementQuotaUsage(customerId: string, quotaType: string, amount: number): Promise<void> {
     await db.update(customerQuotas)
-      .set({ 
+      .set({
         used: sql`${customerQuotas.used} + ${amount}`,
         updatedAt: new Date()
       })

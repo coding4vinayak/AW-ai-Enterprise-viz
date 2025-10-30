@@ -7,6 +7,8 @@ import { ChartCard } from "@/components/dashboard/chart-card";
 import { useState, useRef } from "react";
 import { CreateChartDialog } from "@/components/dashboard/create-chart-dialog";
 import { ExportDialog } from "@/components/dashboard/export-dialog";
+import { ShareDashboardDialog } from "@/components/dashboard/share-dashboard-dialog";
+import { EmailReportsDialog } from "@/components/dashboard/email-reports-dialog";
 import { useDatasets, useCreateDashboard } from "@/lib/api-hooks";
 import { Link } from "wouter";
 
@@ -109,6 +111,8 @@ export default function Dashboard() {
               <Filter className="h-4 w-4" />
               <span className="hidden sm:inline">Filters</span>
             </Button>
+            <ShareDashboardDialog dashboardId="main-dashboard" dashboardName="Dashboard" />
+            <EmailReportsDialog dashboardId="main-dashboard" dashboardName="Dashboard" />
             <Button
               variant="outline"
               size="default"

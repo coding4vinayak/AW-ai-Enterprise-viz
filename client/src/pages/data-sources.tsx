@@ -4,8 +4,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Skeleton } from "@/components/ui/skeleton";
 import { DataUploadZone } from "@/components/data/data-upload-zone";
 import { DatasetCard } from "@/components/data/dataset-card";
+import { WebhookManager } from "@/components/data/webhook-manager";
 import { useState } from "react";
 import { useDatasets } from "@/lib/api-hooks";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function DataSources() {
   const [showUpload, setShowUpload] = useState(false);
@@ -37,73 +39,104 @@ export default function DataSources() {
       {/* Main Content */}
       <div className="flex-1 overflow-auto p-8">
         <div className="max-w-screen-2xl mx-auto space-y-8">
-          {/* Upload Zone */}
-          {showUpload && (
-            <Card className="border-dashed border-2">
-              <CardContent className="p-12">
-                <DataUploadZone onUploadComplete={() => setShowUpload(false)} />
-              </CardContent>
-            </Card>
-          )}
+          <Tabs defaultValue="upload" className="space-y-6">
+            <TabsList>
+              <TabsTrigger value="upload">Upload Data</TabsTrigger>
+              <TabsTrigger value="webhooks">Webhooks</TabsTrigger>
+            </TabsList>
 
-          {/* Loading State */}
-          {isLoading && (
-            <div>
-              <h2 className="text-2xl font-semibold mb-4">Connected Sources</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                {[1, 2, 3].map((i) => (
-                  <Card key={i}>
-                    <CardHeader className="pb-3">
-                      <Skeleton className="h-10 w-10 rounded-lg mb-3" />
-                      <Skeleton className="h-6 w-3/4 mb-2" />
-                      <Skeleton className="h-4 w-1/2" />
-                    </CardHeader>
-                    <CardContent>
-                      <Skeleton className="h-8 w-full" />
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </div>
-          )}
+            <TabsContent value="upload" className="space-y-8">
+              {/* Upload Zone */}
+              {showUpload && (
+                <Card className="border-dashed border-2">
+                  <CardContent className="p-12">
+                    <DataUploadZone onUploadComplete={() => setShowUpload(false)} />
+                  </CardContent>
+                </Card>
+              )}
 
-          {/* Connected Data Sources */}
-          {!isLoading && datasets && datasets.length > 0 && (
-            <>
-              <div>
-                <h2 className="text-2xl font-semibold mb-4">Connected Sources</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+              {/* Loading State */}
+              {isLoading && (
+                <div>
+                  <h2 className="text-2xl font-semibold mb-4">Connected Sources</h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                    {[1, 2, 3].map((i) => (
+                      <Card key={i}>
+                        <CardHeader className="pb-3">
+                          <Skeleton className="h-10 w-10 rounded-lg mb-3" />
+                          <Skeleton className="h-6 w-3/4 mb-2" />
+                          <Skeleton className="h-4 w-1/2" />
+                        </CardHeader>
+                        <CardContent>
+                          <Skeleton className="h-8 w-full" />
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Connected Data Sources */}
+              {!isLoading && datasets && datasets.length > 0 && (
+                <>
+                  <div>
+                    <h2 className="text-2xl font-semibold mb-4">Connected Sources</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                      {datasets.map((dataset) => (
+                        <DatasetCard key={dataset.id} dataset={dataset} />
+                      ))}
+                    </div>
+                  </div>
+                </>
+              )}
+
+              {/* Empty State */}
+              {!isLoading && (!datasets || datasets.length === 0) && !showUpload && (
+                <Card className="border-dashed border-2">
+                  <CardContent className="flex flex-col items-center justify-center p-12 text-center">
+                    <div className="flex h-20 w-20 items-center justify-center rounded-full bg-muted mb-6">
+                      <DatabaseIcon className="h-10 w-10 text-muted-foreground" />
+                    </div>
+                    <h3 className="text-xl font-semibold mb-2">No Data Sources Connected</h3>
+                    <p className="text-base text-muted-foreground mb-6 max-w-md">
+                      Upload a CSV or Excel file to get started with your analytics dashboard
+                    </p>
+                    <Button
+                      variant="default"
+                      size="lg"
+                      onClick={() => setShowUpload(true)}
+                      data-testid="button-get-started"
+                    >
+                      <Upload className="h-4 w-4" />
+                      Upload Your First Dataset
+                    </Button>
+                  </CardContent>
+                </Card>
+              )}
+            </TabsContent>
+
+            <TabsContent value="webhooks">
+              {datasets && datasets.length > 0 ? (
+                <div className="space-y-6">
                   {datasets.map((dataset) => (
-                    <DatasetCard key={dataset.id} dataset={dataset} />
+                    <WebhookManager
+                      key={dataset.id}
+                      datasetId={dataset.id}
+                      datasetName={dataset.name}
+                    />
                   ))}
                 </div>
-              </div>
-            </>
-          )}
-
-          {/* Empty State */}
-          {!isLoading && (!datasets || datasets.length === 0) && !showUpload && (
-            <Card className="border-dashed border-2">
-              <CardContent className="flex flex-col items-center justify-center p-12 text-center">
-                <div className="flex h-20 w-20 items-center justify-center rounded-full bg-muted mb-6">
-                  <DatabaseIcon className="h-10 w-10 text-muted-foreground" />
-                </div>
-                <h3 className="text-xl font-semibold mb-2">No Data Sources Connected</h3>
-                <p className="text-base text-muted-foreground mb-6 max-w-md">
-                  Upload a CSV or Excel file to get started with your analytics dashboard
-                </p>
-                <Button
-                  variant="default"
-                  size="lg"
-                  onClick={() => setShowUpload(true)}
-                  data-testid="button-get-started"
-                >
-                  <Upload className="h-4 w-4" />
-                  Upload Your First Dataset
-                </Button>
-              </CardContent>
-            </Card>
-          )}
+              ) : (
+                <Card>
+                  <CardContent className="flex flex-col items-center justify-center py-12">
+                    <p className="text-sm text-muted-foreground">
+                      Upload a dataset first to create webhooks
+                    </p>
+                  </CardContent>
+                </Card>
+              )}
+            </TabsContent>
+          </Tabs>
 
           {/* Quick Start Guide */}
           <div>

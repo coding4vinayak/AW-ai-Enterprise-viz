@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -116,6 +117,14 @@ export function DashboardFilters({ onFiltersChange, availableFields }: Dashboard
                   <SelectItem value="contains">Contains</SelectItem>
                 </SelectContent>
               </Select>
+            </div>
+            <div className="flex-1 space-y-2">
+              <Label>Value</Label>
+              <Input
+                placeholder="Filter value"
+                value={filter.value}
+                onChange={(e) => updateFilter(index, { value: e.target.value })}
+              />
             </div>
             <Button variant="ghost" size="icon" onClick={() => removeFilter(index)}>
               <X className="h-4 w-4" />

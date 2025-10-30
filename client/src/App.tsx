@@ -33,6 +33,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import DashboardWizard from "@/pages/dashboard-wizard";
+import DashboardBuilder from "@/pages/dashboard-builder";
 import { lazy } from "react";
 
 // Navigate component for redirects
@@ -116,6 +117,7 @@ function ProtectedRoutes() {
           <main className="flex-1 overflow-auto">
             <Switch>
               <Route path="/" component={Dashboard} />
+              <Route path="/dashboard-builder" component={DashboardBuilder} />
               <Route path="/chart-builder" component={lazy(() => import('./pages/chart-builder-advanced'))} />
               <Route path="/data-sources" component={DataSources} />
               <Route path="/analytics" component={Analytics} />

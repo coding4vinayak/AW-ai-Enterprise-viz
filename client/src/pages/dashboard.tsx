@@ -126,6 +126,13 @@ export default function Dashboard() {
                 <span className="sm:hidden">Quick</span>
               </Button>
             </Link>
+            <Link href="/dashboard-builder">
+              <Button variant="outline" size="default" className="flex-1 sm:flex-initial" data-testid="button-layout-editor">
+                <Plus className="h-4 w-4" />
+                <span className="hidden sm:inline">Layout Editor</span>
+                <span className="sm:hidden">Layout</span>
+              </Button>
+            </Link>
             <Button
               variant="default"
               size="default"

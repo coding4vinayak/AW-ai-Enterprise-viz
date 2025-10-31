@@ -19,9 +19,20 @@ export async function seedDatabase() {
     // Actual seeding logic
     const seedPromise = (async () => {
       try {
-        // Check if super admin already exists
+        // Add small delay to ensure DB connection is ready
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        // Check if super admin already exists with direct query
         console.log('Checking for existing super admin...');
-        const existingSuperAdmin = await storage.getUsers({ role: 'super_admin' });
+        const { db } = await import("./db");
+        const { users } = await import("@shared/schema");
+        const { eq } = await import("drizzle-orm");
+        
+        const existingSuperAdmin = await db.select()
+          .from(users)
+          .where(eq(users.role, 'super_admin'))
+          .limit(1);
+          
         if (existingSuperAdmin.length > 0) {
           console.log('Super admin already exists, skipping seed...');
           return;

@@ -86,24 +86,36 @@ app.use((req, res, next) => {
 });
 
 (async () => {
-  // Test database connection first
-  try {
-    await db.execute(sql`SELECT 1`);
-    log('Database connection verified', 'express');
-  } catch (dbError) {
-    log(`Database connection failed: ${dbError}`, 'express');
+  // Test database connection with retries
+  let dbConnected = false;
+  for (let i = 0; i < 3; i++) {
+    try {
+      await db.execute(sql`SELECT 1`);
+      log('Database connection verified', 'express');
+      dbConnected = true;
+      break;
+    } catch (dbError) {
+      log(`Database connection attempt ${i + 1} failed: ${dbError}`, 'express');
+      if (i < 2) {
+        await new Promise(resolve => setTimeout(resolve, 2000));
+      }
+    }
   }
 
-  // Seed database on first run (non-blocking)
-  seedDatabase()
-    .then(() => {
-      log('Database seeding completed successfully', 'express');
-    })
-    .catch((error) => {
-      log(`Failed to seed database: ${error.message}`, 'express');
-      log('You can manually seed by calling POST /api/admin/seed-database as super_admin', 'express');
-      log('Continuing with server startup...', 'express');
-    });
+  if (!dbConnected) {
+    log('Database connection failed after 3 attempts, skipping seed', 'express');
+  } else {
+    // Seed database on first run (non-blocking)
+    seedDatabase()
+      .then(() => {
+        log('Database seeding completed successfully', 'express');
+      })
+      .catch((error) => {
+        log(`Failed to seed database: ${error.message}`, 'express');
+        log('You can manually seed by calling POST /api/admin/seed-database as super_admin', 'express');
+        log('Continuing with server startup...', 'express');
+      });
+  }
 
   // Register auth routes
   app.use('/api/auth', authRoutes);

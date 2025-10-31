@@ -1,10 +1,8 @@
-
 import { useMemo } from 'react';
 import {
-  LineChart, Line, BarChart, Bar, PieChart, Pie, AreaChart, Area,
-  ScatterChart, Scatter, RadarChart, Radar, PolarGrid, PolarAngleAxis,
-  PolarRadiusAxis, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
-  ResponsiveContainer, Cell
+  LineChart, Line, BarChart, Bar, PieChart, Pie, Cell,
+  AreaChart, Area, ScatterChart, Scatter, RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis,
+  XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
 } from 'recharts';
 import type { AdvancedChartConfig } from '@shared/types';
 
@@ -25,14 +23,21 @@ const COLOR_SCHEMES = {
 
 export function AdvancedChartRenderer({ config, data, height = 400 }: AdvancedChartRendererProps) {
   const colors = config?.colors || COLOR_SCHEMES[config?.colorScheme || 'default'];
-  
+
   const chartData = useMemo(() => {
-    // Data is already processed by the backend
     if (!Array.isArray(data)) return [];
     return data;
   }, [data]);
 
-  if (!config || !chartData || chartData.length === 0) {
+  if (!config) {
+    return (
+      <div className="w-full h-full flex items-center justify-center text-muted-foreground">
+        No chart configuration
+      </div>
+    );
+  }
+
+  if (!chartData || chartData.length === 0) {
     return (
       <div className="w-full h-full flex items-center justify-center text-muted-foreground">
         No data available
@@ -53,11 +58,11 @@ export function AdvancedChartRenderer({ config, data, height = 400 }: AdvancedCh
         return (
           <LineChart {...commonProps}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis 
-              dataKey={config.xAxis?.field} 
+            <XAxis
+              dataKey={config.xAxis?.field}
               label={{ value: config.xAxis?.label, position: 'insideBottom', offset: -5 }}
             />
-            <YAxis 
+            <YAxis
               label={{ value: config.yAxis?.label, angle: -90, position: 'insideLeft' }}
             />
             <Tooltip />

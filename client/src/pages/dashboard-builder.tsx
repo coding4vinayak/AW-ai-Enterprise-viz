@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Plus, ArrowLeft } from "lucide-react";
 import { Link } from "wouter";
 import { useToast } from "@/hooks/use-toast";
+import { Skeleton } from '@/components/ui/skeleton';
 
 type KPIWidget = {
   id: string;
@@ -48,6 +49,7 @@ export default function DashboardBuilder() {
     { i: "chart-3", x: 0, y: 4, w: 6, h: 3, minW: 4, minH: 2 },
     { i: "chart-4", x: 6, y: 4, w: 6, h: 3, minW: 4, minH: 2 },
   ]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleLayoutChange = (newLayout: GridItem[]) => {
     setLayout(newLayout);
@@ -104,6 +106,29 @@ export default function DashboardBuilder() {
       createdAt: new Date(),
       updatedAt: new Date()
     }));
+
+  // Add loading state and error handling for charts
+  if (isLoading) {
+    return (
+      <div className="flex flex-col h-full p-8">
+        <div className="max-w-screen-2xl mx-auto w-full">
+          <div className="grid grid-cols-12 gap-6">
+            {[...Array(7)].map((_, i) => (
+              <Skeleton key={i} className="col-span-6 h-64 rounded-lg" />
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!chartsFromWidgets || chartsFromWidgets.length === 0) {
+    return (
+      <div className="flex flex-col h-full items-center justify-center p-8">
+        <p className="text-muted-foreground">No charts found. Add some widgets to get started.</p>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col h-full">

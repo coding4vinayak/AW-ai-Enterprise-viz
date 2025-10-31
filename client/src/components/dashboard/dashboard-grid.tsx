@@ -215,27 +215,32 @@ export function DashboardGrid({
           margin={[16, 16]}
           containerPadding={[0, 0]}
         >
-          {charts && charts.length > 0 ? charts.map((chart) => (
-            <Card key={chart.id} className="overflow-hidden group">
-              <CardHeader className="flex flex-row items-center justify-between pb-3">
-                <CardTitle className="text-lg flex items-center gap-2">
-                  {internalIsEditMode && <GripVertical className="h-4 w-4 text-muted-foreground cursor-move" />}
-                  {chart.name}
-                </CardTitle>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="opacity-0 group-hover:opacity-100 transition-opacity"
-                  onClick={() => setExpandedChart(chart.id)}
-                >
-                  <Maximize2 className="h-4 w-4" />
-                </Button>
-              </CardHeader>
-              <CardContent>
-                <AdvancedChartRenderer chart={chart} />
-              </CardContent>
-            </Card>
-          )) : null}
+          {Array.isArray(charts) && charts.length > 0 ? (
+            charts.map((chart) => {
+              if (!chart || !chart.id) return null;
+              return (
+                <Card key={chart.id} className="overflow-hidden group">
+                  <CardHeader className="flex flex-row items-center justify-between pb-3">
+                    <CardTitle className="text-lg flex items-center gap-2">
+                      {internalIsEditMode && <GripVertical className="h-4 w-4 text-muted-foreground cursor-move" />}
+                      {chart.name || 'Untitled Chart'}
+                    </CardTitle>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="opacity-0 group-hover:opacity-100 transition-opacity"
+                      onClick={() => setExpandedChart(chart.id)}
+                    >
+                      <Maximize2 className="h-4 w-4" />
+                    </Button>
+                  </CardHeader>
+                  <CardContent>
+                    <AdvancedChartRenderer chart={chart} />
+                  </CardContent>
+                </Card>
+              );
+            })
+          ) : null}
           {children}
         </ResponsiveGridLayout>
       )}

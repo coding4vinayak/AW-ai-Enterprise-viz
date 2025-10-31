@@ -10,7 +10,7 @@ import { BarChart3, TrendingUp, AlertTriangle } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 
 export default function AnalyticsPage() {
-  const { data: datasets } = useDatasets();
+  const { data: datasets, isLoading: datasetsLoading } = useDatasets();
   const { toast } = useToast();
 
   const [selectedDataset, setSelectedDataset] = useState('');
@@ -19,25 +19,37 @@ export default function AnalyticsPage() {
   const [trendData, setTrendData] = useState<any>(null);
   const [anomalies, setAnomalies] = useState<any[]>([]);
   const [columns, setColumns] = useState<string[]>([]);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
 
   const handleDatasetChange = (datasetId: string) => {
-    setSelectedDataset(datasetId);
-    setXField('');
-    setYField('');
-    setTrendData(null);
-    setAnomalies([]);
-    
-    const dataset = datasets?.find(d => d.id === datasetId);
-    if (dataset) {
-      const data = dataset.uploadedData as any[];
-      const cols = dataset.columns || (Array.isArray(data) && data.length > 0 ? Object.keys(data[0]) : []);
-      setColumns(cols);
-    } else {
+    try {
+      setSelectedDataset(datasetId);
+      setXField('');
+      setYField('');
+      setTrendData(null);
+      setAnomalies([]);
+      
+      if (!datasets || !Array.isArray(datasets)) {
+        setColumns([]);
+        return;
+      }
+      
+      const dataset = datasets.find(d => d.id === datasetId);
+      if (dataset) {
+        const data = dataset.uploadedData as any[];
+        const cols = dataset.columns || (Array.isArray(data) && data.length > 0 ? Object.keys(data[0]) : []);
+        setColumns(Array.isArray(cols) ? cols : []);
+      } else {
+        setColumns([]);
+      }
+    } catch (error) {
+      console.error('Error changing dataset:', error);
       setColumns([]);
     }
   };
 
   const analyzeTrend = async () => {
+    setIsAnalyzing(true);
     try {
       const response = await fetch('/api/analytics/trend', {
         method: 'POST',
@@ -50,7 +62,7 @@ export default function AnalyticsPage() {
 
       const data = await response.json();
       const dataset = datasets?.find(d => d.id === selectedDataset);
-      setTrendData({ ...data, dataset: dataset?.uploadedData });
+      setTrendData({ ...data, dataset: dataset?.uploadedData || [] });
 
       toast({
         title: 'Success',
@@ -59,13 +71,16 @@ export default function AnalyticsPage() {
     } catch (error: any) {
       toast({
         title: 'Error',
-        description: error.message,
+        description: error.message || 'Failed to analyze trend',
         variant: 'destructive'
       });
+    } finally {
+      setIsAnalyzing(false);
     }
   };
 
   const detectAnomalies = async () => {
+    setIsAnalyzing(true);
     try {
       const response = await fetch('/api/analytics/anomalies', {
         method: 'POST',
@@ -77,20 +92,32 @@ export default function AnalyticsPage() {
       if (!response.ok) throw new Error('Failed to detect anomalies');
 
       const data = await response.json();
-      setAnomalies(data.anomalies);
+      setAnomalies(Array.isArray(data.anomalies) ? data.anomalies : []);
 
       toast({
         title: 'Success',
-        description: `Found ${data.count} anomalies`
+        description: `Found ${data.count || 0} anomalies`
       });
     } catch (error: any) {
       toast({
         title: 'Error',
-        description: error.message,
+        description: error.message || 'Failed to detect anomalies',
         variant: 'destructive'
       });
+    } finally {
+      setIsAnalyzing(false);
     }
   };
+
+  if (datasetsLoading) {
+    return (
+      <div className="p-8 space-y-6">
+        <div className="flex items-center justify-center h-64">
+          <div className="text-muted-foreground">Loading datasets...</div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="p-8 space-y-6">
@@ -112,9 +139,13 @@ export default function AnalyticsPage() {
                   <SelectValue placeholder="Select dataset" />
                 </SelectTrigger>
                 <SelectContent>
-                  {datasets?.map(ds => (
-                    <SelectItem key={ds.id} value={ds.id}>{ds.name}</SelectItem>
-                  ))}
+                  {Array.isArray(datasets) && datasets.length > 0 ? (
+                    datasets.map(ds => (
+                      <SelectItem key={ds.id} value={ds.id}>{ds.name}</SelectItem>
+                    ))
+                  ) : (
+                    <SelectItem value="no-data" disabled>No datasets available</SelectItem>
+                  )}
                 </SelectContent>
               </Select>
             </div>
@@ -149,13 +180,20 @@ export default function AnalyticsPage() {
           </div>
 
           <div className="flex gap-2">
-            <Button onClick={analyzeTrend} disabled={!selectedDataset || !xField || !yField}>
+            <Button 
+              onClick={analyzeTrend} 
+              disabled={!selectedDataset || !xField || !yField || isAnalyzing}
+            >
               <TrendingUp className="h-4 w-4 mr-2" />
-              Analyze Trend
+              {isAnalyzing ? 'Analyzing...' : 'Analyze Trend'}
             </Button>
-            <Button onClick={detectAnomalies} variant="outline" disabled={!selectedDataset || !yField}>
+            <Button 
+              onClick={detectAnomalies} 
+              variant="outline" 
+              disabled={!selectedDataset || !yField || isAnalyzing}
+            >
               <AlertTriangle className="h-4 w-4 mr-2" />
-              Detect Anomalies
+              {isAnalyzing ? 'Detecting...' : 'Detect Anomalies'}
             </Button>
           </div>
         </CardContent>

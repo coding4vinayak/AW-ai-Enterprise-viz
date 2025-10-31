@@ -1,0 +1,1001 @@
+car_make,car_model,car_year,price,location,salesperson,purchase_date,customer_name,customer_email,sales_channel
+Mercedes-Benz,SL-Class,1974,32473.26,Miami,Ashely Langhorne,12/8/2007,Margalit Domingues,mdomingues0@chron.com,Auction
+Land Rover,Discovery,1960,29645.97,Houston,Fredelia Fideler,11/4/2000,Dawn Bartolomeotti,dbartolomeotti1@wiley.com,Auction
+Oldsmobile,Regency,1916,73560.17,Los Angeles,Chrisse Shrubsall,3/12/2003,Sophronia Halfhead,shalfhead2@163.com,Online
+Chevrolet,2500,1981,89547.89,Houston,Thurston Heigl,3/12/2021,Sterling Southall,ssouthall3@oakley.com,Dealership
+Acura,RL,1965,89481.17,Los Angeles,Waldon Metterick,11/20/2018,Brant Coan,bcoan4@livejournal.com,Dealership
+Oldsmobile,Ciera,1994,57527.18,Houston,Steffane Silliman,2/23/2011,Em Petr,epetr5@behance.net,Dealership
+Dodge,Ram 1500,1961,24290.36,Los Angeles,Janessa Warlock,10/20/2002,Clyve Ely,cely6@narod.ru,Online
+Toyota,Camry,1966,59988.63,Houston,Geordie Dredge,11/17/2020,Lola Cancellieri,lcancellieri7@adobe.com,Dealership
+Volkswagen,Cabriolet,1929,25000.45,Los Angeles,Aileen Van Oord,5/27/2002,Morgana Crisford,mcrisford8@ftc.gov,Auction
+Lincoln,Mark VII,2007,16009.03,Los Angeles,Marylee Abrahmson,2/10/2008,Fernande Haddleton,fhaddleton9@skype.com,Auction
+Toyota,Sequoia,1997,3393.07,Los Angeles,Fleur Danielou,7/7/2008,Aeriell Peck,apecka@list-manage.com,Dealership
+Scion,xB,1928,51337.74,Miami,Terencio Sutter,2/26/2015,Darryl Cantero,dcanterob@home.pl,Dealership
+Isuzu,i-370,1925,33418.7,Miami,Philbert Byforth,9/6/2000,Almeria Batisse,abatissec@nationalgeographic.com,Auction
+Maybach,Landaulet,1992,62448.38,Miami,Madel Huster,11/29/2008,Laina Padgett,lpadgettd@bizjournals.com,Online
+Mercedes-Benz,S-Class,1925,74058.92,Miami,Rosalyn Close,2/23/2014,Saul O'Brogan,sobrogane@craigslist.org,Online
+Lincoln,LS,1962,54054.57,New York,Dierdre Sager,10/11/2020,Celina Spurdens,cspurdensf@opensource.org,Dealership
+Dodge,Shadow,1911,44033.1,Los Angeles,Lyell Pentecost,11/12/2014,Diahann Bickle,dbickleg@mac.com,Online
+Ford,E150,1965,87493.41,Los Angeles,Nancy Bezants,3/16/2005,Ricky Olyet,rolyeth@yale.edu,Auction
+Jeep,Wrangler,1983,24275.57,Houston,Allene Screeton,12/31/2018,Suellen Shilliday,sshillidayi@github.com,Online
+Mercedes-Benz,CL-Class,1933,9379.23,Chicago,Lavina Stoneley,2/11/2018,Denni Camous,dcamousj@i2i.jp,Online
+BMW,M6,1937,95801.38,Houston,Myrna Brekonridge,9/30/2019,Bald Errichelli,berrichellik@google.com,Online
+Mazda,Tribute,2001,63838.77,Houston,Nicolis Lawles,10/22/2010,Lacy Sanford,lsanfordl@technorati.com,Dealership
+GMC,Yukon XL 2500,2022,70008.06,Chicago,Adlai Newport,12/22/2018,Marta Blissett,mblissettm@ow.ly,Dealership
+Chrysler,300,1970,51734.24,Los Angeles,Doy Witty,11/5/2021,Pate Pringuer,ppringuern@senate.gov,Online
+Hyundai,Elantra,1972,42291.47,New York,Aurora Heiton,6/7/2021,Gale Huncoot,ghuncooto@issuu.com,Dealership
+Mitsubishi,Mirage,1961,62554.99,Houston,Conni Arnao,5/19/2009,Kerrie Bamborough,kbamboroughp@fema.gov,Dealership
+Dodge,Durango,1962,42760.41,New York,Kamilah Sanchiz,2/28/2021,Dionis Priter,dpriterq@4shared.com,Auction
+Mercury,Cougar,1906,24191.12,New York,Derwin McKain,3/12/2007,Jermain Welbeck,jwelbeckr@slideshare.net,Dealership
+Jaguar,X-Type,1951,52457.49,Houston,Shauna Gynne,12/4/2005,Richmound Siege,rsieges@cbsnews.com,Online
+Volkswagen,rio,1959,24532.8,Houston,Sal Innman,8/22/2014,Etty Kwietak,ekwietakt@google.de,Auction
+Maserati,228,1901,28542.12,Houston,Rodger Van Geffen,2/27/2017,Arney Tomsa,atomsau@indiegogo.com,Auction
+BMW,7 Series,1971,82269.5,Houston,Heather Dallicott,12/15/2017,Mose Thurber,mthurberv@rediff.com,Online
+GMC,1500 Club Coupe,2004,10204.02,New York,Clary Points,12/12/2008,Leyla Cohalan,lcohalanw@moonfruit.com,Auction
+Chevrolet,Silverado,1964,40971.22,New York,Abran Rosterne,4/2/2006,Dehlia Gamage,dgamagex@theguardian.com,Dealership
+Toyota,Venza,1991,55461.01,Houston,Mehetabel MacParlan,12/26/2019,Rocky Boneham,rbonehamy@clickbank.net,Online
+Lincoln,Continental,1966,69095.96,Los Angeles,Gerri Swyne,8/17/2017,Domini Michelotti,dmichelottiz@phpbb.com,Auction
+Volvo,XC70,1998,1234.22,Los Angeles,Jeremie Knatt,10/27/2013,York Busch,ybusch10@friendfeed.com,Online
+Toyota,Camry,1974,93438.4,Los Angeles,Hersh Druhan,2/1/2021,Loria Lorroway,llorroway11@opensource.org,Auction
+Fiat,500,1910,76650.64,Chicago,Manon MacBrearty,2/5/2016,Dara Rosberg,drosberg12@multiply.com,Online
+Audi,A8,1911,8705.87,Miami,Noella O'Longain,5/8/2013,Harley Lent,hlent13@msu.edu,Auction
+Chevrolet,Express,1909,7088.52,Miami,Kinnie Bussons,11/30/2008,Tammi Bertelsen,tbertelsen14@umich.edu,Online
+Lotus,Esprit,1960,75999.53,Miami,Rici Benoist,6/3/2009,Cicely Masden,cmasden15@state.tx.us,Dealership
+Volkswagen,rio,1947,26895.06,New York,Terencio Redington,10/12/2008,Sibbie Henrys,shenrys16@chicagotribune.com,Online
+Chevrolet,Aveo,1996,80883.67,Houston,Loutitia Tenby,5/24/2001,Tuckie Collingworth,tcollingworth17@flavors.me,Dealership
+Dodge,Stratus,2020,28661.89,Miami,Findlay Ridgwell,10/8/2022,Upton Stovin,ustovin18@accuweather.com,Dealership
+Hyundai,Accent,1942,76957.49,New York,Martino Mensler,6/18/2016,Aubry Cattow,acattow19@mapquest.com,Online
+Volkswagen,Tiguan,1964,84704.7,Miami,Deidre Crutchfield,2/10/2013,Baron Tilzey,btilzey1a@state.tx.us,Auction
+Lincoln,Mark VII,1924,59078.57,Miami,Gris Priestner,11/12/2015,Wittie Gatteridge,wgatteridge1b@barnesandnoble.com,Dealership
+Chevrolet,Suburban 1500,1985,16481.81,Houston,Graig Harpur,6/24/2020,Tybie Kealey,tkealey1c@webeden.co.uk,Online
+Mercedes-Benz,CLS-Class,1918,34254.31,Houston,Vicki Filimore,6/18/2017,Trent Duffield,tduffield1d@aol.com,Online
+BMW,525,1916,11923.18,Los Angeles,Paulie Draco,1/19/2017,Thomasa Knowller,tknowller1e@whitehouse.gov,Auction
+Mazda,Protege5,1904,9873.55,Los Angeles,Britteny Pendergrast,8/10/2008,Rockie Westall,rwestall1f@ameblo.jp,Dealership
+Cadillac,Escalade EXT,2015,81122.24,Chicago,Tove Bracher,7/5/2016,Laurice Tellwright,ltellwright1g@springer.com,Auction
+Mercedes-Benz,CL-Class,1972,32241.93,Los Angeles,Joye Mosten,4/27/2003,Wilfrid Howton,whowton1h@surveymonkey.com,Auction
+Maserati,228,1955,83564.3,Los Angeles,Jamima Viall,9/25/2008,Abbey Le Gall,ale1i@hao123.com,Auction
+Ford,Escort,1929,22511.29,Chicago,Arney Tubritt,8/3/2020,Felicity Harbertson,fharbertson1j@over-blog.com,Auction
+Buick,Rainier,1981,82738.11,Los Angeles,Elden Vlasin,7/29/2013,Ardelis Kitchinham,akitchinham1k@goo.gl,Dealership
+Lexus,GS,1903,88414.97,Chicago,Urbano Chantler,8/18/2001,Fanny Langstone,flangstone1l@bloomberg.com,Dealership
+Maserati,Karif,1918,50113.94,Los Angeles,Doralin Andriesse,1/12/2014,Corbin Cristol,ccristol1m@delicious.com,Auction
+Chevrolet,Cavalier,1997,35858.84,Houston,Willi Aronin,1/26/2014,Ruby Raylton,rraylton1n@usa.gov,Dealership
+Maybach,62,2022,88392.17,Houston,Ami Zukierman,4/11/2020,Kaye Marc,kmarc1o@google.ru,Online
+Chevrolet,TrailBlazer,1986,54388.22,Miami,Chelsy Ohrtmann,9/3/2006,Rufe Scotchmor,rscotchmor1p@phoca.cz,Dealership
+Nissan,Altima,1950,92211.23,Miami,Reuben Gowman,3/16/2009,Sandro Radsdale,sradsdale1q@123-reg.co.uk,Dealership
+Mercedes-Benz,SLR McLaren,1949,8065.66,Chicago,Austin Johnes,1/13/2015,Garold Denyakin,gdenyakin1r@archive.org,Auction
+Dodge,Shadow,1927,64158.03,Chicago,Archie Palmby,5/2/2008,Guillaume MacCome,gmaccome1s@un.org,Online
+Dodge,Grand Caravan,1968,43640.26,Los Angeles,Katey Wildgoose,1/4/2017,Eldredge Branscombe,ebranscombe1t@marriott.com,Dealership
+Toyota,RAV4,1993,33657.45,Miami,Jay Duxbury,8/12/2012,Heinrik Cutler,hcutler1u@mayoclinic.com,Dealership
+Nissan,Armada,1993,53456.76,Miami,Duffie Berkelay,7/8/2021,Matty Vakhonin,mvakhonin1v@usatoday.com,Auction
+Mitsubishi,Outlander,1997,58209.94,Miami,Nealson Toffalo,12/18/2011,Marcelo Le Hucquet,mle1w@tiny.cc,Auction
+Lexus,SC,1901,91068.45,New York,Kristofor Corney,9/28/2010,Delilah Arne,darne1x@godaddy.com,Online
+Ford,Thunderbird,1959,42092.44,New York,Ginger Ginley,3/8/2001,Alexandros Odegaard,aodegaard1y@slideshare.net,Dealership
+Ford,Excursion,1987,45645.33,Houston,Chance McVey,6/10/2000,Ewart Room,eroom1z@cmu.edu,Auction
+Saab,900,1934,55044.05,Houston,Tiffy Lanston,4/19/2010,Erna Simic,esimic20@tripadvisor.com,Dealership
+Pontiac,Torrent,1994,81694.38,New York,Jobye Bythell,1/4/2016,Kakalina Wellstood,kwellstood21@theguardian.com,Dealership
+Isuzu,Hombre Space,1985,94502.02,Chicago,Waylen Pay,5/9/2019,Sean Lefeuvre,slefeuvre22@uol.com.br,Auction
+Ford,Thunderbird,1997,3129.58,Los Angeles,Hurley Hebron,4/16/2013,Nickie Wogden,nwogden23@amazon.com,Dealership
+Mercury,Tracer,1940,61550.06,Los Angeles,Leisha McAllan,2/24/2019,Wyatan Stranahan,wstranahan24@woothemes.com,Dealership
+Hyundai,Tiburon,1922,8341.02,Chicago,Ola Galego,11/22/2007,Elysha Beetham,ebeetham25@blogs.com,Online
+Dodge,Dakota,1949,63181.06,Miami,Shayne Hessenthaler,3/28/2016,Mona Freund,mfreund26@ifeng.com,Auction
+Toyota,RAV4,1968,52536.23,Los Angeles,Tybalt Gorst,6/4/2012,Abba Slany,aslany27@themeforest.net,Online
+Volkswagen,Fox,1965,40280.35,Miami,Emmye Benford,6/5/2009,Shannah Lamp,slamp28@wikispaces.com,Online
+Chrysler,PT Cruiser,2005,87600.89,Miami,Henry Alven,7/17/2002,Esme Tackle,etackle29@hhs.gov,Online
+Ford,F150,2015,95493.84,Los Angeles,Judd Lilleman,4/18/2009,Guss Tarbox,gtarbox2a@youku.com,Auction
+Mercedes-Benz,500E,1922,56211.44,Chicago,Lutero Huriche,9/10/2017,Elli Lowdyane,elowdyane2b@yellowpages.com,Dealership
+BMW,7 Series,1951,51302.16,Miami,Dru Roads,3/9/2005,Shanda Stead,sstead2c@desdev.cn,Auction
+Jeep,Wrangler,1915,21247.93,Miami,Whitney Gerrett,10/1/2018,Ophelia Meak,omeak2d@un.org,Auction
+Maybach,57,2012,47699.23,Houston,Fifine Brose,12/1/2018,Rolf Norquoy,rnorquoy2e@ustream.tv,Online
+Audi,RS6,1905,49668.03,Chicago,Nissy Pocklington,1/10/2016,Cristian Polino,cpolino2f@cmu.edu,Online
+Toyota,Solara,1932,15736.1,Los Angeles,Meggi Reynard,1/25/2015,Melli Lenglet,mlenglet2g@a8.net,Auction
+Ford,Expedition,2017,95721.36,Houston,Brewster Bower,7/21/2014,Lucy Harrild,lharrild2h@bbb.org,Auction
+Lincoln,Town Car,1996,53731.83,Chicago,Arnoldo Maryott,2/4/2012,Lorri Morpeth,lmorpeth2i@networksolutions.com,Online
+BMW,1 Series,1926,79144.09,Chicago,Natalie Leason,4/14/2019,Nissa Pottery,npottery2j@bizjournals.com,Online
+Mitsubishi,Pajero,2007,86144.92,New York,Paige Shenton,6/23/2008,Melisent Pigne,mpigne2k@noaa.gov,Auction
+Jeep,Compass,1941,86324.34,Miami,Gardener Shall,2/18/2005,Roz Philipson,rphilipson2l@usda.gov,Dealership
+Mercedes-Benz,GLK-Class,1944,79041.66,Houston,Aggy Kliner,12/17/2008,Florenza Hamblin,fhamblin2m@google.es,Auction
+Chevrolet,Camaro,1998,40633.19,Los Angeles,Mycah Sharpus,1/11/2008,Janessa Fitter,jfitter2n@pagesperso-orange.fr,Auction
+Lexus,RX,1967,36254.39,Los Angeles,Taylor Fann,2/23/2017,Miltie Baggiani,mbaggiani2o@google.nl,Online
+Dodge,D150,1942,91196.92,Los Angeles,Sarajane Heddy,11/28/2012,Sanson Bulled,sbulled2p@github.com,Dealership
+Mitsubishi,Challenger,1965,75574.97,New York,Coralyn Gepheart,11/18/2022,Georgina Atwill,gatwill2q@craigslist.org,Auction
+Dodge,Stratus,1903,20197.21,Miami,Cori Scudamore,12/26/2004,Giraldo MacDearmid,gmacdearmid2r@google.cn,Dealership
+Lotus,Evora,1945,39790.76,Miami,Filippo Vosse,3/6/2002,Jaine Oswald,joswald2s@stumbleupon.com,Online
+Chevrolet,Colorado,1926,70046.5,Houston,Cindee Keough,2/23/2006,Clevie Shave,cshave2t@creativecommons.org,Dealership
+Plymouth,Neon,1994,19264.19,New York,Emlynne Donisthorpe,7/16/2012,Garrot Stocking,gstocking2u@hugedomains.com,Auction
+Lexus,GS,1911,86715.74,New York,Chrysler Allenson,8/26/2019,Queenie Coventry,qcoventry2v@printfriendly.com,Online
+Chevrolet,Malibu,1939,22008.16,Miami,Haley Ditzel,1/11/2010,Tresa Pendlebery,tpendlebery2w@cloudflare.com,Online
+Porsche,911,1935,69567.56,New York,Graehme Harvatt,8/20/2022,Ellen Syson,esyson2x@ustream.tv,Auction
+BMW,M6,1923,36700.64,Chicago,Ben Bellini,7/20/2002,Viola Semarke,vsemarke2y@umich.edu,Online
+Isuzu,Hombre,1928,41780.68,Los Angeles,Dell Dickman,3/16/2020,Feliza Milliken,fmilliken2z@purevolume.com,Online
+GMC,Savana 2500,1980,37669.19,Chicago,Laurianne Rothman,3/7/2006,Laurie Arson,larson30@1688.com,Online
+Aston Martin,V12 Vantage,1905,81402.66,Los Angeles,Orlan Easton,9/20/2016,Raddie Lafee,rlafee31@4shared.com,Online
+Dodge,Caravan,1960,62353.56,Los Angeles,Novelia Battista,11/4/2022,Archibald Elliston,aelliston32@lulu.com,Auction
+Nissan,Sentra,1954,96884.64,Miami,Natalina Hince,3/15/2005,Flory Lackie,flackie33@baidu.com,Auction
+Mazda,B-Series Plus,1922,73890.54,Houston,Eden Matzl,9/8/2022,Jocko Ching,jching34@shinystat.com,Online
+Suzuki,Daewoo Lacetti,1933,92348.11,New York,Harris Headford,10/12/2022,Betsy Kingaby,bkingaby35@netscape.com,Dealership
+Toyota,Tacoma,1957,15282.9,New York,Gerardo O'Hare,7/27/2017,Sapphire Hantusch,shantusch36@deliciousdays.com,Online
+Acura,RDX,1972,91245.27,New York,Fayette Creeber,8/29/2013,Jesselyn Teresse,jteresse37@mozilla.org,Online
+Ford,Crown Victoria,1980,54373.55,Houston,Harland Chalcot,1/22/2006,Patrice Bauldrey,pbauldrey38@blogtalkradio.com,Dealership
+Bentley,Continental GTC,1910,36142.06,Houston,Elsy Ciccetti,4/12/2009,Kerri Mancer,kmancer39@hostgator.com,Dealership
+Maserati,Quattroporte,2001,23419.69,Chicago,Hildy Burnapp,4/19/2018,Netti Coper,ncoper3a@engadget.com,Dealership
+Dodge,Intrepid,1979,68926.12,Miami,Gerhardt Grinstead,3/29/2020,Cecilia Harmson,charmson3b@umich.edu,Online
+Mazda,Miata MX-5,1925,12730.79,New York,Berry MacEllen,8/23/2000,Julian Blesli,jblesli3c@ft.com,Dealership
+Nissan,Quest,1982,63716.0,Houston,Jesse Ludewig,4/25/2005,Corbie Charley,ccharley3d@last.fm,Online
+Ford,E350,1991,84541.78,New York,Meredithe Jacob,4/16/2017,King Hoogendorp,khoogendorp3e@wisc.edu,Online
+Dodge,Ram 2500 Club,1960,46926.09,Chicago,Delmar Switzer,8/22/2013,Valencia Cunradi,vcunradi3f@cnbc.com,Dealership
+Isuzu,Rodeo,1967,5206.63,Chicago,Janice Daventry,4/16/2001,Leicester Cotty,lcotty3g@free.fr,Dealership
+GMC,Sierra 3500,2003,8907.19,New York,Risa Hamer,4/2/2017,Cheston Goacher,cgoacher3h@scribd.com,Online
+Mitsubishi,Lancer,2020,80514.47,Miami,Curt Romi,4/19/2020,Barbee Devers,bdevers3i@icio.us,Auction
+Mitsubishi,Galant,2010,67856.57,New York,Ashly Smeall,3/20/2003,Damita Kealey,dkealey3j@sogou.com,Auction
+Toyota,FJ Cruiser,1996,31612.14,Miami,Quentin MacCarrick,6/5/2002,Jehu Cheves,jcheves3k@ebay.com,Online
+Chevrolet,G-Series 2500,1917,36792.52,New York,Florida Nodes,9/5/2008,Rutledge Dingley,rdingley3l@guardian.co.uk,Auction
+Chrysler,Prowler,1921,91779.24,Houston,Trista Krystek,2/4/2001,Ulrika McGloughlin,umcgloughlin3m@washington.edu,Auction
+Dodge,Ram 3500,1994,54216.48,Los Angeles,Debbi Gockelen,11/25/2020,Sergio Sorrie,ssorrie3n@nih.gov,Dealership
+Chevrolet,Aveo,2006,99995.5,Los Angeles,Dulcinea Chree,2/18/2015,Humfrey Wotherspoon,hwotherspoon3o@techcrunch.com,Auction
+Toyota,Camry Hybrid,1909,28992.19,Chicago,Nesta Humm,4/14/2017,Camila Majury,cmajury3p@slate.com,Dealership
+Subaru,Baja,1929,32917.88,Chicago,Winny Adriano,4/13/2003,Parker McClure,pmcclure3q@businessinsider.com,Dealership
+Toyota,Corolla,2000,7454.86,New York,Honey Simonnet,7/9/2021,Jackie Giovanazzi,jgiovanazzi3r@smugmug.com,Dealership
+Dodge,Viper,2014,76494.32,Chicago,Morena Rothermel,12/30/2000,Ricardo Minghella,rminghella3s@weibo.com,Auction
+Chrysler,PT Cruiser,1985,51358.11,New York,Isadore Ninnis,12/6/2020,Evelina Eames,eeames3t@mediafire.com,Dealership
+Chevrolet,Corvette,1901,86498.4,New York,Leonard Martello,6/24/2013,Thornton Lamblin,tlamblin3u@dailymail.co.uk,Online
+Dodge,Dakota,1906,29891.32,New York,Lyssa Rieme,5/20/2007,Germain Norquoy,gnorquoy3v@time.com,Online
+Saturn,S-Series,1909,77661.68,Los Angeles,Elenore Visick,2/26/2017,My Fishly,mfishly3w@disqus.com,Online
+Chevrolet,2500,1948,88224.0,Los Angeles,Clerc Georgeson,7/9/2006,Goddart Deas,gdeas3x@abc.net.au,Auction
+Pontiac,Grand Prix,1948,64236.62,Los Angeles,Nancy Medcalf,2/20/2004,Onfre Marjoram,omarjoram3y@g.co,Online
+Chevrolet,Suburban 1500,1960,30470.68,Houston,Jimmie Nezey,10/6/2017,Urbain Gillman,ugillman3z@theatlantic.com,Online
+Chevrolet,Corvette,1960,18037.84,Los Angeles,Raine Penke,2/7/2015,Alden McCuffie,amccuffie40@blinklist.com,Auction
+Toyota,Sequoia,1927,18642.65,New York,Merrily Longcake,5/2/2002,Cleo Greenough,cgreenough41@deviantart.com,Auction
+Honda,Accord,2011,49784.41,Houston,Verena Dible,1/2/2003,Quinta Desson,qdesson42@technorati.com,Online
+Land Rover,Discovery,1951,60098.5,Miami,Roderic Lillee,6/16/2008,Beitris Lambrecht,blambrecht43@diigo.com,Dealership
+Volkswagen,Golf,1911,71612.52,Chicago,Salvidor Linning,3/18/2021,Sella Crosdill,scrosdill44@mediafire.com,Dealership
+Pontiac,6000,2010,97432.51,Chicago,Rollins Ohrt,1/21/2015,Diena Lannen,dlannen45@issuu.com,Online
+Volkswagen,Type 2,1939,72769.74,Chicago,Slade Lloyd-Williams,5/25/2018,Uri Simla,usimla46@chronoengine.com,Auction
+Buick,Park Avenue,2001,28172.82,Houston,Sheilakathryn Shingfield,4/6/2016,Marybelle Janiak,mjaniak47@sourceforge.net,Online
+Nissan,Titan,1954,63378.54,Chicago,Adore Paulsen,4/17/2021,Barry Pineaux,bpineaux48@hatena.ne.jp,Online
+Mitsubishi,Precis,1946,28125.93,Miami,Gerik Ireson,9/13/2019,Madelina Lyokhin,mlyokhin49@auda.org.au,Dealership
+Pontiac,Safari,2016,77603.68,Los Angeles,Tori Esherwood,9/13/2017,Darrell Foulcher,dfoulcher4a@squarespace.com,Auction
+Suzuki,XL-7,1995,59445.33,New York,Rhianon Strowthers,9/20/2005,Hobart Alner,halner4b@bbc.co.uk,Dealership
+Geo,Prizm,1999,25193.37,Los Angeles,Gardiner Simonel,5/25/2002,Tiebold Guiet,tguiet4c@plala.or.jp,Auction
+Suzuki,Vitara,1978,1830.45,New York,Marillin Blankley,7/10/2022,Leonardo McQuaid,lmcquaid4d@guardian.co.uk,Dealership
+Chevrolet,Avalanche 2500,2009,11280.61,Miami,Benjie Potticary,11/5/2021,Ebony Hassen,ehassen4e@wordpress.com,Dealership
+Nissan,Pathfinder,2015,26032.41,Los Angeles,Gaby Seery,9/7/2018,Mada Boarder,mboarder4f@webs.com,Dealership
+Chrysler,300,1957,28259.38,Los Angeles,Adham Bilbey,10/7/2014,Berthe Kinzett,bkinzett4g@huffingtonpost.com,Auction
+Bentley,Azure T,2019,66078.54,Miami,Eberto Charrisson,9/6/2000,Cleopatra Boustead,cboustead4h@over-blog.com,Auction
+BMW,600,1984,87047.22,Miami,Silvanus Giacoboni,3/9/2014,Isaiah Edgeller,iedgeller4i@geocities.jp,Auction
+Dodge,Dakota,1949,44069.38,Houston,Dorothee Knightsbridge,8/20/2008,Cass Tidy,ctidy4j@youku.com,Dealership
+Chevrolet,Impala,1935,40059.58,New York,Grayce Gosnell,10/16/2007,Helenelizabeth Mercer,hmercer4k@w3.org,Auction
+GMC,Rally Wagon G3500,1986,74907.98,Chicago,Corey Bernardeschi,12/26/2007,Donny Makeswell,dmakeswell4l@canalblog.com,Online
+Jeep,Patriot,1989,96721.75,Miami,Jacky Rene,12/3/2017,Elisha Gambell,egambell4m@microsoft.com,Auction
+Maserati,430,1925,83180.64,Houston,Orran Cherry Holme,5/16/2016,Tildi Kupis,tkupis4n@berkeley.edu,Online
+Chevrolet,Silverado 3500,1960,89222.99,Houston,Christabella Tibbetts,5/6/2000,Micky Swinburn,mswinburn4o@bandcamp.com,Online
+Ford,Escort,1920,86128.56,Chicago,Elisabeth Mapstone,5/8/2008,Harmonie Croizier,hcroizier4p@whitehouse.gov,Auction
+Pontiac,Firefly,1931,99383.18,Chicago,Agnesse Allkins,4/7/2010,Lion Laville,llaville4q@virginia.edu,Online
+Toyota,Land Cruiser,2015,21476.15,Chicago,Bartie Durno,9/15/2016,Ivy Barbosa,ibarbosa4r@edublogs.org,Dealership
+Dodge,Ram 2500 Club,2000,52314.64,Los Angeles,Marie-ann Eyer,4/22/2015,Rand Halwood,rhalwood4s@pinterest.com,Auction
+Suzuki,Kizashi,1910,26821.08,Houston,Adlai Phripp,1/31/2008,Meagan Stalf,mstalf4t@amazon.de,Online
+Acura,RL,1938,10209.75,Los Angeles,Christal Ead,6/19/2019,Emmaline Pimlott,epimlott4u@theglobeandmail.com,Auction
+Toyota,Prius,2013,93162.86,Miami,Gilda Parkhouse,7/27/2000,Gregorio Strainge,gstrainge4v@netlog.com,Auction
+Bentley,Azure T,1998,2055.3,Miami,Syman Barritt,6/29/2014,Lewiss Shelford,lshelford4w@upenn.edu,Online
+Subaru,Outback,1918,98760.11,Miami,Cecily McPhilemy,10/12/2018,Camille Zukierman,czukierman4x@jiathis.com,Online
+Land Rover,Range Rover,1968,99472.66,New York,Lenee Hirtzmann,1/28/2000,Vasilis Jancy,vjancy4y@domainmarket.com,Online
+Dodge,Ram,2005,23526.9,Houston,Arleyne Garlett,8/3/2019,Bliss Gillman,bgillman4z@unblog.fr,Auction
+Chevrolet,Tahoe,2018,57627.77,New York,Baudoin Sansome,5/25/2021,Balduin Staten,bstaten50@is.gd,Auction
+Audi,A8,2003,60788.6,Houston,Tomi Brumwell,11/13/2005,Fairleigh Stuckow,fstuckow51@google.com,Dealership
+Mercury,Tracer,1949,95037.44,Houston,Jase Matts,2/21/2000,Derby Picheford,dpicheford52@wikia.com,Dealership
+Pontiac,Grand Prix,1968,50480.83,Houston,Alejandrina Ogg,10/29/2001,Janifer Mularkey,jmularkey53@loc.gov,Online
+Toyota,4Runner,2020,41918.33,Chicago,Avictor Janus,12/15/2012,Herc Fittes,hfittes54@nymag.com,Auction
+Volvo,C70,1947,54278.41,New York,Deb Kisby,1/12/2012,Dorotea Dranfield,ddranfield55@digg.com,Online
+Kia,Rio,1943,48326.49,New York,Dav Siddons,2/26/2018,Clair Kewzick,ckewzick56@mtv.com,Online
+BMW,X6 M,1922,5968.6,Houston,Riki Prise,12/25/2003,Zonda Parfitt,zparfitt57@pcworld.com,Online
+Volvo,V90,1926,53969.41,Houston,Jane Burfield,10/21/2021,Blinny Flowitt,bflowitt58@qq.com,Dealership
+Pontiac,Firebird,1918,16724.17,Los Angeles,Violet Bredee,2/1/2003,Nettie Vaudre,nvaudre59@virginia.edu,Dealership
+Kia,Sorento,1931,57941.46,Los Angeles,Hort Pideon,8/5/2004,Yehudi Songust,ysongust5a@zimbio.com,Auction
+Toyota,MR2,1954,25254.96,Miami,Aubine Beckingham,8/29/2015,Giffie Klinck,gklinck5b@dot.gov,Dealership
+Mazda,Miata MX-5,2017,37288.4,Miami,Prinz Wallicker,2/26/2021,Chrisy Whittleton,cwhittleton5c@soup.io,Online
+Geo,Metro,1920,74947.2,Los Angeles,Marquita Towler,5/17/2021,Rice Boyan,rboyan5d@mayoclinic.com,Dealership
+Pontiac,Grand Am,1922,51380.96,Miami,Barde Bosch,5/8/2003,Justino Fullun,jfullun5e@yelp.com,Online
+Chrysler,300,1925,37803.61,New York,Lezley Gilliatt,1/13/2022,Abdel Silverman,asilverman5f@typepad.com,Dealership
+Nissan,350Z,2001,68601.86,Chicago,Noami Franscioni,8/14/2001,Sybilla Evason,sevason5g@timesonline.co.uk,Auction
+GMC,Yukon XL 1500,1917,3692.17,Chicago,Glyn Jinda,3/25/2015,Seymour Hawford,shawford5h@goodreads.com,Auction
+Geo,Metro,1947,12966.27,New York,Trula Crowden,2/19/2012,Bernadette Dresse,bdresse5i@edublogs.org,Auction
+Infiniti,Q,1915,75904.61,New York,Lynsey Gunda,5/15/2002,Jan Vannuccinii,jvannuccinii5j@google.com.br,Dealership
+Toyota,Avalon,1987,28457.99,Chicago,Genna Lockie,4/2/2016,Brenda Arstall,barstall5k@oaic.gov.au,Auction
+Pontiac,Grand Am,1906,73905.91,Los Angeles,Aylmer Rubertelli,3/19/2021,Tannie Pennells,tpennells5l@myspace.com,Dealership
+Hyundai,XG350,1906,69174.4,Houston,Milly Gare,2/27/2004,Lindsey Copcott,lcopcott5m@go.com,Dealership
+Buick,Park Avenue,2010,32728.46,New York,Kellen Tatton,4/20/2002,Babette Banker,bbanker5n@walmart.com,Auction
+Chevrolet,Express,1965,7302.49,New York,Kevyn Menguy,12/19/2022,Culley Lancett,clancett5o@hubpages.com,Auction
+Chevrolet,Silverado 2500,1902,47624.77,Houston,Janene Brosnan,1/26/2005,Kata Simmins,ksimmins5p@china.com.cn,Dealership
+Volkswagen,Golf III,1918,16909.54,New York,Laughton Selesnick,9/10/2018,Pierette Easom,peasom5q@nasa.gov,Dealership
+Pontiac,Grand Prix,1974,3075.16,Houston,Elton Silverstone,11/12/2006,Augusto Holdin,aholdin5r@histats.com,Online
+Audi,4000s Quattro,1935,71448.52,Miami,Wynn Horsburgh,1/31/2005,Joycelin Smickle,jsmickle5s@macromedia.com,Dealership
+Chevrolet,Impala SS,1961,79741.24,New York,Brunhilde Farnell,1/10/2005,Tisha Deerness,tdeerness5t@icio.us,Online
+Lexus,IS,2003,34047.07,Houston,Gwyn O'Deoran,11/24/2006,Gus Ollie,gollie5u@cdbaby.com,Online
+Mazda,Miata MX-5,2002,93473.87,Los Angeles,Meredith Basketter,7/25/2001,Norah Janca,njanca5v@wiley.com,Online
+Pontiac,6000,2019,74973.51,Los Angeles,Holly-anne Sayre,10/11/2000,Brannon Scroggie,bscroggie5w@bandcamp.com,Online
+Chevrolet,Corvette,1957,56906.09,Miami,Clarice Basson,1/15/2006,Nickolaus Morey,nmorey5x@constantcontact.com,Dealership
+Infiniti,IPL G,1994,1001.82,New York,Averil Millan,4/22/2012,Leese Shilvock,lshilvock5y@bing.com,Auction
+Scion,tC,1915,45487.78,New York,Katee Whittlesea,12/2/2010,Haze Ram,hram5z@samsung.com,Online
+Chevrolet,Cavalier,2008,79274.27,Los Angeles,Fredericka Mercy,10/28/2013,Cody Reside,creside60@ft.com,Online
+Lexus,ES,1908,88308.34,New York,Wit Snaith,8/16/2005,Ophelie Longdon,olongdon61@e-recht24.de,Auction
+Chevrolet,APV,1937,56680.47,New York,Cacilie Kornes,10/5/2016,Boot McMurty,bmcmurty62@exblog.jp,Dealership
+Audi,A4,1968,56688.4,Houston,Reginauld Eliff,3/26/2020,Gratia Blakesley,gblakesley63@chicagotribune.com,Auction
+Volvo,XC90,1915,89339.46,Chicago,Fulton Neubigging,7/31/2022,Blair Curror,bcurror64@canalblog.com,Dealership
+Hyundai,Santa Fe,1965,58173.9,Chicago,Weber Hockell,3/12/2004,Peterus Blatchford,pblatchford65@berkeley.edu,Auction
+Dodge,Dakota,1949,26702.39,Los Angeles,Angil Helliar,9/23/2011,Annabal Crosthwaite,acrosthwaite66@ca.gov,Auction
+Ford,Explorer,1913,12935.0,New York,Ezri Alty,5/1/2006,Hercules Gabbott,hgabbott67@nifty.com,Auction
+Toyota,Sienna,1983,3134.6,Chicago,Hubert Cloughton,8/20/2014,Hall Lanktree,hlanktree68@photobucket.com,Online
+Chevrolet,Tahoe,2008,89480.19,Miami,Mort Agnolo,10/4/2000,Biddy Gladdolph,bgladdolph69@house.gov,Auction
+Suzuki,Daewoo Magnus,1908,63705.85,Los Angeles,Milena Algeo,3/18/2022,Lynn Peepall,lpeepall6a@time.com,Online
+Mazda,Mazda6,1951,32527.28,Miami,Konrad Wix,10/9/2005,Millard Huitson,mhuitson6b@ox.ac.uk,Dealership
+BMW,5 Series,1958,57216.15,Los Angeles,Padget Jozsa,8/17/2017,Bing Heliar,bheliar6c@etsy.com,Dealership
+Plymouth,Neon,1917,43599.89,Los Angeles,Jenna Lombardo,11/3/2020,Emyle Awdry,eawdry6d@histats.com,Dealership
+BMW,M5,1950,39624.02,Houston,Rowland Proswell,8/17/2000,Alika Kimbly,akimbly6e@vinaora.com,Auction
+Geo,Prizm,1910,41195.97,Miami,Gwenore Charlson,10/19/2012,Harlene Corriea,hcorriea6f@engadget.com,Dealership
+Mercury,Sable,1997,54266.97,Houston,Linda Chadwen,5/11/2020,Deanna Arstall,darstall6g@nydailynews.com,Dealership
+Maserati,GranTurismo,1911,76032.78,Houston,Patty Pygott,8/26/2012,Christie McConnachie,cmcconnachie6h@ocn.ne.jp,Dealership
+Chevrolet,Silverado 2500,1953,64375.49,Houston,Isadora Siddell,7/1/2015,Mackenzie Kingsman,mkingsman6i@epa.gov,Online
+Mazda,626,1913,37074.07,Chicago,Vilhelmina Garthshore,10/4/2004,Aline Leversha,aleversha6j@scribd.com,Auction
+Mercedes-Benz,300D,1950,82086.12,New York,Adrienne Tolputt,12/3/2011,Trevor Mardall,tmardall6k@ustream.tv,Auction
+Volvo,V70,2001,88320.35,Houston,Daveta Allflatt,5/24/2016,Xena Alcock,xalcock6l@dion.ne.jp,Dealership
+BMW,5 Series,2013,50476.97,Chicago,Luise Lindman,12/20/2013,Arlette Engelmann,aengelmann6m@altervista.org,Auction
+GMC,Vandura G3500,1933,27901.61,Chicago,Marcille Maddin,7/20/2011,Sharona Admans,sadmans6n@qq.com,Auction
+Studebaker,Avanti,1963,54168.58,Chicago,Gayel Capon,4/27/2004,Solomon McChesney,smcchesney6o@mapy.cz,Auction
+Lexus,SC,1942,53382.26,Miami,Britney Downham,2/17/2013,Eddy Island,eisland6p@typepad.com,Online
+Infiniti,G35,1936,38775.48,Houston,Barbi Prophet,3/15/2002,Sigfrid Ralphs,sralphs6q@bluehost.com,Auction
+GMC,Rally Wagon 3500,1943,44984.94,Miami,Nilson Hightown,4/27/2017,Matteo Sackett,msackett6r@bloglovin.com,Dealership
+Mitsubishi,Lancer,1973,47184.69,New York,Brandea Nadin,10/15/2008,Fae Garlicke,fgarlicke6s@tamu.edu,Dealership
+Toyota,Avalon,1947,97465.95,Chicago,Jo-ann Cownden,2/3/2002,Arliene Burchess,aburchess6t@dailymotion.com,Auction
+Kia,Spectra,1948,65274.82,Chicago,Nert MacRedmond,9/5/2007,Kanya Shillam,kshillam6u@cbslocal.com,Dealership
+Acura,Vigor,1926,15782.72,Houston,Averyl Biggans,11/18/2002,Antone Sinnie,asinnie6v@alexa.com,Dealership
+Toyota,4Runner,1986,24593.36,New York,Osmond Heasman,3/14/2006,Gradey Terlinden,gterlinden6w@mit.edu,Dealership
+Nissan,Sentra,1932,43288.18,Chicago,Fallon Trenbey,12/30/2002,Ula McRitchie,umcritchie6x@cdbaby.com,Dealership
+Aston Martin,DB9,1972,49395.15,Chicago,Moshe McNern,7/27/2013,Lucine Vaen,lvaen6y@php.net,Auction
+Toyota,RAV4,1990,46764.59,Houston,Garreth Van der Merwe,1/5/2005,Ambrosio Castell,acastell6z@alibaba.com,Auction
+GMC,Vandura G2500,1958,57708.79,New York,Amandie Rake,11/22/2005,Silvana Barney,sbarney70@dmoz.org,Dealership
+Hyundai,Excel,2022,20911.03,Houston,Melonie Maty,6/1/2009,Sheilah Dulwich,sdulwich71@mit.edu,Auction
+Maserati,Karif,1974,70466.88,Chicago,Ky Lymbourne,2/3/2021,Hew Turbefield,hturbefield72@paypal.com,Online
+Mercury,Milan,1952,22383.84,Chicago,Thedrick Chandlar,6/24/2013,Misty Paddingdon,mpaddingdon73@nifty.com,Dealership
+Volvo,S80,1919,49769.31,Los Angeles,Giles Walework,1/2/2015,Bari Dawley,bdawley74@indiatimes.com,Online
+Mitsubishi,Raider,1970,42141.02,Los Angeles,Janet Kinahan,2/17/2011,Alden Harborow,aharborow75@mozilla.com,Online
+Mercury,Monterey,2012,6689.68,Houston,Lilah Frise,11/15/2014,Giffer Larway,glarway76@harvard.edu,Online
+Chrysler,300M,2011,24079.2,Los Angeles,Darleen Boome,10/28/2016,Bonnee Farrall,bfarrall77@virginia.edu,Dealership
+Land Rover,Defender 90,1906,93498.71,New York,Dottie Grabbam,4/7/2018,Sarah Quantrell,squantrell78@spotify.com,Dealership
+Cadillac,DeVille,1952,83736.22,Los Angeles,Arny Wheatland,12/2/2004,Rustie Luxton,rluxton79@mashable.com,Online
+Toyota,Corolla,1946,22677.23,Houston,Martyn Levins,1/12/2013,Delly McBratney,dmcbratney7a@wp.com,Dealership
+Porsche,911,1924,19154.51,New York,Gerald Goad,10/13/2004,Michael Virgin,mvirgin7b@parallels.com,Auction
+Ford,E250,1918,49368.6,New York,Ulick Sanzio,2/19/2006,Nancie Blodget,nblodget7c@reddit.com,Dealership
+Ford,Aerostar,1911,68657.89,Los Angeles,Jarrad Ortelt,11/29/2019,Peta Ornillos,pornillos7d@imgur.com,Dealership
+Chevrolet,Malibu,2022,24777.57,Los Angeles,Jackie Cromie,6/23/2022,Iolande Beddow,ibeddow7e@bing.com,Dealership
+Toyota,Tacoma,1967,11382.4,Chicago,Wendel Giscken,11/14/2005,Jere Crenshaw,jcrenshaw7f@clickbank.net,Auction
+BMW,M5,1965,98313.4,Houston,Fran Hayen,4/24/2011,Dwayne Pickvance,dpickvance7g@naver.com,Dealership
+Pontiac,Firebird,1914,24936.84,Los Angeles,Gretna Redd,4/4/2009,Sydelle Tuison,stuison7h@bbb.org,Dealership
+Jaguar,XJ,1986,69160.26,New York,Klarrisa Ineson,6/16/2018,Jessalyn Hauger,jhauger7i@wikimedia.org,Auction
+Plymouth,Prowler,1906,40935.77,Miami,Annmarie Mann,1/10/2012,Emilee Fieller,efieller7j@kickstarter.com,Auction
+GMC,Yukon XL 1500,1919,58285.02,Los Angeles,Eziechiele Galer,9/13/2014,Kelley Hemshall,khemshall7k@cam.ac.uk,Online
+Ford,Probe,1937,44658.54,Chicago,Bentlee Blind,1/10/2008,Delphine Cullnean,dcullnean7l@etsy.com,Online
+Pontiac,Aztek,1956,87094.72,Miami,Rab Sloan,11/21/2017,Nico McGorley,nmcgorley7m@blogs.com,Online
+Volkswagen,New Beetle,2014,98832.63,Chicago,Maurise Credland,5/6/2005,Marilyn Arundale,marundale7n@usgs.gov,Auction
+Lincoln,MKT,1944,31185.84,Chicago,Siana Schultheiss,10/30/2001,Sonny Guile,sguile7o@php.net,Auction
+Buick,Century,2016,31366.89,Houston,Tisha Houliston,5/6/2001,Renault Pendergrast,rpendergrast7p@dailymotion.com,Online
+Jeep,Cherokee,2001,33238.97,Miami,Margalo Sparey,6/7/2000,Jacynth Karle,jkarle7q@nasa.gov,Dealership
+Suzuki,Sidekick,1986,26372.72,New York,Winny Stayte,2/9/2007,Roy Gayter,rgayter7r@flickr.com,Dealership
+Buick,Century,1975,11500.23,Chicago,Odie Grunder,11/8/2017,Raine Kort,rkort7s@ask.com,Auction
+Subaru,Forester,1925,36754.5,Miami,Arlena Rudolf,7/5/2014,Charissa Coyett,ccoyett7t@dion.ne.jp,Online
+Kia,Sedona,1987,15344.17,Houston,Novelia Vicarey,11/12/2005,Rona Broughton,rbroughton7u@storify.com,Online
+Dodge,Dynasty,1920,93188.51,Chicago,Kerrie Norval,3/30/2005,Newton Goodlett,ngoodlett7v@seattletimes.com,Online
+Pontiac,Grand Prix,1910,4648.33,New York,Collete Rearden,12/8/2012,Wendie Purdom,wpurdom7w@wikispaces.com,Dealership
+Lincoln,Navigator,1924,1157.31,Miami,Mercie Fanthom,3/11/2006,Elvera Carcass,ecarcass7x@yandex.ru,Dealership
+Volkswagen,Touareg,1961,26961.6,Houston,Michell Fanshaw,5/21/2005,Bryna Benge,bbenge7y@netlog.com,Auction
+Volkswagen,Cabriolet,1970,97558.29,New York,Dom Gillise,5/27/2012,Cecilio VanBrugh,cvanbrugh7z@businessweek.com,Online
+Saturn,VUE,1903,93539.12,Miami,Thayne Roches,11/25/2001,Alexei Bailes,abailes80@sohu.com,Online
+Nissan,Frontier,2004,9425.92,Los Angeles,Glen Birt,1/19/2012,Dewain Krolle,dkrolle81@digg.com,Online
+Ford,Edge,2016,75702.28,Miami,Jory Benz,10/11/2006,Jacquie Sor,jsor82@multiply.com,Auction
+Mercedes-Benz,G-Class,2008,33735.68,Chicago,Garrett Cressor,8/20/2011,Leanna Lamprecht,llamprecht83@squarespace.com,Online
+Bentley,Continental GTC,1987,78276.72,Miami,Brunhilde Gladwell,8/8/2009,Ingemar Pummery,ipummery84@deviantart.com,Online
+Hyundai,Excel,1919,21518.43,Houston,Blanca Fraine,1/31/2001,Osgood Chad,ochad85@netlog.com,Dealership
+Nissan,Frontier,1947,47738.11,Houston,Freddie Bazek,7/26/2007,Lawry Esterbrook,lesterbrook86@artisteer.com,Dealership
+Ford,Aerostar,1905,25004.74,Chicago,Frans Langthorn,4/3/2000,Kirby Zamora,kzamora87@gnu.org,Auction
+Dodge,Charger,2008,98168.32,Chicago,Bear Obin,6/14/2013,Gypsy Jennery,gjennery88@tinyurl.com,Dealership
+Pontiac,LeMans,1948,15467.78,Houston,Basilio Killich,11/28/2010,Eduino Miners,eminers89@unblog.fr,Auction
+Cadillac,Escalade ESV,1961,19066.94,New York,Gladys Arnell,5/17/2010,Mayer Sterte,msterte8a@phoca.cz,Dealership
+Cadillac,DTS,1986,76080.26,Chicago,Heinrik Beckingham,9/11/2005,Mersey Mablestone,mmablestone8b@paypal.com,Online
+Ford,Ranger,2018,58818.06,Chicago,Boycey Masi,11/18/2001,Emelita Havers,ehavers8c@posterous.com,Auction
+GMC,Safari,1967,15322.97,Miami,Mathilda Minall,10/4/2015,Husein Van Weedenburg,hvan8d@arizona.edu,Dealership
+GMC,Canyon,1938,3110.0,Chicago,La verne Gwin,10/15/2011,Richmound Abbes,rabbes8e@disqus.com,Online
+Hyundai,Elantra,1987,18148.0,New York,Findlay Sant,7/5/2002,Sandie de Cullip,sde8f@usgs.gov,Auction
+Audi,A3,1963,27850.78,Los Angeles,Irita Jaffra,11/12/2018,Eachelle Deards,edeards8g@sciencedirect.com,Auction
+Volkswagen,Golf,1966,91255.7,Houston,Keelia Barkshire,11/2/2008,Marga Merrydew,mmerrydew8h@feedburner.com,Dealership
+Mazda,Protege,1986,71007.4,New York,Ronnie Aspinwall,11/30/2011,Adelheid Libbe,alibbe8i@vk.com,Online
+GMC,2500,1921,23307.37,Chicago,Iorgos Eccleshare,12/29/2004,Melodee cornhill,mcornhill8j@rakuten.co.jp,Auction
+Oldsmobile,Silhouette,1940,96951.45,Los Angeles,Laurette Messiter,11/1/2000,Enrika Bodley,ebodley8k@amazon.co.jp,Auction
+Lexus,ES,2013,50569.72,Miami,Paolo Coldridge,7/16/2006,Ronni Judkin,rjudkin8l@disqus.com,Auction
+Porsche,Cayman,1992,59981.32,Los Angeles,Tamarra Gerardeaux,5/30/2006,Sisile Guillain,sguillain8m@senate.gov,Auction
+Toyota,Sienna,1979,30321.39,Chicago,Hervey Viccary,10/22/2000,Adey Fitchet,afitchet8n@ftc.gov,Online
+Mitsubishi,Eclipse,1985,30086.97,Chicago,Teddi Curtiss,10/19/2018,Luis Redley,lredley8o@usatoday.com,Dealership
+Chevrolet,Suburban 1500,1966,60390.69,Houston,Andreana McCaughen,7/8/2019,Kerry Heild,kheild8p@msn.com,Auction
+Lamborghini,Reventón,1924,70754.92,Miami,Ferdinande Bernli,5/25/2008,Casar Lowdwell,clowdwell8q@ebay.com,Auction
+BMW,X6 M,1933,4496.53,Miami,Vinita Midner,4/14/2020,Robert Petken,rpetken8r@lycos.com,Dealership
+Toyota,4Runner,1995,27055.98,Miami,Veronique Bent,7/1/2022,Roderigo Gould,rgould8s@icio.us,Online
+GMC,Sierra 1500,1979,46606.79,New York,Hugh Friar,11/13/2019,Petunia Feige,pfeige8t@is.gd,Auction
+Ford,Expedition EL,1974,53213.6,Houston,Paloma Ravilious,4/13/2015,Addy Poetz,apoetz8u@xinhuanet.com,Online
+Isuzu,i-290,1919,47845.66,Chicago,Robina Martt,2/8/2017,Whitney Colaton,wcolaton8v@smugmug.com,Online
+Dodge,Intrepid,1985,53220.67,Miami,Abra Sirett,9/16/2022,Natala Woodfield,nwoodfield8w@bravesites.com,Dealership
+Chevrolet,Camaro,1967,4218.0,Miami,Helli Bellhanger,11/29/2017,Libbie Bredee,lbredee8x@bandcamp.com,Auction
+Chrysler,Aspen,1994,75607.38,Los Angeles,Wilmer Tomek,9/19/2020,Catherin Janous,cjanous8y@google.com,Auction
+Mitsubishi,Eclipse,1970,42528.82,New York,Jacintha Iddons,4/23/2018,Jasper Roose,jroose8z@google.cn,Auction
+Chevrolet,Cruze,1963,14917.47,Houston,Ardra Duffree,7/22/2003,Renaldo Beig,rbeig90@google.ca,Auction
+Buick,Enclave,2018,94247.45,Miami,Billie Mengo,7/16/2005,Lorilyn McConway,lmcconway91@wikispaces.com,Online
+Acura,MDX,1967,91803.55,Los Angeles,Brigham Clears,1/25/2013,Abra Kahen,akahen92@surveymonkey.com,Dealership
+Subaru,XT,1984,30293.13,Chicago,Rosamond Jewell,3/24/2017,Rhody Longstreet,rlongstreet93@nyu.edu,Auction
+Toyota,MR2,1918,16997.74,New York,Lilith Tumelty,8/27/2000,Thalia Brann,tbrann94@bandcamp.com,Auction
+Ford,Taurus,1937,34133.46,Chicago,Korey Lansdale,5/25/2001,Lillian Huchot,lhuchot95@businessweek.com,Auction
+Ford,Fusion,1921,34063.57,Miami,Vito Bushen,9/16/2015,Savina Hardan,shardan96@washingtonpost.com,Online
+Nissan,Titan,2015,41856.97,Chicago,Enoch Osbourne,12/4/2001,Rosalia Lanktree,rlanktree97@facebook.com,Dealership
+Chevrolet,Malibu,1986,18708.0,Chicago,Emelita Connop,4/2/2000,Alon Dmiterko,admiterko98@tinypic.com,Auction
+Mazda,RX-7,1928,46320.04,New York,Sasha Normandale,3/17/2014,Alexine Safont,asafont99@newsvine.com,Online
+Audi,200,2008,13043.76,New York,Mellicent Norwell,4/27/2008,Jacklyn Scargle,jscargle9a@harvard.edu,Dealership
+Chevrolet,Silverado 2500,2003,16561.55,Chicago,Misty Okenfold,11/7/2000,Anitra MacNally,amacnally9b@nsw.gov.au,Dealership
+Ford,Thunderbird,1975,68773.26,New York,Brade Pennetta,12/19/2016,Redford Abbets,rabbets9c@ucla.edu,Online
+GMC,Savana 1500,1921,43419.48,Miami,Jules Vasyushkhin,5/20/2009,Raynor Ferandez,rferandez9d@youtu.be,Auction
+Audi,A8,1949,84631.1,Houston,Melody Sidry,11/6/2006,Lianne Callow,lcallow9e@vinaora.com,Online
+Volkswagen,Jetta,1995,44036.64,New York,Jaquelyn Stears,3/22/2012,Sansone Ticksall,sticksall9f@disqus.com,Auction
+Jeep,Wrangler,1947,57173.88,Miami,Sayre Josifovitz,10/8/2006,Shandeigh Jenny,sjenny9g@t.co,Online
+Dodge,Caravan,1954,88000.12,Houston,Hollie Vigus,11/25/2019,Aylmer Borton,aborton9h@lulu.com,Auction
+Saab,9-5,1945,3740.48,Los Angeles,Imojean Catling,2/12/2018,Carlotta Belfrage,cbelfrage9i@blogger.com,Dealership
+Toyota,Corolla,1976,58806.6,Chicago,Cassie Holbie,8/28/2005,Eulalie Faloon,efaloon9j@businessweek.com,Auction
+GMC,Sierra 3500,1958,68296.81,Los Angeles,Ade Fullun,10/19/2009,Talyah Limming,tlimming9k@comcast.net,Online
+Toyota,Sienna,1939,12053.81,Houston,Tito Megahey,10/15/2021,Kennan Guenther,kguenther9l@alexa.com,Online
+Volkswagen,Cabriolet,1917,80370.76,Chicago,Tonye Hanmer,11/2/2007,Bank Orrock,borrock9m@etsy.com,Online
+Porsche,944,1939,31615.83,Houston,Darby Oene,11/1/2022,Murray Lindeberg,mlindeberg9n@domainmarket.com,Auction
+Chevrolet,Silverado 2500,2019,21772.78,Chicago,Idette Lasham,1/30/2015,Farlee Lushey,flushey9o@livejournal.com,Online
+Volkswagen,Golf,1991,13908.35,Los Angeles,Vyky Twelvetrees,10/8/2004,Roobbie Spreag,rspreag9p@vkontakte.ru,Dealership
+Scion,xA,1996,69811.5,Houston,Kordula Tierny,8/30/2012,Tate Sauvain,tsauvain9q@stumbleupon.com,Online
+Ford,F-Series Super Duty,2012,90959.43,Houston,Ryley Yanshinov,2/7/2010,Ginny Maywood,gmaywood9r@desdev.cn,Dealership
+Acura,NSX,2012,93760.02,Chicago,Shawn Stoade,2/6/2004,Paolina Stephens,pstephens9s@domainmarket.com,Online
+Chrysler,Town & Country,1958,33697.38,Houston,Frayda Dalgarnocht,1/27/2019,Rhianon Lithcow,rlithcow9t@tinyurl.com,Auction
+Chevrolet,Corvette,1915,35675.13,New York,Nataline Thackeray,12/2/2002,Tabitha Kynman,tkynman9u@nasa.gov,Auction
+Ford,F450,2014,21429.88,Los Angeles,Colas Milthorpe,3/7/2007,Marietta Lawlie,mlawlie9v@google.pl,Online
+Honda,Prelude,1902,91272.73,Los Angeles,Hamid Granville,3/25/2020,Eleonore Rameaux,erameaux9w@istockphoto.com,Dealership
+Lexus,LS,2011,36849.6,New York,Irma Ridsdole,6/26/2021,Gaby Surgison,gsurgison9x@deviantart.com,Auction
+Subaru,Brat,1992,3829.22,Chicago,Feodora Doerren,9/28/2002,Ana Wyd,awyd9y@flickr.com,Online
+BMW,3 Series,1929,70073.96,Los Angeles,Scarlett Jurzyk,4/19/2012,Arlene Gilks,agilks9z@answers.com,Online
+Infiniti,QX,1935,18424.29,Los Angeles,Caryl Giddings,7/22/2006,Codie Christophe,cchristophea0@themeforest.net,Auction
+Dodge,Ram Van 3500,1946,92611.65,Chicago,Jordain Wyldish,1/16/2007,Ainslie Bottinelli,abottinellia1@squarespace.com,Auction
+Bentley,Azure,1974,89242.66,Miami,Grayce Thacker,10/27/2006,Callida O'Gready,cogreadya2@ow.ly,Auction
+Mitsubishi,Galant,2006,76727.33,Houston,Cristionna Eaklee,2/12/2022,Martica Huster,mhustera3@t-online.de,Online
+Mercedes-Benz,S-Class,1921,52113.16,New York,Danya Antyukhin,12/31/2016,Chrisse Reye,creyea4@statcounter.com,Auction
+Mercury,Grand Marquis,1919,4228.44,Miami,Garner Guerri,2/10/2010,Kip Schowenburg,kschowenburga5@de.vu,Auction
+Chrysler,Cirrus,1902,59533.87,Miami,Ricardo Fielder,10/3/2000,Malcolm Pealing,mpealinga6@icq.com,Online
+Land Rover,LR3,1924,68208.77,New York,Becky Churches,9/21/2018,Bevin Jiras,bjirasa7@wunderground.com,Auction
+Porsche,928,1945,77112.25,Los Angeles,Teddie Panchin,10/18/2013,Sibley Priddy,spriddya8@unicef.org,Dealership
+Lexus,LS Hybrid,2020,85815.41,Chicago,Mitchael Biggam,12/19/2012,Morry Anear,maneara9@newsvine.com,Dealership
+Isuzu,Trooper,2002,34747.34,New York,Shir O'Rafferty,9/27/2003,Elnore Seifenmacher,eseifenmacheraa@cargocollective.com,Dealership
+Mitsubishi,Diamante,1958,18162.26,New York,Wallache Greenrod,2/15/2019,Evelyn Kobierzycki,ekobierzyckiab@eventbrite.com,Online
+Toyota,RAV4,1979,39276.5,Miami,Nan Duncklee,9/1/2011,Piper McGinty,pmcgintyac@answers.com,Dealership
+Toyota,Celica,1928,6472.17,Houston,Joshua Faustin,7/4/2012,Kimmy Dorow,kdorowad@infoseek.co.jp,Auction
+Toyota,Celica,1912,4101.62,Chicago,Marlow Summerbell,5/8/2009,Ogdan Taill,otaillae@merriam-webster.com,Auction
+Toyota,Sienna,1961,36421.44,New York,Ginni Jakubczyk,2/19/2016,Shellysheldon Hammer,shammeraf@mayoclinic.com,Online
+Ford,EXP,1989,63989.0,Los Angeles,Jinny Wrout,12/2/2007,Deane Benbow,dbenbowag@xinhuanet.com,Auction
+Suzuki,X-90,1913,60874.97,Los Angeles,Carmela Theseira,1/11/2006,Courtnay Simm,csimmah@fotki.com,Auction
+Lamborghini,Countach,1938,99049.61,Houston,Nikolaos Pitone,5/27/2008,Bobbie Schober,bschoberai@amazon.de,Auction
+Pontiac,Trans Sport,1959,24097.89,Houston,Kimbell Frampton,4/24/2017,Kelby Hugin,khuginaj@i2i.jp,Dealership
+Cadillac,Escalade EXT,1988,35903.05,Los Angeles,Stephi Watson-Brown,9/15/2008,Steffie Pedrozzi,spedrozziak@hibu.com,Auction
+Hyundai,Santa Fe,1984,6032.5,Los Angeles,Ingamar Arman,10/12/2014,Carlie Phettis,cphettisal@sohu.com,Dealership
+Toyota,Highlander,1955,88497.71,Los Angeles,Anstice Stockill,6/7/2004,Beverly Scard,bscardam@comcast.net,Auction
+Volvo,C70,1938,28596.68,New York,Emmet Paulich,7/11/2000,Jasmin Garred,jgarredan@sciencedirect.com,Online
+Hyundai,Genesis,1972,50977.69,Miami,Averil Gemmell,7/31/2000,Raina Aberdein,raberdeinao@ucoz.ru,Auction
+Nissan,Frontier,1943,74439.4,New York,Suzanne Guillem,5/29/2006,Merrel Gueinn,mgueinnap@wufoo.com,Online
+Chevrolet,Express 3500,1938,97081.65,Chicago,Willard Slyde,6/10/2019,Dell Cornelleau,dcornelleauaq@economist.com,Dealership
+Mercedes-Benz,CL65 AMG,2002,69964.11,Houston,Jehu Trundler,9/3/2017,Mattheus Hardson,mhardsonar@example.com,Auction
+Subaru,Impreza,2011,61011.23,Houston,Filberto Winchurch,3/13/2010,Anna-maria Pavese,apaveseas@yahoo.co.jp,Online
+Honda,Passport,2020,13248.49,Los Angeles,Cleo Rubertelli,6/25/2007,Karlotte Dunstone,kdunstoneat@cyberchimps.com,Dealership
+Nissan,350Z,1929,84689.98,Chicago,Pierrette Cord,6/21/2000,Cherlyn Fullerton,cfullertonau@forbes.com,Auction
+Chevrolet,3500,2000,10217.08,Chicago,Orelia Furnell,7/7/2000,Veriee Elflain,velflainav@ifeng.com,Auction
+Acura,RDX,1947,79806.63,Chicago,Thatch Purdey,3/20/2018,Flinn Bussetti,fbussettiaw@ustream.tv,Auction
+Acura,TL,2010,83404.44,Houston,Randal Ridewood,5/30/2003,Saunder Tulip,stulipax@msn.com,Auction
+Mitsubishi,Mirage,2021,43020.15,Houston,Lyle Ketley,5/1/2005,Dyana Bille,dbilleay@engadget.com,Online
+Honda,Pilot,1902,56677.05,Houston,Hartwell Bothie,3/3/2005,Willem Jacombs,wjacombsaz@cocolog-nifty.com,Online
+Chevrolet,Sportvan G20,1939,11755.5,Los Angeles,Westley Slyvester,2/14/2000,Miran Bovaird,mbovairdb0@ca.gov,Online
+Chevrolet,Suburban 2500,1976,88304.3,Houston,Cortie Melrose,8/30/2010,Issiah Jerrams,ijerramsb1@youtu.be,Dealership
+Ford,Expedition,1921,67964.4,Houston,Richie Keady,5/30/2013,Laureen Gagg,lgaggb2@chron.com,Dealership
+Land Rover,Range Rover,1912,69815.84,Miami,Malva Mauger,7/17/2004,Muire de Aguirre,mdeb3@google.cn,Online
+Honda,Pilot,1935,49207.58,Houston,Yardley Terlinden,1/19/2000,Philomena Bent,pbentb4@pinterest.com,Dealership
+Land Rover,Discovery,1941,65664.27,Miami,Lyell Carlisi,6/24/2014,Jilly Garretson,jgarretsonb5@de.vu,Auction
+Hummer,H1,1991,78845.14,Los Angeles,Felisha Frantzeni,7/1/2014,Florri L'Hommee,flhommeeb6@liveinternet.ru,Dealership
+Lexus,GX,1948,50127.01,New York,Frederick Schouthede,1/2/2016,Rusty Eidler,reidlerb7@ning.com,Auction
+Chevrolet,Silverado 2500,1934,52479.51,Houston,Emmery Elves,8/28/2011,Tess Batten,tbattenb8@chronoengine.com,Auction
+Dodge,Dynasty,1926,11977.86,Miami,Jon Sodor,3/21/2004,Roderich Mose,rmoseb9@virginia.edu,Auction
+Jaguar,XJ,1916,5941.21,New York,Nannette Jorg,9/8/2008,Andonis Plet,apletba@deviantart.com,Auction
+Chevrolet,Camaro,1911,80840.62,Miami,Phyllis Braunfeld,7/7/2017,Artus Hrycek,ahrycekbb@shareasale.com,Online
+Pontiac,Firebird,1982,67877.86,Miami,Zack Hickenbottom,2/24/2008,Huntington Whitwell,hwhitwellbc@yolasite.com,Auction
+Jeep,Patriot,1983,22867.48,Los Angeles,Flem Franks,11/18/2003,Rick Bonsey,rbonseybd@php.net,Auction
+Chevrolet,Uplander,2012,31555.76,New York,Marilin Gland,10/24/2009,Margalo Wilmot,mwilmotbe@wisc.edu,Dealership
+Nissan,Titan,1943,27711.0,New York,Andre Benoi,7/14/2021,Marlowe Rajchert,mrajchertbf@economist.com,Dealership
+Chevrolet,Express,1980,74694.35,Los Angeles,Carmelia Devas,11/10/2010,Corey Perren,cperrenbg@163.com,Auction
+Lamborghini,Diablo,1914,47609.64,New York,Paton Gale,6/5/2018,Llewellyn Kielt,lkieltbh@patch.com,Dealership
+Mazda,Protege,1971,12469.78,New York,Herculie Garn,5/15/2001,Caddric MacCafferty,cmaccaffertybi@qq.com,Online
+Porsche,911,1913,5292.75,Houston,Fenelia Gotts,2/19/2013,Brandie Flicker,bflickerbj@fotki.com,Online
+Maserati,GranTurismo,2021,86229.81,Houston,Kris Langlois,2/25/2006,Harman Billitteri,hbillitteribk@arizona.edu,Auction
+Buick,Century,1946,6128.94,New York,Constantine Teale,1/16/2001,Sayre Revey,sreveybl@cargocollective.com,Auction
+Volkswagen,Golf III,1997,91035.13,Los Angeles,Nertie Slowcock,1/3/2010,Madelon Grimshaw,mgrimshawbm@cbc.ca,Auction
+BMW,3 Series,1900,41408.95,New York,Saw Rosiello,1/26/2018,Eada Labrone,elabronebn@paginegialle.it,Dealership
+Mercedes-Benz,CL-Class,1948,60702.83,Chicago,Jock Baike,6/28/2012,Coop Ovell,covellbo@youku.com,Auction
+Mitsubishi,Eclipse,1996,41688.53,Los Angeles,Donia Beddon,4/17/2016,Ray Rudeyeard,rrudeyeardbp@mlb.com,Dealership
+Infiniti,I,2001,56788.58,Los Angeles,Wilmer Taylour,1/10/2001,Marci Elvin,melvinbq@theguardian.com,Auction
+Toyota,4Runner,1947,45257.6,Chicago,Caron Boise,4/4/2011,Charline Cominotti,ccominottibr@pinterest.com,Dealership
+Lexus,SC,1994,78495.17,Miami,Barrie Glowacz,1/20/2008,Ardra Chidlow,achidlowbs@kickstarter.com,Dealership
+Kia,Rio,1987,8937.01,New York,Hale Dwyer,11/22/2013,Kerrin Ramelet,krameletbt@paypal.com,Online
+Chrysler,300M,1934,31752.44,Miami,Meredeth Hidderley,1/13/2001,Jan Bryenton,jbryentonbu@spotify.com,Dealership
+GMC,Savana,1946,71174.33,New York,Georgeta Antoniutti,7/27/2008,Ferguson Impy,fimpybv@flavors.me,Auction
+Pontiac,Gemini,1986,1309.1,Los Angeles,Bonni Harcase,7/30/2018,Ellette Dingsdale,edingsdalebw@dot.gov,Dealership
+Jeep,Wrangler,1980,67852.98,Los Angeles,Haywood Pelz,8/12/2001,Ambur Yegorev,ayegorevbx@tuttocitta.it,Online
+GMC,Canyon,1942,73163.33,Chicago,Brook Odcroft,5/11/2007,Mel Newcombe,mnewcombeby@cornell.edu,Auction
+Porsche,Carrera GT,2001,90514.1,Houston,Martynne Nicklin,10/20/2008,Bernardina Wandrach,bwandrachbz@pcworld.com,Auction
+Mitsubishi,Chariot,1942,81599.84,New York,Lorne Treves,2/14/2006,Thalia Meaden,tmeadenc0@edublogs.org,Dealership
+Hyundai,Elantra,1983,72086.27,Los Angeles,Ode Colles,11/26/2003,Jill Longlands,jlonglandsc1@adobe.com,Dealership
+Mazda,GLC,1975,53884.25,Chicago,Edward Beri,7/20/2020,Freddi Bohills,fbohillsc2@netvibes.com,Auction
+Hummer,H2 SUV,1932,40109.42,Chicago,Chico Pervoe,4/12/2013,Jarvis Gooder,jgooderc3@dion.ne.jp,Dealership
+Porsche,Cayenne,1937,84961.24,New York,Stace Forward,1/9/2012,Bay Hadigate,bhadigatec4@yahoo.co.jp,Dealership
+Audi,A6,1995,8090.56,Houston,Leta Crosio,12/24/2001,Quent Preble,qpreblec5@dion.ne.jp,Online
+Kia,Optima,1931,39513.67,Miami,Danielle Gross,6/3/2000,Lenna McDirmid,lmcdirmidc6@adobe.com,Auction
+Nissan,Maxima,1913,23358.09,Los Angeles,Janna Saller,2/11/2007,Gerek Alexandrou,galexandrouc7@bravesites.com,Online
+Eagle,Summit,2001,75175.58,Los Angeles,Hayden Meijer,12/21/2006,Kevan Janiak,kjaniakc8@cnbc.com,Online
+Lincoln,MKZ,1962,67699.46,Chicago,Susie Aartsen,4/21/2015,Karen Woollends,kwoollendsc9@hhs.gov,Dealership
+Jeep,Cherokee,1901,65600.47,Houston,Teddy Chappel,4/22/2003,Lotte Selcraig,lselcraigca@google.es,Dealership
+Acura,Legend,1945,86368.72,Los Angeles,Alvis Beadnell,12/20/2002,Barnie Verduin,bverduincb@europa.eu,Dealership
+Mazda,MX-5,1932,91450.01,Miami,Rea Croucher,5/24/2002,Janetta Eastam,jeastamcc@ucla.edu,Dealership
+Cadillac,DeVille,1926,31432.12,New York,Edi Rawsthorn,3/28/2015,Jeanette Checo,jchecocd@yahoo.com,Dealership
+BMW,5 Series,1925,70696.85,New York,Hugues Bownd,6/2/2004,Brocky Bonnin,bbonnince@bluehost.com,Auction
+Toyota,Sequoia,1922,24008.46,Miami,Alley Sparke,4/30/2002,Maxy Cecere,mcecerecf@quantcast.com,Online
+BMW,7 Series,1970,26118.1,Houston,Hillery Latchmore,12/14/2018,Dayna Fredi,dfredicg@umn.edu,Auction
+Infiniti,Q,1997,30499.25,Houston,Philis Smogur,7/12/2022,Jermaine McGeouch,jmcgeouchch@youku.com,Online
+Chevrolet,G-Series G30,1957,90346.68,Chicago,Flem Orfeur,11/28/2022,Matthus Lowden,mlowdenci@webeden.co.uk,Dealership
+Mercedes-Benz,CL-Class,1984,66353.86,New York,Kingston Blakeway,3/12/2003,Corina Thorneloe,cthorneloecj@ed.gov,Auction
+Ford,Thunderbird,2001,62637.79,New York,Eddie Boshard,1/28/2005,Justinian Ameer-Beg,jameerbegck@arstechnica.com,Dealership
+Volkswagen,New Beetle,1952,58684.57,Miami,Ardella Iglesias,1/20/2002,Dewain Doghartie,ddoghartiecl@bloglines.com,Online
+Chevrolet,Suburban 2500,1903,26495.72,Los Angeles,Mylo Duval,8/15/2005,Glenden Woolfall,gwoolfallcm@amazon.co.jp,Dealership
+Dodge,Ram 3500,1976,67215.77,Houston,Sim Davidsson,11/22/2005,Corbie Probbing,cprobbingcn@blinklist.com,Auction
+Volkswagen,Golf,1950,10053.95,Chicago,Dorri Cordero,5/8/2009,Cherish Guilder,cguilderco@woothemes.com,Dealership
+Honda,Pilot,1981,35407.01,Chicago,Cam Imort,12/20/2006,Freddie Simpkins,fsimpkinscp@nih.gov,Auction
+Lexus,GX,1972,6879.29,Miami,Barris Garter,3/18/2005,Merv Brogioni,mbrogionicq@facebook.com,Dealership
+Mitsubishi,Precis,1956,92338.24,Chicago,Padraig Bartoszinski,11/22/2008,Sol Manueau,smanueaucr@dell.com,Auction
+Audi,A3,1944,48651.13,Los Angeles,Dahlia Shane,7/16/2018,Latrina Philipard,lphilipardcs@free.fr,Auction
+Chevrolet,Suburban 2500,1967,83324.1,New York,Phoebe Southcomb,4/16/2020,Ericka Strick,estrickct@paypal.com,Online
+Mitsubishi,Excel,1944,26679.68,Miami,Mayor Whittier,6/7/2000,D'arcy Caisley,dcaisleycu@cbslocal.com,Auction
+Isuzu,Ascender,2002,83505.09,Houston,Earlie Ebbutt,2/1/2013,Alena Stroton,astrotoncv@ning.com,Online
+MINI,Cooper Clubman,1965,44229.95,Chicago,Linus Saladino,1/26/2007,Almira Badland,abadlandcw@cnbc.com,Dealership
+Pontiac,Firefly,1976,55045.49,New York,Fifine Doble,4/17/2018,Ingeborg Larrie,ilarriecx@delicious.com,Auction
+Suzuki,Esteem,1985,87307.16,New York,Daryl Sommerlie,10/26/2014,Kristos Cohalan,kcohalancy@google.it,Online
+Volvo,XC90,1994,40714.81,Miami,Kendall Stearne,5/10/2015,Alvina Prentice,aprenticecz@joomla.org,Auction
+Honda,CR-X,2019,7947.88,Miami,Josias Layus,1/7/2014,Shauna McLaughlan,smclaughland0@altervista.org,Online
+GMC,Savana 1500,1956,94616.83,Los Angeles,Alejandra Edmands,4/11/2010,Saundra Bryan,sbryand1@ustream.tv,Online
+GMC,Savana 2500,1916,97117.02,New York,Cindra Wooddisse,3/31/2000,Anne Insull,ainsulld2@godaddy.com,Online
+Ford,E150,1999,57186.57,New York,Quintilla Corris,4/15/2012,Mommy Gambell,mgambelld3@ocn.ne.jp,Online
+Mercedes-Benz,R-Class,1934,16953.26,New York,Wilhelmine Stenner,7/14/2015,Maxi South,msouthd4@fema.gov,Auction
+Lexus,RX,2021,89826.73,Houston,Konstantin Matthiesen,2/24/2003,Avram Ughelli,aughellid5@jugem.jp,Dealership
+BMW,760,1946,89884.09,Chicago,Marilyn Maile,8/27/2015,Grace Pearlman,gpearlmand6@sourceforge.net,Online
+Dodge,Journey,1900,48950.75,Houston,Anette Tunnow,7/3/2022,Scotti Stowe,sstowed7@macromedia.com,Auction
+Chevrolet,G-Series G30,1934,4377.81,Los Angeles,Ceciley Surgood,7/20/2009,Dory Ketchell,dketchelld8@squidoo.com,Auction
+Lexus,GS,1936,63974.01,Los Angeles,Clarke Addington,12/7/2007,Cornie Wallentin,cwallentind9@goodreads.com,Dealership
+Pontiac,6000,1960,91422.52,New York,Townsend Dissman,7/23/2016,Olly Renon,orenonda@imdb.com,Online
+Mazda,Millenia,1916,71126.68,Houston,Tanney Giacaponi,5/27/2017,Cad Foxley,cfoxleydb@bigcartel.com,Online
+Oldsmobile,Achieva,1970,38941.18,Los Angeles,Kenna Larway,10/15/2000,Fenelia Pretsel,fpretseldc@bbc.co.uk,Online
+Ford,Explorer Sport Trac,1958,83855.01,Los Angeles,Cristian Verity,1/5/2021,Ardis Huton,ahutondd@ebay.com,Dealership
+Mitsubishi,Truck,1943,94320.14,Houston,Michal Jachimiak,3/29/2016,Tymon Songest,tsongestde@oakley.com,Online
+Isuzu,i-Series,1989,16537.52,Chicago,Jessa Villar,10/6/2009,Kippie Ferro,kferrodf@washington.edu,Dealership
+Pontiac,Firebird,1939,7389.08,Chicago,Cecil Stevenson,2/24/2006,Georgeanne Alfonsini,galfonsinidg@furl.net,Auction
+Mazda,Mazda6,2018,64207.32,Houston,Flor Lapworth,4/8/2007,Chloe Rennles,crennlesdh@i2i.jp,Auction
+Land Rover,Discovery,2017,44359.07,Miami,Melba Marke,12/17/2002,Fairleigh Tynan,ftynandi@usda.gov,Online
+Nissan,Xterra,1978,49053.52,Chicago,Crystie Preble,3/16/2000,Leona Bowdrey,lbowdreydj@pagesperso-orange.fr,Auction
+Buick,Park Avenue,1927,51328.33,Houston,Gilberta Schorah,8/27/2007,Jilleen Hallas,jhallasdk@un.org,Online
+Oldsmobile,Silhouette,1984,24188.48,Los Angeles,Roderick O'Nowlan,12/25/2011,Jimmie Broseke,jbrosekedl@mac.com,Auction
+Saab,9-5,1936,72882.71,Chicago,Avie Sterry,8/25/2012,Gabby Sadgrove,gsadgrovedm@simplemachines.org,Auction
+Mercedes-Benz,E-Class,1989,75933.77,Miami,Hamid Condict,9/3/2011,Karena Edgett,kedgettdn@home.pl,Dealership
+Chrysler,PT Cruiser,1997,61810.59,Chicago,Arabelle Pruckner,1/23/2016,Andrea Wetherald,awetheralddo@dyndns.org,Online
+Hyundai,Scoupe,1935,53254.99,Houston,Alta Gaitung,2/22/2004,Lin Muckley,lmuckleydp@domainmarket.com,Dealership
+Chevrolet,Tahoe,1957,24238.16,Los Angeles,Sephira Hazeldene,11/22/2015,Patrizia Raffles,prafflesdq@yale.edu,Online
+Subaru,Impreza,1900,81739.19,Houston,Marian Ruppeli,6/21/2021,Ardith Gingle,agingledr@dagondesign.com,Dealership
+Acura,Integra,1971,18145.17,Miami,Theodore Pawlata,5/29/2021,Meagan Ritter,mritterds@xrea.com,Auction
+Chevrolet,Silverado 1500,2009,84329.55,Miami,Silvio Pinnere,3/12/2008,Cally Tackle,ctackledt@digg.com,Online
+Porsche,Carrera GT,1906,24728.59,Houston,Caroljean Maysor,3/17/2010,Bidget Basire,bbasiredu@uiuc.edu,Auction
+GMC,Envoy,1985,27434.3,Miami,Dulcine Fuente,1/27/2004,Phillida McGuire,pmcguiredv@oaic.gov.au,Online
+Isuzu,Hombre Space,1986,20843.72,Los Angeles,Pall Calbaithe,6/11/2000,Drusi O'Brian,dobriandw@seattletimes.com,Auction
+Geo,Metro,1945,38561.27,Chicago,Alard Tupie,9/14/2006,Korney Nottingam,knottingamdx@ameblo.jp,Online
+Ford,Ranger,1983,91016.71,Los Angeles,Alec De Metz,4/24/2009,Johnnie But,jbutdy@cafepress.com,Auction
+Ford,Ranger,1983,7438.79,Chicago,Marlena Jaye,12/23/2021,Greg Dinwoodie,gdinwoodiedz@illinois.edu,Auction
+Audi,A6,1975,25813.74,New York,Sandye Carss,6/8/2016,Adelind Geely,ageelye0@baidu.com,Online
+Chevrolet,Tracker,1909,2150.15,New York,Allsun Shevill,3/6/2005,Roma Dennick,rdennicke1@ucsd.edu,Dealership
+Acura,TL,1926,44670.77,Houston,Myrvyn McCreath,12/3/2012,Deena Smeeton,dsmeetone2@google.nl,Auction
+Pontiac,Firebird,1997,4410.52,Chicago,Tod Moxham,12/17/2007,Manfred Ivers,miverse3@intel.com,Online
+Mercedes-Benz,M-Class,1984,43906.13,Los Angeles,Westbrooke Harhoff,7/26/2015,Kristine Collinwood,kcollinwoode4@uiuc.edu,Online
+Mercedes-Benz,SLR McLaren,1971,61077.95,Houston,Konstanze Brumfitt,9/20/2001,Sibyl Ingleson,singlesone5@yellowbook.com,Dealership
+Panoz,Esperante,1977,42718.6,Chicago,Orville Heaysman,10/28/2017,Culley Bolles,cbollese6@mtv.com,Dealership
+Ford,Thunderbird,1925,61066.8,Chicago,Malanie Millea,11/10/2000,Eachelle Greenfield,egreenfielde7@xing.com,Online
+Chrysler,Town & Country,2006,49972.82,Los Angeles,Wilie Kauscher,2/11/2015,Marianne Leney,mleneye8@google.fr,Auction
+Chevrolet,LUV,1972,85226.54,Chicago,Justis Strapp,6/10/2015,Darill Stonier,dstoniere9@fema.gov,Auction
+Audi,80,1967,75625.84,Houston,Emili Colquyte,7/18/2018,Annamarie Emmert,aemmertea@redcross.org,Auction
+Scion,xD,1980,60027.88,Chicago,Ely Gerrard,12/6/2014,Chip Beggi,cbeggieb@theatlantic.com,Auction
+Mazda,Tribute,1977,47373.65,Miami,Amelie Muckloe,9/29/2020,Kimberly Leimster,kleimsterec@linkedin.com,Auction
+Chevrolet,Cavalier,1969,50812.37,Chicago,Amity Adlam,6/3/2016,Dietrich Rampling,dramplinged@github.com,Auction
+Mercedes-Benz,GL-Class,1991,55296.18,New York,Gracia Glencrash,4/4/2003,Eloisa Lechelle,elechelleee@rakuten.co.jp,Auction
+Mitsubishi,3000GT,1945,9626.63,Los Angeles,Karoly Fuente,7/18/2005,Dalenna Duckerin,dduckerinef@toplist.cz,Dealership
+BMW,Z3,1995,55432.11,New York,Lowe Cannop,10/24/2015,Courtnay Gillibrand,cgillibrandeg@posterous.com,Dealership
+Kia,Soul,2014,43881.25,New York,Deidre Cleverley,4/5/2022,Tedman Phil,tphileh@chronoengine.com,Online
+Mercedes-Benz,G-Class,1995,74874.74,Houston,Pall Files,3/14/2018,Malvin Kenninghan,mkenninghanei@spotify.com,Auction
+Mazda,Mazdaspeed 3,1977,80136.09,Miami,Broddie Borgesio,6/19/2017,Niven Neathway,nneathwayej@elpais.com,Online
+Honda,Odyssey,1943,50310.77,New York,Katha Crossingham,7/18/2017,Pamella Salsberg,psalsbergek@a8.net,Online
+Subaru,Legacy,1903,59080.15,New York,Reider Devennie,1/10/2005,Nicol Clemens,nclemensel@aboutads.info,Online
+Honda,CR-V,2003,51026.3,Miami,Edmon Philipet,12/25/2015,Sandra Yacobsohn,syacobsohnem@people.com.cn,Dealership
+Chevrolet,G-Series G30,1983,48677.27,New York,Lura Schoroder,4/28/2003,Carmencita Morena,cmorenaen@ucoz.ru,Online
+Land Rover,Range Rover,1992,42307.87,Los Angeles,Godfry Ortzen,11/21/2003,Galven Adamiec,gadamieceo@constantcontact.com,Auction
+Buick,Century,1925,47257.81,Chicago,Felecia Poulsen,4/19/2011,Lissa Duxbury,lduxburyep@about.me,Auction
+Nissan,Xterra,1990,24254.69,Miami,Tommie Plumb,1/25/2008,Ingelbert Simakov,isimakoveq@mozilla.com,Dealership
+Nissan,Altima,1937,92869.33,Houston,Hamlen Gillicuddy,11/21/2021,Elbertine Gabbotts,egabbottser@github.io,Auction
+Suzuki,Grand Vitara,1936,78939.84,Miami,Harlin McIlmurray,8/27/2016,Ozzie Few,ofewes@wix.com,Online
+GMC,Envoy,1974,49911.44,Los Angeles,Adriena Marcussen,12/7/2010,Asher Kernermann,akernermannet@i2i.jp,Auction
+Nissan,Quest,1997,52348.53,New York,Francene Drews,3/26/2012,Fabio Blasik,fblasikeu@chron.com,Dealership
+Lincoln,Mark LT,1972,71038.37,Los Angeles,Hanson Rhymer,11/4/2000,Wallie Blanden,wblandenev@rakuten.co.jp,Dealership
+Chevrolet,Aveo,2007,55399.97,Los Angeles,Curr Lindop,9/1/2000,Orren Como,ocomoew@google.co.uk,Auction
+Ford,Thunderbird,1979,43791.98,Chicago,Clarisse Dowzell,6/15/2022,Damien Pantridge,dpantridgeex@amazon.de,Auction
+Mercedes-Benz,SL-Class,1985,70155.89,Miami,Aila Loakes,5/12/2008,Peirce Vonderdell,pvonderdelley@nationalgeographic.com,Online
+Honda,Odyssey,2021,86130.42,Houston,Ricky Wykey,9/16/2022,Mavra Outerbridge,mouterbridgeez@ucoz.ru,Dealership
+BMW,M3,1950,72936.45,Houston,Hiram Pirelli,7/9/2006,Elvyn Freebury,efreeburyf0@intel.com,Online
+Nissan,Pathfinder,1938,33052.43,New York,Stefa Hansed,1/13/2018,Freedman Grisley,fgrisleyf1@simplemachines.org,Dealership
+BMW,6 Series,1968,85837.09,Los Angeles,Alwyn Annatt,5/29/2016,Clari Aloshkin,caloshkinf2@indiegogo.com,Online
+Volvo,S60,1955,65964.86,New York,Edouard Capnor,8/7/2020,Casar Ort,cortf3@booking.com,Online
+Dodge,Charger,1968,46025.67,Houston,Myranda Beisley,5/10/2017,Claudius Barnewall,cbarnewallf4@dagondesign.com,Online
+Buick,Regal,1977,36122.35,Chicago,Zora Edgington,10/15/2004,Lorine Horsell,lhorsellf5@time.com,Online
+Hyundai,Santa Fe,1989,20678.99,Miami,Doll Adamek,2/18/2011,Christiana Farr,cfarrf6@diigo.com,Dealership
+Chrysler,LeBaron,1936,8052.79,Chicago,Douglass Gallahar,3/22/2012,Nial Crowson,ncrowsonf7@buzzfeed.com,Auction
+Maybach,57,1975,42558.17,Miami,Evelina McMenemy,6/2/2022,Austin Sterry,asterryf8@paginegialle.it,Auction
+Mercury,Mountaineer,1940,89814.06,Houston,Jolyn Troyes,8/1/2016,Berkie Bidewel,bbidewelf9@rakuten.co.jp,Dealership
+Geo,Metro,1929,90203.36,Los Angeles,Bordy McCrudden,4/4/2009,Erik Steynor,esteynorfa@webs.com,Auction
+Mitsubishi,3000GT,1906,14887.83,Miami,Creigh Chastaing,12/30/2012,Zelma Lutzmann,zlutzmannfb@fotki.com,Online
+Volkswagen,GTI,2006,11989.6,Los Angeles,Phoebe Rothera,6/21/2006,Millard Aseef,maseeffc@illinois.edu,Dealership
+GMC,Yukon XL 1500,1946,37590.45,Los Angeles,Valaria Blincoe,7/30/2002,Mela Grishechkin,mgrishechkinfd@sina.com.cn,Auction
+Chevrolet,TrailBlazer,1960,29195.27,Miami,Van Yexley,1/11/2016,Gianna Labbett,glabbettfe@1und1.de,Dealership
+Ford,Aerostar,1931,8377.36,New York,Donnell felip,11/26/2020,Kathlin Rishworth,krishworthff@biglobe.ne.jp,Dealership
+Dodge,Avenger,1997,35757.75,Houston,Glenine Dellit,10/13/2009,Sophia Miroy,smiroyfg@linkedin.com,Dealership
+Audi,R8,1949,21148.67,Los Angeles,Carlynne Worcester,5/18/2014,Tyler Niese,tniesefh@nature.com,Online
+Dodge,Omni,1916,1589.79,New York,Mariele Glencrosche,2/23/2000,Isabeau Tillerton,itillertonfi@businessinsider.com,Auction
+Volkswagen,Vanagon,2013,70936.04,New York,Rina Dancy,7/21/2015,Zondra Remmers,zremmersfj@free.fr,Online
+Volkswagen,Jetta,1973,45321.95,New York,Stefano McGillacoell,12/25/2018,Neel Rabjohn,nrabjohnfk@goo.ne.jp,Online
+Chevrolet,Camaro,2020,73090.5,Houston,Ninon McIlwaine,11/16/2015,Christoffer Fairney,cfairneyfl@cdc.gov,Dealership
+Ford,Taurus,1911,62381.46,New York,Dorie Spiaggia,3/12/2007,Bartel Chaffe,bchaffefm@aboutads.info,Online
+Maserati,Quattroporte,1966,56666.21,Chicago,Ker Earengey,7/24/2003,Erinna Santhouse,esanthousefn@state.tx.us,Auction
+Cadillac,Escalade,1976,14774.62,Chicago,Lissi Wyne,5/3/2018,Genevra Grestie,ggrestiefo@php.net,Auction
+Mercury,Grand Marquis,1949,85465.46,Los Angeles,Meg Allans,7/31/2022,Stella Piscotti,spiscottifp@infoseek.co.jp,Dealership
+Buick,Regal,1928,29249.23,New York,Codie Croydon,10/6/2003,Tallie Baugh,tbaughfq@walmart.com,Auction
+BMW,M3,1917,7061.74,Miami,Evanne Breckon,1/10/2020,Meghan Dalton,mdaltonfr@samsung.com,Dealership
+Plymouth,Colt Vista,1926,83305.29,Chicago,Franky Joscelyne,4/13/2010,Issi Barensky,ibarenskyfs@ebay.com,Auction
+Subaru,Forester,1975,31437.56,Houston,Dorthy Askey,8/13/2001,Thornie Copsey,tcopseyft@friendfeed.com,Dealership
+Kia,Sedona,1963,6386.41,Miami,Donall Camlin,9/24/2021,Debbi Paulich,dpaulichfu@oakley.com,Dealership
+Mercedes-Benz,SL-Class,1916,72026.38,Chicago,Dacey Kernocke,4/2/2020,Lambert Toop,ltoopfv@nature.com,Dealership
+Hyundai,Santa Fe,2014,31574.06,Chicago,Sharai Merwood,10/25/2004,Linnea Heak,lheakfw@moonfruit.com,Online
+BMW,X3,1950,81231.81,New York,Noam Pyner,8/29/2017,Aleen Tukely,atukelyfx@usatoday.com,Auction
+Ford,E250,1927,95779.95,New York,Meryl Wolfit,4/30/2010,Pegeen Dartnell,pdartnellfy@elegantthemes.com,Auction
+Chevrolet,Avalanche,1945,50910.6,New York,Kennith Igo,10/18/2019,Amie Bernollet,abernolletfz@senate.gov,Auction
+Ferrari,California,1943,71437.66,Los Angeles,Ephrem Sibary,4/9/2009,Rosene Brabbs,rbrabbsg0@marketwatch.com,Auction
+Honda,del Sol,2020,17220.32,New York,Kelley Orwin,5/28/2000,Hunter Tongue,htongueg1@ucoz.ru,Dealership
+Lexus,HS,1989,83388.76,Los Angeles,Fey MacRinn,4/17/2012,Eudora MacInerney,emacinerneyg2@goo.ne.jp,Dealership
+Jeep,Wrangler,1916,82681.63,Houston,Leda Graveson,9/6/2009,Lissie Oakeshott,loakeshottg3@creativecommons.org,Online
+Ford,Fusion,2006,4205.84,New York,Michaelina Rawlingson,9/13/2011,Georgi Conyard,gconyardg4@adobe.com,Online
+Kia,Soul,1941,44874.64,Miami,Dagmar Tort,9/16/2019,Gerry Garrold,ggarroldg5@homestead.com,Online
+Infiniti,FX,1961,8844.87,New York,Jo-anne Nisuis,7/15/2022,Pace Rickerby,prickerbyg6@163.com,Dealership
+Mitsubishi,Montero Sport,1984,59008.36,Miami,Marietta Wandrey,11/11/2019,Knox McKevin,kmckeving7@google.co.uk,Dealership
+Cadillac,DeVille,1913,38118.37,Los Angeles,Donal Janiszewski,4/28/2006,Kassandra Augar,kaugarg8@gov.uk,Auction
+Ford,Aspire,2006,2557.3,Houston,Ardella Fahey,3/10/2014,Libby Vasilevich,lvasilevichg9@foxnews.com,Auction
+Dodge,Ram 2500 Club,2004,8046.81,Chicago,Leonie Scedall,1/21/2008,Malinda Fuzzard,mfuzzardga@cmu.edu,Online
+Plymouth,Colt,1922,83086.78,New York,Bell Cutforth,12/5/2020,Ellwood Gier,egiergb@fotki.com,Online
+Nissan,Titan,1947,86521.0,Miami,Vida Rolley,1/17/2001,Marsh MacCague,mmaccaguegc@gnu.org,Dealership
+GMC,Yukon XL 1500,1913,19920.29,New York,Ari Paxman,10/30/2011,Eada Huntar,ehuntargd@skyrock.com,Online
+Pontiac,GTO,2016,14572.52,Houston,Sosanna Richen,8/14/2005,Dave Woodfin,dwoodfinge@over-blog.com,Online
+GMC,Sierra 2500,1933,33388.41,Houston,Elva Corradino,8/4/2015,Garrott McGilroy,gmcgilroygf@163.com,Online
+Lexus,SC,2003,31359.88,Los Angeles,Emeline Bohlsen,10/12/2001,Leonard Pratt,lprattgg@imdb.com,Auction
+Mercury,Milan,1918,47593.1,Houston,Leora Gawn,9/13/2015,Hildagarde Wayman,hwaymangh@jiathis.com,Online
+Isuzu,Stylus,2003,41034.77,Houston,Shawna Johnson,8/8/2010,Venita Goby,vgobygi@columbia.edu,Dealership
+Dodge,D150 Club,2020,81643.09,Chicago,Anni Goodbur,10/3/2015,Hanan Yokelman,hyokelmangj@rediff.com,Dealership
+Honda,Passport,1918,20716.44,Miami,Gregg Kinch,4/10/2006,Sansone Lewry,slewrygk@kickstarter.com,Auction
+Lexus,LX,1923,32633.45,Chicago,Donnamarie Legate,1/16/2007,Zaneta Nairne,znairnegl@scientificamerican.com,Auction
+Pontiac,Bonneville,1977,93450.47,Houston,Juana Lyokhin,12/26/2007,Adrian Laurie,alauriegm@princeton.edu,Auction
+Mercedes-Benz,M-Class,1970,69900.27,Miami,Aylmar Filippov,6/16/2022,Howey Whye,hwhyegn@shop-pro.jp,Auction
+Suzuki,Daewoo Magnus,2022,11650.82,Miami,Joscelin Innis,1/6/2012,Gauthier Bellocht,gbellochtgo@surveymonkey.com,Auction
+Mercedes-Benz,W201,1938,63963.39,Chicago,Dennet Dunthorn,4/8/2000,Cathe McKerrow,cmckerrowgp@shutterfly.com,Dealership
+Ford,Mustang,1977,57523.12,Houston,Kikelia Andreutti,4/26/2008,Vinni Skeggs,vskeggsgq@1688.com,Dealership
+Suzuki,Cultus,1939,43700.75,Los Angeles,Jeno Gladdin,8/20/2002,Rachele Rowaszkiewicz,rrowaszkiewiczgr@github.com,Dealership
+Mitsubishi,Montero,1975,67335.97,Miami,Stephannie Haining,12/13/2018,Mellie Hellin,mhellings@thetimes.co.uk,Auction
+Plymouth,Voyager,1928,9607.31,New York,Rutledge McQuie,6/1/2000,Peter Tissell,ptissellgt@marriott.com,Auction
+Jaguar,X-Type,1961,17310.41,Houston,Rina Fache,11/24/2010,Wallas Petrescu,wpetrescugu@macromedia.com,Online
+Mitsubishi,Galant,1973,57434.74,Chicago,Holly-anne Marxsen,8/1/2013,Sharity Gwilliams,sgwilliamsgv@networksolutions.com,Dealership
+Audi,S6,1979,15621.01,Miami,Jeanine Sive,4/2/2019,Jamesy Bligh,jblighgw@quantcast.com,Dealership
+Bentley,Continental GT,1935,29392.71,Miami,Dulcie Chace,11/3/2021,Stormi Gwilt,sgwiltgx@apache.org,Auction
+Chevrolet,Avalanche,1985,80565.31,New York,Viva Mostin,10/28/2019,Miof mela Heinecke,mmelagy@narod.ru,Dealership
+Ford,Taurus,1979,87749.24,Chicago,Carly Griffithe,5/15/2013,Javier Paulot,jpaulotgz@posterous.com,Online
+Fairthorpe,Rockette,1978,98760.37,Houston,Lindy Smoote,5/12/2008,Xenos Stretton,xstrettonh0@cornell.edu,Auction
+Chevrolet,APV,1929,45508.0,Los Angeles,Juli Burland,11/27/2020,Hortense Dalley,hdalleyh1@nasa.gov,Online
+Buick,Somerset,1998,81203.59,New York,Winslow Logesdale,8/24/2015,Lory Ramshaw,lramshawh2@eepurl.com,Online
+Mercedes-Benz,SLK-Class,1989,78935.99,Houston,Tom Dresse,6/13/2015,Bridgette Pedreschi,bpedreschih3@vinaora.com,Online
+Dodge,Ram Van 2500,1974,27370.17,Miami,Cara Moline,12/30/2002,Palm Lowdiane,plowdianeh4@google.ca,Auction
+Jensen,Interceptor,2014,20738.51,Miami,Kiele Gudgen,7/30/2008,Maryann McFee,mmcfeeh5@facebook.com,Online
+Ford,Escape,1947,70822.43,Miami,Emmalynn Hall-Gough,4/16/2021,Cos Plom,cplomh6@economist.com,Dealership
+Dodge,Ram 1500 Club,1976,86539.79,Houston,Nikki Leemans,7/18/2009,Shannon Sabberton,ssabbertonh7@shinystat.com,Auction
+Mercedes-Benz,W201,1907,81840.43,Miami,Charmine Trevains,12/17/2015,Karina Danielsohn,kdanielsohnh8@hubpages.com,Dealership
+Infiniti,QX56,1934,55568.01,Houston,Skell Skillanders,12/20/2000,Joeann Beck,jbeckh9@psu.edu,Online
+Pontiac,Tempest,1976,39660.37,Miami,Linea Karmel,12/11/2009,Lurleen Ambrois,lambroisha@phpbb.com,Online
+Chevrolet,Cobalt,1998,31763.63,Chicago,Bryant Keasy,5/14/2003,Curt Paslow,cpaslowhb@seesaa.net,Auction
+Volkswagen,Passat,1920,46356.13,New York,Anatol Grocott,5/1/2015,Tally Iltchev,tiltchevhc@yahoo.com,Dealership
+Lotus,Elise,1997,96916.95,Miami,Wolf Glaves,5/18/2021,Demetrius Sigart,dsigarthd@google.com.br,Auction
+Ford,E250,1962,84914.73,Chicago,Gypsy Chater,8/17/2011,Wilfred Leydon,wleydonhe@liveinternet.ru,Dealership
+Ford,Galaxie,2000,58727.59,Miami,Ursuline Skelington,7/1/2005,Horton Gentile,hgentilehf@domainmarket.com,Dealership
+Lexus,IS-F,1927,46012.63,Los Angeles,Ganny McKee,10/11/2012,Brandon Castanone,bcastanonehg@illinois.edu,Auction
+Buick,Somerset,1922,48509.6,Chicago,Sonia Ygou,3/7/2003,Felice Traill,ftraillhh@amazon.co.uk,Online
+Mercury,Grand Marquis,1986,17763.24,Chicago,Sharlene Lambdon,12/7/2017,Ogdon Manifould,omanifouldhi@economist.com,Dealership
+Nissan,Armada,1954,21026.7,Los Angeles,Elisha See,6/18/2012,Barbabra Mallard,bmallardhj@skyrock.com,Auction
+Dodge,Viper,1960,34941.28,Los Angeles,Pippa Britland,2/17/2014,Kev Suatt,ksuatthk@ameblo.jp,Online
+Dodge,Ram 1500,1935,4705.37,Los Angeles,Barrie Afield,1/11/2010,Atalanta Laytham,alaythamhl@dagondesign.com,Auction
+Audi,200,1902,90215.32,Houston,Geri Tern,2/22/2012,Gratia Lawrance,glawrancehm@ucla.edu,Auction
+Dodge,Ram 3500,1948,30155.61,New York,Myrle Broe,2/1/2013,Bev Strother,bstrotherhn@oaic.gov.au,Auction
+Pontiac,G6,1970,55405.16,New York,Camala Godbald,11/28/2010,Emelyne Farrants,efarrantsho@hexun.com,Dealership
+Toyota,FJ Cruiser,1975,40998.01,New York,Bernhard Jeffs,4/19/2006,Tanner Nicolls,tnicollshp@nymag.com,Auction
+Chevrolet,Volt,1995,60314.57,Houston,Estell Dilleston,12/19/2015,Teirtza Villa,tvillahq@wsj.com,Auction
+Cadillac,CTS-V,1992,23522.12,Los Angeles,Elnar Peggrem,2/19/2002,Ernaline Benech,ebenechhr@posterous.com,Dealership
+GMC,Sierra 3500,1958,83829.72,New York,Charity Lorans,10/13/2019,Daisey Sokill,dsokillhs@earthlink.net,Dealership
+Volvo,XC70,1918,78666.83,Los Angeles,Gianna Kynton,2/13/2009,Hyacinthe McKennan,hmckennanht@ask.com,Dealership
+Mitsubishi,Eclipse,1964,11011.33,New York,Padget Josum,4/7/2002,Myrvyn Zorzin,mzorzinhu@illinois.edu,Dealership
+Mercedes-Benz,G-Class,1956,89180.46,Los Angeles,Ezechiel Wakeley,10/21/2022,Debby Chappelle,dchappellehv@discovery.com,Online
+Cadillac,Eldorado,1980,94579.16,Los Angeles,Victor Finnick,12/14/2022,Illa Akett,iaketthw@fda.gov,Online
+Mitsubishi,RVR,1909,66466.89,New York,Perle Oaks,1/5/2014,Iosep Shervil,ishervilhx@moonfruit.com,Online
+Rolls-Royce,Phantom,1984,56557.61,New York,Emery Burg,4/7/2011,Alonzo Danett,adanetthy@xinhuanet.com,Dealership
+Dodge,Dakota Club,1914,82027.53,Miami,Therine Clifforth,3/29/2009,Thomas Staden,tstadenhz@macromedia.com,Dealership
+Mitsubishi,Galant,1982,4895.14,Houston,Herrick Salzberger,4/28/2000,Terrye Sergeant,tsergeanti0@ft.com,Auction
+Chrysler,Sebring,1966,35594.92,Chicago,Estrellita Orae,10/24/2001,Andras Duplan,aduplani1@jugem.jp,Auction
+Porsche,911,1973,43768.44,Los Angeles,Oswald Haresnaip,10/6/2020,Lizzy Forsythe,lforsythei2@wired.com,Dealership
+Pontiac,Aztek,1985,97449.26,New York,Ciel Kitchener,11/26/2016,Idell Earney,iearneyi3@nps.gov,Auction
+Volvo,V40,1993,11684.8,New York,Darb Roubeix,6/9/2019,Raf Paszek,rpaszeki4@surveymonkey.com,Dealership
+Mercedes-Benz,G-Class,1966,3437.46,Houston,Tabbatha Bladge,12/26/2018,Lotta Whetland,lwhetlandi5@yahoo.com,Online
+Mazda,RX-7,1991,14869.41,Miami,Hillier Castellanos,12/2/2015,Hewe Mazdon,hmazdoni6@theatlantic.com,Auction
+Jeep,Commander,1910,62932.23,Chicago,Marnia Mustchin,7/19/2007,Rebe Ruter,rruteri7@i2i.jp,Dealership
+Subaru,Legacy,2014,12489.43,Miami,Melantha Cardinal,3/19/2004,Holly Dreinan,hdreinani8@google.ca,Dealership
+Ford,F450,2016,11071.88,Los Angeles,Catrina Guillard,1/29/2012,Teodoro Burren,tburreni9@whitehouse.gov,Dealership
+Volvo,V90,1937,70242.17,Los Angeles,Etan Dykes,10/26/2014,Darcy Sutehall,dsutehallia@arizona.edu,Online
+Volvo,S70,2000,28740.5,Miami,Arley Knotte,5/4/2002,Shannan MacGeaney,smacgeaneyib@nsw.gov.au,Dealership
+Dodge,Avenger,1910,47071.8,Miami,Cari Keech,10/20/2013,Marylee Liddard,mliddardic@booking.com,Dealership
+Toyota,Corolla,1925,48005.41,Los Angeles,Frederigo Davydkov,12/9/2015,Deb Mucklestone,dmucklestoneid@mozilla.org,Dealership
+Toyota,MR2,1932,31582.34,Los Angeles,Audrye Brehault,6/18/2006,Zonda Abramovic,zabramovicie@miibeian.gov.cn,Dealership
+Mitsubishi,Mirage,1980,5250.19,Houston,Antonius Sneezem,4/6/2011,Rodge Braams,rbraamsif@opensource.org,Online
+BMW,6 Series,2009,56609.64,Los Angeles,Ardisj Gouck,10/15/2004,Norine Hurdle,nhurdleig@macromedia.com,Auction
+Aston Martin,V8 Vantage,2013,19861.26,Chicago,Nicol Farmloe,11/23/2014,Hastie Iwanowicz,hiwanowiczih@disqus.com,Dealership
+Audi,A4,1982,35807.17,Los Angeles,Glennie Pate,1/3/2009,Beatriz Ballard,bballardii@google.nl,Dealership
+Aston Martin,DBS,1918,97318.03,New York,Hedi Mableson,12/23/2011,Ozzy Thick,othickij@flickr.com,Online
+Chrysler,Town & Country,1964,89513.17,New York,Jacquie Derry,9/21/2005,Opalina Meldrum,omeldrumik@bravesites.com,Online
+Toyota,Corolla,1936,46058.68,Miami,Harbert Loynton,2/24/2019,Giulia Gulliman,ggullimanil@wp.com,Auction
+Volkswagen,Cabriolet,1955,48071.57,Houston,Becka Allberry,10/10/2010,Danica Oakley,doakleyim@google.de,Auction
+Subaru,Legacy,1923,79077.46,Los Angeles,Worth Oultram,12/19/2004,Had Nuttall,hnuttallin@thetimes.co.uk,Online
+Mercury,Sable,1927,57170.86,Chicago,Lind Boar,7/10/2022,Alana McAvinchey,amcavincheyio@deliciousdays.com,Dealership
+Chevrolet,Silverado 1500,1965,92728.09,Los Angeles,Adrianne Sams,6/13/2014,George Choppen,gchoppenip@google.es,Auction
+Audi,A8,2020,25223.68,Houston,Pascale Galbreth,4/3/2005,Valle Lettsom,vlettsomiq@jiathis.com,Dealership
+Audi,S6,1984,17248.74,Chicago,Laural Glabach,7/10/2009,Rubina Umbers,rumbersir@drupal.org,Dealership
+Smart,Fortwo,1949,10200.85,Miami,Vanny McIlharga,3/30/2018,Fairfax Soper,fsoperis@e-recht24.de,Dealership
+Saab,9-3,1976,37343.46,Miami,Stacie Sutter,10/24/2013,Kiel Cettell,kcettellit@amazon.co.jp,Online
+Acura,MDX,1952,39445.66,New York,Oates Bigglestone,11/6/2011,Cissy Alloisi,calloisiiu@aboutads.info,Dealership
+Lexus,LS,1952,52580.66,Los Angeles,Wilt Lenoir,12/20/2018,Lazar Klaessen,lklaesseniv@indiatimes.com,Auction
+Dodge,Viper,1961,44086.74,Houston,Bonni Humpatch,5/17/2015,Tana Sloat,tsloatiw@sphinn.com,Auction
+Lincoln,MKX,1982,57167.94,Houston,Andrea Milward,3/3/2018,Daisey Newey,dneweyix@friendfeed.com,Dealership
+Nissan,Altima,1942,27841.26,Houston,Case Thurber,11/22/2005,Matias Fuster,mfusteriy@unblog.fr,Dealership
+Ford,F-Series,1970,78547.17,Los Angeles,Penrod Rosel,6/1/2022,Pedro Shirrell,pshirrelliz@wikimedia.org,Online
+Buick,Reatta,1935,66502.29,Houston,Clarke Tinman,6/25/2018,Sunshine Mynett,smynettj0@hc360.com,Online
+Toyota,Sienna,1952,4228.07,Chicago,Francine Ginman,2/6/2015,Meade Kedge,mkedgej1@sakura.ne.jp,Dealership
+Suzuki,Vitara,1959,78059.57,Los Angeles,Paulina Emerson,10/24/2015,Alastair Skirling,askirlingj2@earthlink.net,Auction
+Chevrolet,Silverado 3500,1911,78555.7,New York,Robinia Letherbury,7/3/2005,Gabie Steger,gstegerj3@uiuc.edu,Auction
+Hummer,H1,1921,45052.7,New York,Kelcey Avey,8/10/2005,Halimeda McEntegart,hmcentegartj4@noaa.gov,Dealership
+Chevrolet,Equinox,2009,23435.95,New York,Thorstein Nielson,11/26/2017,Mikol Manginot,mmanginotj5@posterous.com,Dealership
+Ford,Escape,1921,3473.51,Miami,Brittne Welldrake,3/18/2019,Mariel Handling,mhandlingj6@studiopress.com,Dealership
+Nissan,Xterra,2021,84926.08,Chicago,Rudy Lafranconi,6/11/2002,Sadye Colborn,scolbornj7@aboutads.info,Online
+GMC,Sierra 3500,1972,22354.43,Miami,See Whelpton,11/28/2005,Alexio Thiolier,athiolierj8@thetimes.co.uk,Auction
+Volvo,S40,1991,93415.67,Los Angeles,Inna Nickols,5/12/2020,Corrina Sheryn,csherynj9@narod.ru,Dealership
+Mercedes-Benz,GL-Class,1952,1516.56,New York,Judith Dulling,6/17/2002,Nobie Illingworth,nillingworthja@comcast.net,Online
+Buick,LeSabre,1998,39626.24,New York,Shepperd Iacobetto,11/14/2022,Ruperto Lowne,rlownejb@studiopress.com,Dealership
+Suzuki,Daewoo Lacetti,1950,22362.11,Chicago,Phil Hand,7/7/2013,Julina Style,jstylejc@sciencedaily.com,Auction
+Chevrolet,Express 1500,1975,24481.01,Los Angeles,Silvano Spat,4/16/2007,Klemens Tynan,ktynanjd@webnode.com,Auction
+Bentley,Azure T,1920,54872.4,Houston,Benedetto Daulton,6/6/2010,Adi Pavy,apavyje@quantcast.com,Online
+Aptera,Typ-1,1905,34498.54,Houston,Cynthia Tattersdill,11/24/2013,Daloris Mathevet,dmathevetjf@intel.com,Dealership
+Mitsubishi,Lancer Evolution,1930,8827.54,New York,Dacy Soeiro,8/11/2003,Farlee Paternoster,fpaternosterjg@addtoany.com,Dealership
+Nissan,Sentra,1929,7541.97,Los Angeles,Etti Fairfoul,4/20/2017,Lacee Tuiller,ltuillerjh@cisco.com,Auction
+Hyundai,Tiburon,1981,95564.94,Miami,Niall Criple,10/29/2009,Morten Rosendorf,mrosendorfji@soundcloud.com,Auction
+Lamborghini,Diablo,1985,52785.95,Chicago,Ken Gillbard,2/3/2002,Paolina Dalston,pdalstonjj@altervista.org,Auction
+Porsche,911,1977,64807.91,Houston,Breena O'Mara,4/18/2004,Zulema Liebmann,zliebmannjk@vkontakte.ru,Auction
+Infiniti,I,1989,44381.75,Chicago,Thelma Ozanne,5/2/2018,Miguelita Lintott,mlintottjl@ucoz.ru,Auction
+GMC,Savana 3500,1909,69761.44,Chicago,Gunilla Fellon,7/22/2009,Eddy Latchmore,elatchmorejm@bravesites.com,Online
+Ford,Explorer,1965,28302.18,Houston,June Tabbernor,2/19/2003,Delinda Warfield,dwarfieldjn@flickr.com,Auction
+Lamborghini,Diablo,1962,83523.91,Los Angeles,Winston Goskar,12/18/2017,Lek Estabrook,lestabrookjo@blogs.com,Auction
+Lotus,Exige,2004,58404.22,Houston,Issie Riccardini,10/1/2020,Ransell Krol,rkroljp@yahoo.co.jp,Auction
+Mitsubishi,Eclipse,1926,73694.53,Chicago,Corinne Wabersich,11/7/2004,Caye Boarder,cboarderjq@noaa.gov,Online
+Volvo,V70,1932,39864.38,Chicago,Alanson Berisford,7/12/2019,Edmund Greggersen,egreggersenjr@nydailynews.com,Dealership
+Mitsubishi,Outlander Sport,1963,16554.54,Chicago,Clareta MacWhan,9/20/2019,Janaye Niemiec,jniemiecjs@netvibes.com,Auction
+Mercedes-Benz,M-Class,1982,92551.36,Miami,Fey Groger,9/23/2002,Marysa Wannop,mwannopjt@howstuffworks.com,Dealership
+Mercedes-Benz,GLK-Class,1929,93055.13,Chicago,Chelsey Cash,1/19/2008,Crichton Daenen,cdaenenju@nymag.com,Online
+Chevrolet,Monte Carlo,2022,32050.07,New York,Danette Callender,3/17/2012,Robinett Hatfield,rhatfieldjv@wufoo.com,Dealership
+Daihatsu,Charade,1970,51784.1,Los Angeles,Cad Hanham,1/6/2018,Quincy Basile,qbasilejw@dot.gov,Online
+Pontiac,Tempest,1942,24619.65,Chicago,Marlowe Lerven,6/5/2008,Dalia Vigers,dvigersjx@mlb.com,Dealership
+Ford,Contour,1960,55988.12,New York,Joellen Brear,12/13/2016,Leah Offord,loffordjy@pcworld.com,Online
+GMC,Vandura 3500,1969,47692.4,Miami,Bronny Scanes,7/19/2010,Warner Bidewel,wbideweljz@nbcnews.com,Online
+Volvo,S80,1976,92112.35,Houston,Jason Allner,12/14/2006,Mayor Simoncello,msimoncellok0@bloglines.com,Online
+Chevrolet,S10,1963,6967.6,Miami,Cahra Selbach,10/25/2019,Minne Petford,mpetfordk1@ftc.gov,Auction
+Cadillac,CTS,1931,98032.57,New York,Geoff Penhaligon,10/23/2022,Kathe Lifton,kliftonk2@freewebs.com,Dealership
+Scion,xD,1934,64047.39,New York,Kippie Newburn,1/4/2004,Kellen Hatzar,khatzark3@symantec.com,Online
+Kia,Optima,1933,27359.16,Chicago,Kelvin Marusic,1/24/2010,Wandie Peotz,wpeotzk4@newsvine.com,Online
+Bentley,Continental Super,1922,3589.36,New York,Kurtis Nettleship,11/1/2017,Rennie Bessett,rbessettk5@4shared.com,Online
+Hyundai,Equus,1956,16715.1,New York,Rodolfo Cerro,5/17/2011,Farra McDavid,fmcdavidk6@fc2.com,Online
+Chevrolet,Suburban 2500,1987,44618.3,Miami,Amery Claybourn,11/17/2004,Jemmie Divis,jdivisk7@geocities.jp,Auction
+BMW,Z4 M,2015,41841.29,New York,Diarmid Cakebread,5/2/2007,Damien Stoyle,dstoylek8@wired.com,Auction
+Chevrolet,Monte Carlo,1945,63078.15,Miami,Hazlett Midden,7/25/2021,Caritta Rimes,crimesk9@yandex.ru,Auction
+Pontiac,G5,2017,52471.81,New York,Noell Clemendot,3/27/2005,Nealson Wallworth,nwallworthka@archive.org,Dealership
+Dodge,Caliber,2003,20004.72,Miami,Doretta Winsley,1/16/2015,Stepha Bummfrey,sbummfreykb@qq.com,Dealership
+Hummer,H3,1962,64707.86,New York,Javier Charlesworth,10/14/2020,Catie Sheircliffe,csheircliffekc@usgs.gov,Auction
+Bentley,Continental,1900,21869.85,Chicago,Arne Lorenzetti,6/6/2008,Prentice Berrill,pberrillkd@go.com,Auction
+GMC,Yukon,1925,18425.44,Chicago,Staffard Noon,1/18/2019,Nancee Meigh,nmeighke@mapy.cz,Online
+Honda,Accord,1927,37425.85,Houston,Alastair Crummie,4/15/2007,Alwyn Brown,abrownkf@tmall.com,Auction
+Chevrolet,Blazer,1964,62981.32,Chicago,Ennis Syddall,1/8/2001,Felicia Vokins,fvokinskg@friendfeed.com,Auction
+Volkswagen,Fox,1912,16911.27,New York,Jameson Hatter,2/1/2022,Helaine Silber,hsilberkh@instagram.com,Online
+Mercedes-Benz,SL-Class,1996,61100.2,Houston,Elonore Kidstoun,3/22/2002,Helen-elizabeth Antrag,hantragki@liveinternet.ru,Auction
+Volvo,C70,1971,66765.12,New York,Bonita Shenfisch,2/20/2021,Dian D'Oyley,ddoyleykj@wsj.com,Auction
+Porsche,928,2018,7146.91,Los Angeles,Lotti Arblaster,2/15/2003,Dyane Thome,dthomekk@zdnet.com,Dealership
+Volkswagen,Eos,1944,40650.42,Miami,Aurie Presnall,6/9/2016,Dav Haggus,dhagguskl@businessweek.com,Auction
+Pontiac,Grand Prix,2021,1288.43,Miami,Sholom Morecombe,4/16/2011,Baillie Calbaithe,bcalbaithekm@imdb.com,Dealership
+Audi,A6,1956,29686.83,Chicago,Alyda Haggarty,3/14/2012,Marla Folkerts,mfolkertskn@netlog.com,Dealership
+Chevrolet,Suburban 1500,1969,32309.36,Miami,Jessy Northedge,2/18/2009,Jennine Treace,jtreaceko@4shared.com,Auction
+Oldsmobile,Bravada,2018,68457.05,Chicago,Ellissa Chillingsworth,11/30/2001,Cortie Britner,cbritnerkp@w3.org,Dealership
+Chevrolet,Silverado 2500,1902,65954.77,Chicago,Oona Hankins,1/22/2000,Cayla Finding,cfindingkq@discuz.net,Auction
+Mercedes-Benz,E-Class,1924,22643.52,New York,Stanley Hallgate,10/11/2000,Lennie Batkin,lbatkinkr@twitter.com,Dealership
+Mitsubishi,Pajero,1921,73034.9,Miami,Cordy Volker,10/19/2021,Sharai O'Gavin,sogavinks@free.fr,Auction
+Volvo,S40,1918,76046.84,Chicago,Spencer O' Finan,11/18/2004,Fleming Magister,fmagisterkt@gizmodo.com,Auction
+Ford,Focus,1957,97872.7,Los Angeles,Dalila Gloster,12/3/2019,Marchall Facchini,mfacchiniku@istockphoto.com,Dealership
+Geo,Prizm,1984,60514.59,Chicago,Zondra Brisland,3/2/2019,Wain Leadstone,wleadstonekv@clickbank.net,Dealership
+Mercury,Villager,1966,87375.12,Houston,Anni Rings,12/6/2019,Quill Mattiato,qmattiatokw@homestead.com,Dealership
+Chevrolet,Cobalt SS,1914,16265.47,New York,Aluino Kerwood,10/29/2022,Bradford Gooderham,bgooderhamkx@cornell.edu,Online
+Toyota,Paseo,1970,8918.62,Los Angeles,Birch Frie,9/23/2012,Dollie Mapp,dmappky@harvard.edu,Dealership
+Hyundai,Elantra,2006,25888.79,Los Angeles,Lyle Keegan,7/1/2007,Daryle Kenwood,dkenwoodkz@i2i.jp,Online
+GMC,Savana 3500,1961,85911.79,Chicago,Abigale Pedrollo,7/30/2016,Tracey Lomax,tlomaxl0@phoca.cz,Online
+Suzuki,Swift,2007,35947.12,Miami,Rolland Carrabott,9/6/2010,Vi Sherry,vsherryl1@chicagotribune.com,Online
+Mazda,Mazdaspeed6,1914,92229.72,Chicago,Britt Willoughway,9/19/2013,Isahella Gasken,igaskenl2@java.com,Online
+Infiniti,J,1920,71015.66,Los Angeles,Wade Styles,10/4/2018,Trumann Walklott,twalklottl3@fda.gov,Auction
+Nissan,Frontier,1989,46117.43,Houston,Bradan Auten,11/22/2006,Tyne Friskey,tfriskeyl4@wunderground.com,Online
+Chevrolet,Silverado 3500,1959,80888.97,Chicago,Kev Muehler,4/5/2019,Maudie Pontain,mpontainl5@spotify.com,Online
+BMW,7 Series,1900,30795.46,Los Angeles,Marietta Kolakovic,2/22/2017,Courtney Robertucci,crobertuccil6@dedecms.com,Dealership
+Chevrolet,Suburban 2500,1994,46199.3,Houston,Huey Balhatchet,9/20/2010,Rebecka Scotney,rscotneyl7@amazon.co.jp,Online
+Mercedes-Benz,SL-Class,1919,16980.21,Los Angeles,Noemi Elizabeth,3/5/2019,Tiffanie Spatari,tspataril8@discovery.com,Online
+Dodge,Ram Van 1500,2004,29695.28,Houston,Cory Shorthouse,5/22/2007,Denney Tasseler,dtasselerl9@stumbleupon.com,Auction
+Mercury,Tracer,2004,81054.39,Miami,Chickie Verna,2/8/2006,Ameline Breakwell,abreakwellla@miibeian.gov.cn,Dealership
+Lincoln,Mark LT,1934,38333.12,Miami,Donielle Wakefield,1/6/2011,Carlynne Rain,crainlb@forbes.com,Online
+Morgan,Aero 8,1991,59872.35,Los Angeles,Luis Wivell,6/12/2019,Marlin Gimert,mgimertlc@springer.com,Online
+Volkswagen,Jetta,1901,79208.34,Chicago,Brittany Albon,3/24/2004,Rhona Faulkner,rfaulknerld@abc.net.au,Auction
+Buick,Century,1938,56876.93,Los Angeles,Lethia Schultz,6/16/2007,Valaree Bovingdon,vbovingdonle@auda.org.au,Dealership
+Panoz,Esperante,1937,36027.33,Houston,Standford Dumbelton,2/11/2017,Judye Basnett,jbasnettlf@harvard.edu,Dealership
+Chevrolet,Express 3500,1901,73623.03,Chicago,Stefania Clemot,11/17/2003,Daile Luberti,dlubertilg@clickbank.net,Online
+Mercedes-Benz,CLS-Class,1943,14128.88,Chicago,Janey Dalyell,10/5/2009,Lorianne Studdard,lstuddardlh@dmoz.org,Dealership
+Ford,Explorer,2008,35644.21,New York,Druci Rockhill,1/17/2008,Koressa Dytham,kdythamli@so-net.ne.jp,Auction
+Jaguar,XJ,1907,37906.61,Los Angeles,Janina Ferrarin,11/13/2015,Jaclin FitzGibbon,jfitzgibbonlj@flavors.me,Dealership
+Mercedes-Benz,G-Class,1906,20155.38,Chicago,Stefa Choffin,10/25/2011,Bennie Byrkmyr,bbyrkmyrlk@loc.gov,Dealership
+Hummer,H1,1988,91410.86,Los Angeles,Bel Strettle,5/3/2016,Annamaria Chesshyre,achesshyrell@nba.com,Auction
+Mazda,Miata MX-5,1991,33618.64,New York,Olympie Pilgram,11/27/2001,Rudie Meenan,rmeenanlm@cafepress.com,Online
+Suzuki,Grand Vitara,1956,72369.59,Miami,Meridith Poulsum,11/17/2014,Zollie Lade,zladeln@i2i.jp,Auction
+Dodge,Viper,2000,68573.31,Houston,Malcolm Gegay,3/25/2006,Henrik Fettis,hfettislo@dell.com,Auction
+BMW,X5,1960,97416.04,Chicago,Gorden Rowett,3/2/2004,Corabelle Earle,cearlelp@paginegialle.it,Auction
+Land Rover,Range Rover,1966,65124.92,Miami,Jourdain Kesten,8/5/2019,Trixie Maddigan,tmaddiganlq@adobe.com,Online
+Subaru,Impreza,1908,20784.83,Miami,Donni Spalls,8/4/2019,Bennett Bithany,bbithanylr@auda.org.au,Dealership
+Toyota,RAV4,1904,94012.72,Chicago,Aime Mayberry,1/11/2008,Bondon Kirlin,bkirlinls@comcast.net,Online
+Ford,Aerostar,1998,21552.47,Miami,Dominick Richichi,1/27/2018,Sabra Scardifield,sscardifieldlt@gravatar.com,Auction
+Cadillac,DeVille,1922,83979.8,Miami,Saunderson Ansteys,9/19/2015,Moise Zannolli,mzannollilu@drupal.org,Auction
+Pontiac,Grand Prix,1970,9189.47,Miami,Kleon Coyne,12/8/2008,Garek Jeskin,gjeskinlv@cargocollective.com,Auction
+Ford,Taurus,1994,49359.85,Los Angeles,Nanete Gozney,2/15/2021,Cynthy Fursse,cfursselw@google.nl,Auction
+Audi,100,1972,90676.57,Los Angeles,Valerie Wheadon,11/22/2001,Mychal Wilstead,mwilsteadlx@nsw.gov.au,Auction
+Volkswagen,GTI,1940,45161.8,Los Angeles,Adriane Wyard,12/11/2006,Brandea Madgwich,bmadgwichly@toplist.cz,Auction
+Volkswagen,Eurovan,1996,97082.38,New York,Bette-ann Stonuary,9/20/2008,Janice Guerola,jguerolalz@google.ca,Online
+Volkswagen,Eurovan,1988,97759.41,New York,Delmar Gillon,9/25/2004,Anna Cleobury,acleoburym0@privacy.gov.au,Auction
+GMC,Sonoma,1964,24230.11,Miami,Raymund North,12/17/2008,Jermaine Bugby,jbugbym1@ovh.net,Auction
+Chevrolet,Camaro,1909,87191.31,Houston,Rice Canto,10/7/2009,Marcellina Becarra,mbecarram2@baidu.com,Online
+GMC,Sonoma,1991,58197.67,Miami,Sandro Dorsett,4/4/2005,Alisun Ledford,aledfordm3@themeforest.net,Online
+Honda,Insight,1986,98384.08,Los Angeles,Randie Boatwright,11/22/2018,Hartley Feige,hfeigem4@adobe.com,Dealership
+Volkswagen,Golf,1925,97581.16,Los Angeles,Erhart McFade,12/1/2019,Othello Praton,opratonm5@sakura.ne.jp,Online
+Plymouth,Laser,1981,86547.76,Chicago,Nola Scurrah,12/14/2004,Anselm Hacker,ahackerm6@51.la,Auction
+Pontiac,Grand Am,2013,30298.98,Miami,Deane Reven,11/24/2013,Kessia Coultard,kcoultardm7@unesco.org,Auction
+Toyota,Tacoma,1947,16641.25,New York,Moritz Wilton,8/28/2017,Lucie McFaul,lmcfaulm8@stumbleupon.com,Auction
+BMW,X5,1952,69000.52,Chicago,Orelie Tzarkov,2/11/2002,Jena De Giorgi,jdem9@bing.com,Online
+Subaru,Outback,1919,93376.5,New York,Jordan Klein,10/3/2021,Doug Compfort,dcompfortma@un.org,Auction
+Saturn,Aura,2001,10733.27,Chicago,Christiano Gretton,9/9/2005,Lydia MacColl,lmaccollmb@reuters.com,Dealership
+Mitsubishi,Eclipse,1974,21489.68,New York,Neall Chellam,5/22/2015,Alane Hillyatt,ahillyattmc@adobe.com,Dealership
+Volvo,S80,1984,85435.46,Chicago,Sargent Andrioni,4/23/2012,Audrye Curlis,acurlismd@ebay.co.uk,Auction
+Pontiac,Grand Am,1977,5657.78,Los Angeles,Yasmeen Sainer,9/30/2006,Betteanne Indgs,bindgsme@bloglovin.com,Dealership
+Buick,Coachbuilder,1912,76887.99,Houston,Byrom Riediger,12/2/2007,Michel Michele,mmichelemf@springer.com,Online
+Mercury,Sable,2002,19605.37,Los Angeles,Inga Schonfeld,5/29/2019,Reider Asbery,rasberymg@umn.edu,Auction
+Nissan,Altima,1906,45586.81,Los Angeles,Yankee Shakeshaft,7/17/2008,Ingemar Penvarden,ipenvardenmh@unblog.fr,Dealership
+Dodge,Journey,1964,97179.56,Chicago,Janine Krause,9/30/2006,Barbabra Andrasch,bandraschmi@google.cn,Dealership
+Dodge,Ram 3500,1924,46245.68,Chicago,Gerrilee Sebastian,9/28/2001,Carmelle Ritter,crittermj@cafepress.com,Dealership
+Ford,Expedition EL,1961,65589.42,Los Angeles,Timofei Denholm,1/4/2013,Raimundo Brickhill,rbrickhillmk@google.fr,Online
+Mazda,Miata MX-5,1962,8681.85,New York,Jessy Zollner,4/15/2012,Michal Gillcrist,mgillcristml@mit.edu,Auction
+Subaru,Forester,1957,39738.35,Miami,Noreen Inmett,8/3/2001,Elisabet Truin,etruinmm@nasa.gov,Dealership
+Saab,9000,1931,14233.02,Chicago,Krisha Appleyard,9/14/2011,Chadd Seals,csealsmn@simplemachines.org,Online
+Dodge,Caravan,1972,31787.13,Los Angeles,Josephina Parsonage,3/30/2009,Marissa Napton,mnaptonmo@prlog.org,Dealership
+GMC,3500,2010,78481.97,Chicago,Eula Trawin,8/3/2002,Andra Abley,aableymp@arstechnica.com,Online
+Jeep,Cherokee,1963,49135.36,New York,Kariotta Platt,5/6/2021,Pyotr Zarfat,pzarfatmq@xing.com,Dealership
+Toyota,Matrix,1910,31743.58,Houston,Justinn Streetley,9/4/2011,Elise Tolomelli,etolomellimr@google.com.au,Dealership
+Toyota,Camry Hybrid,1948,91906.46,Houston,Yulma Oldacres,10/29/2019,Hester Grasser,hgrasserms@tripadvisor.com,Auction
+Dodge,Ram Van 3500,1912,95802.38,Miami,Ted Nevins,5/3/2005,Talya Van Vuuren,tvanmt@dropbox.com,Auction
+Chevrolet,Uplander,1988,84340.11,Houston,Selle Tresvina,5/19/2004,Bethena Etherton,bethertonmu@wunderground.com,Online
+Infiniti,J,2005,59908.44,New York,Reg Petrasso,11/22/2012,Hanson McLeoid,hmcleoidmv@geocities.com,Online
+Aston Martin,Virage,2003,92416.94,New York,Natasha Burghill,7/6/2009,Tobias Tippin,ttippinmw@yahoo.com,Auction
+Jensen,Interceptor,2007,62373.31,New York,Alfons Domleo,12/11/2004,Ula Buntine,ubuntinemx@gmpg.org,Auction
+Kia,Rio,2007,29346.01,New York,Heinrik Sedcole,8/10/2008,Josias Winger,jwingermy@usatoday.com,Online
+Saab,9000,1969,12285.25,Chicago,Oberon Aries,8/29/2022,Sonnnie Kerton,skertonmz@census.gov,Dealership
+Toyota,Land Cruiser,1977,34003.02,Los Angeles,Fae Canepe,12/21/2018,Sean Sizey,ssizeyn0@meetup.com,Dealership
+Mercedes-Benz,SL-Class,1932,83806.38,Chicago,Silas Meeron,6/20/2012,Vergil Govett,vgovettn1@issuu.com,Auction
+Audi,riolet,1973,46333.59,Chicago,Shaine Willwood,7/29/2017,Suzette Dymock,sdymockn2@hp.com,Online
+Infiniti,G,1916,51112.38,Houston,Isidoro Pietraszek,5/5/2022,Ric Fernez,rfernezn3@wikimedia.org,Auction
+BMW,5 Series,1900,71453.2,Chicago,Nevins Flury,2/3/2000,Olivier Hayton,ohaytonn4@exblog.jp,Dealership
+Hyundai,Sonata,1945,69482.82,New York,Elly Merrall,5/8/2015,Susy Vorley,svorleyn5@eventbrite.com,Dealership
+Mercedes-Benz,SL-Class,1951,62425.25,Chicago,Antonie Duck,8/5/2013,Ofella Crips,ocripsn6@plala.or.jp,Online
+Cadillac,DeVille,2001,97145.58,Houston,Katerina Loukes,12/11/2011,Web Lovemore,wlovemoren7@google.nl,Online
+Volvo,960,2022,56348.79,Miami,Dukey Lanchester,5/25/2004,Carmella Skin,cskinn8@ebay.co.uk,Dealership
+BMW,M3,1966,44443.07,Los Angeles,Adam Siddon,4/26/2007,Basilio Willavoys,bwillavoysn9@fastcompany.com,Dealership
+Mercedes-Benz,E-Class,1910,15319.77,New York,Raul Kendall,10/30/2014,Sophronia Poad,spoadna@theatlantic.com,Dealership
+Ford,Lightning,1981,54627.27,Los Angeles,Arlyne Cullen,4/17/2019,Devina Stidson,dstidsonnb@latimes.com,Dealership
+Chevrolet,S10 Blazer,2012,21818.44,Los Angeles,Claire Griffoen,4/26/2000,Kara Bolan,kbolannc@simplemachines.org,Dealership
+Maserati,Quattroporte,1904,50519.87,New York,Gregoor Heinle,4/16/2011,Washington Gobbet,wgobbetnd@flickr.com,Online
+Buick,LeSabre,1997,4423.95,Los Angeles,Mick MacNeilly,9/18/2013,Hermann Kock,hkockne@nyu.edu,Auction
+Ford,Mustang,1992,92177.57,Miami,Timofei Kaas,5/30/2005,Weidar Lapre,wlaprenf@gravatar.com,Dealership
+Mercedes-Benz,SL-Class,2013,59576.13,Los Angeles,Robbi Trusler,9/15/2014,Flo Gelland,fgellandng@guardian.co.uk,Auction
+Volvo,S60,1932,24637.16,Miami,Lorry Bunhill,3/30/2000,Kizzie Bifield,kbifieldnh@blogtalkradio.com,Auction
+Hyundai,Tiburon,1991,85389.36,Houston,Maury Mattusov,9/28/2006,Delainey Berridge,dberridgeni@nhs.uk,Auction
+Saab,9-7X,1903,92937.0,Houston,Gloria Render,7/12/2004,Kaela Garaway,kgarawaynj@jugem.jp,Auction
+Lexus,GS,1963,67675.8,Miami,Iorgo Bonallack,5/14/2016,Tyrus Bigg,tbiggnk@buzzfeed.com,Dealership
+Spyker,C8,2012,67728.38,Chicago,Wiley Kibbey,10/1/2017,Jon Gatecliffe,jgatecliffenl@rakuten.co.jp,Dealership
+Spyker,C8,1909,67150.15,Chicago,Casandra Liffe,6/15/2003,Arlin Shurrocks,ashurrocksnm@yellowbook.com,Dealership
+Chrysler,Voyager,1958,44089.35,Los Angeles,Ollie O'Gavin,5/4/2010,Ada De'Ath,adeathnn@woothemes.com,Auction
+BMW,X5,1975,11322.46,Chicago,Constanta Ferrara,11/6/2002,Michaeline Proudman,mproudmanno@naver.com,Dealership
+Mercury,Mariner,1960,17567.31,Miami,Carma Liffey,6/23/2017,Crissy Ramalho,cramalhonp@desdev.cn,Dealership
+Chevrolet,Camaro,2007,44753.28,Houston,Zebadiah Orr,1/7/2001,Loria Ernke,lernkenq@wikipedia.org,Online
+Toyota,Land Cruiser,1964,93399.67,Chicago,Garik Tollmache,9/4/2011,Joane Sporner,jspornernr@mail.ru,Auction
+Chevrolet,S10,1999,54201.62,Houston,Chan Tasker,1/12/2018,Licha Goacher,lgoacherns@chron.com,Online
+Aston Martin,DBS,1955,78188.5,Chicago,Angelique Dodamead,4/26/2018,Roderic Jillett,rjillettnt@163.com,Online
+Buick,Riviera,1904,46101.79,Miami,Renata Spearman,9/7/2022,Fayette O'Donnelly,fodonnellynu@tmall.com,Auction
+Toyota,Tacoma,1982,38563.5,Chicago,Lucilia Aysik,4/22/2013,Vitoria Rubrow,vrubrownv@huffingtonpost.com,Auction
+Bentley,Continental Flying Spur,1944,71610.64,Miami,Nikaniki Strognell,8/31/2012,Delcina Nisuis,dnisuisnw@vistaprint.com,Dealership
+BMW,M Roadster,1921,19727.21,Chicago,Stinky Mahaddy,8/26/2010,Pooh Brugh,pbrughnx@squidoo.com,Dealership
+Chevrolet,Avalanche 2500,2019,84109.22,New York,Nester Hadgkiss,8/13/2010,Kelcy Mauser,kmauserny@dion.ne.jp,Dealership
+Isuzu,Hombre,2013,77178.85,Houston,Lana Klimochkin,4/16/2013,Adriana Jerrim,ajerrimnz@myspace.com,Auction
+Subaru,Baja,1972,55667.01,Los Angeles,Earl Ewbanks,3/30/2000,Evania Mossom,emossomo0@hibu.com,Auction
+Nissan,Armada,1904,84769.31,Los Angeles,Bartholemy Eva,10/18/2021,Sabrina Molloy,smolloyo1@cdbaby.com,Dealership
+Cadillac,Escalade,1902,24861.6,Miami,Ashley Battye,6/29/2000,Jard Goldstraw,jgoldstrawo2@cafepress.com,Online
+Pontiac,Safari,1987,33544.86,Chicago,Turner Havill,4/26/2002,Loren Legrice,llegriceo3@surveymonkey.com,Auction
+Volvo,XC90,1988,44769.0,Los Angeles,Deck Searjeant,6/20/2007,Saloma Girardet,sgirardeto4@mysql.com,Online
+Mercury,Grand Marquis,2013,70373.96,New York,Marline Flowers,2/20/2010,Carita Griss,cgrisso5@microsoft.com,Auction
+GMC,Savana 2500,1920,45415.98,New York,Gordie Gautrey,11/20/2021,Melina Bernhart,mbernharto6@infoseek.co.jp,Auction
+Honda,del Sol,1983,20645.85,Los Angeles,Kennedy Downer,7/1/2011,Zia Leggett,zleggetto7@europa.eu,Online
+Ford,Mustang,1907,1834.26,Chicago,Dacia Leap,5/17/2007,Erna Funnell,efunnello8@nps.gov,Online
+Buick,LeSabre,1922,78582.63,Houston,Rachele Franceschino,10/6/2000,Blair Vasilechko,bvasilechkoo9@usnews.com,Dealership
+Pontiac,Firebird,1960,67803.91,Houston,Lory Joderli,1/27/2008,Merilee Easby,measbyoa@fema.gov,Auction
+Pontiac,Firebird,1934,12339.14,Houston,Virgilio Twitchings,9/5/2007,Magdalen Estable,mestableob@ask.com,Dealership
+Mitsubishi,Outlander,2017,72215.91,Los Angeles,Tyrone Seacroft,9/13/2013,Leigha Tuson,ltusonoc@bloglines.com,Online
+Toyota,MR2,2008,12638.22,New York,Stacee Lerigo,12/9/2022,Obed Crotty,ocrottyod@skyrock.com,Auction
+Infiniti,QX,1963,82010.77,Chicago,Dusty Houndson,2/9/2016,Marlyn Storton,mstortonoe@economist.com,Auction
+Nissan,Xterra,1927,30664.24,Los Angeles,Anne Strick,5/4/2019,Berthe Dikle,bdikleof@google.ru,Auction
+Buick,Skyhawk,1992,37613.35,Los Angeles,Ellene Drakeford,6/17/2010,Graham Crellim,gcrellimog@ft.com,Auction
+Nissan,Sentra,1978,49160.81,Houston,Sarene Jakovijevic,6/30/2016,Kristin Trodd,ktroddoh@infoseek.co.jp,Online
+Land Rover,Range Rover Classic,2014,57149.86,Chicago,Moise Atherley,10/9/2010,Hayyim Bodd,hboddoi@blogger.com,Online
+GMC,Savana 2500,1927,43348.5,New York,Vale Soles,9/6/2004,Guthrie Fulham,gfulhamoj@ebay.com,Dealership
+MINI,MINI,1933,51322.39,Miami,Dagny Wabb,4/16/2016,Renate Lightollers,rlightollersok@washington.edu,Dealership
+Hyundai,Tucson,1947,4273.09,Los Angeles,Marina Rallin,4/5/2006,Arlin Eyre,aeyreol@psu.edu,Dealership
+Dodge,Dakota Club,1987,28757.13,Houston,Garrek Aleksankov,8/3/2020,Nerti Rosetti,nrosettiom@icq.com,Online
+Acura,Integra,1908,11727.66,Houston,Mylo Silverman,3/13/2006,Gene Mostyn,gmostynon@jimdo.com,Dealership
+Saturn,Sky,1998,81303.45,Houston,Clerc Liccardi,6/5/2009,Mabel Baily,mbailyoo@reuters.com,Online
+GMC,Suburban 2500,1976,39439.94,Miami,Aryn Bendig,6/7/2010,Rollin Feldhuhn,rfeldhuhnop@about.com,Dealership
+Ford,Escort,2002,92138.53,Miami,Edythe Oseman,1/4/2022,Kalinda Vaar,kvaaroq@japanpost.jp,Online
+Ford,Crown Victoria,2015,12807.24,Houston,Berky Piesold,2/9/2018,Gregoire Matthiesen,gmatthiesenor@opera.com,Auction
+Honda,Prelude,1923,97245.58,Miami,Gilberta Scuse,5/5/2013,Jasen Malcher,jmalcheros@ihg.com,Auction
+Ford,E250,2019,4915.42,Miami,Cherice Boliver,7/8/2012,Sylvester Blandamere,sblandamereot@ftc.gov,Dealership
+Saab,900,2018,82640.83,Los Angeles,Dyna Goodrick,11/7/2011,Elinor Gallichan,egallichanou@state.tx.us,Auction
+Ford,Escort,1905,23798.09,New York,Marven Wilmut,1/4/2020,Chris Talby,ctalbyov@google.ru,Online
+Jeep,Patriot,1966,97914.36,Los Angeles,Delora Fere,4/7/2006,Theadora Bathersby,tbathersbyow@harvard.edu,Auction
+Jaguar,S-Type,2000,35136.22,Houston,Fredra Corr,9/8/2009,Tobi Coller,tcollerox@marriott.com,Dealership
+Chrysler,Crossfire,2015,40207.18,Miami,Fletcher Brehault,5/26/2021,Marlee Dranfield,mdranfieldoy@ebay.co.uk,Online
+Toyota,Yaris,1960,95701.31,Houston,Berkeley McVeagh,2/12/2001,Sabrina Persence,spersenceoz@wp.com,Auction
+Toyota,Tacoma,1989,99672.53,New York,Caralie McAtamney,4/13/2000,Iggie Hurleston,ihurlestonp0@youtube.com,Online
+Mercury,Monterey,1900,60526.43,Miami,Anastassia MacElharge,6/11/2006,Putnam Taverner,ptavernerp1@storify.com,Dealership
+Infiniti,G37,1948,9989.63,Los Angeles,Edgardo Scholtis,5/27/2013,Waly Fonteyne,wfonteynep2@slideshare.net,Auction
+Volvo,XC70,2002,1906.32,Houston,Shelton Klinck,3/20/2015,Clayson Botha,cbothap3@time.com,Dealership
+BMW,8 Series,1978,44107.61,Los Angeles,Tamma Doneld,6/20/2012,Dina Ponder,dponderp4@blogspot.com,Dealership
+Audi,S8,1907,49572.68,Houston,Cris Pendred,10/9/2016,Forrester McKimm,fmckimmp5@csmonitor.com,Auction
+Pontiac,Firefly,1974,38474.87,Chicago,Corabella Beedom,7/16/2007,Madelene Neligan,mneliganp6@amazon.co.jp,Online
+Ford,Explorer Sport Trac,2014,38020.12,Miami,Chrisy Bownass,8/4/2011,Ruthie Reyna,rreynap7@newyorker.com,Dealership
+Buick,Lucerne,2005,52957.87,Los Angeles,Ricki Rigmond,11/22/2002,Aileen Witch,awitchp8@webmd.com,Online
+Pontiac,1000,1909,55194.5,Miami,Adi Plampin,5/30/2021,Korney Delnevo,kdelnevop9@biglobe.ne.jp,Auction
+Porsche,Boxster,1930,10059.74,Miami,Mar Jirak,10/21/2013,Tammara Capron,tcapronpa@free.fr,Online
+Nissan,Pathfinder,1910,67409.56,Chicago,Bronson Ortega,5/11/2016,Cyrus Chern,cchernpb@phpbb.com,Online
+BMW,Z3,2007,56188.92,Houston,Arri Sarney,4/13/2006,Sollie Perrins,sperrinspc@weather.com,Auction
+Hummer,H1,1900,89462.84,Chicago,Dre McNaught,12/24/2019,Allina Wellan,awellanpd@constantcontact.com,Online
+Ford,Explorer,1921,7847.87,Miami,Humphrey Kettlesting,9/25/2005,Camey Houselee,chouseleepe@google.ca,Auction
+BMW,3 Series,1964,44674.58,Miami,Pat Standfield,3/12/2009,Mallissa Rizzardini,mrizzardinipf@ovh.net,Auction
+Cadillac,XLR-V,1902,79292.22,Los Angeles,Joletta MacRory,9/24/2018,Fonsie Mattheeuw,fmattheeuwpg@disqus.com,Auction
+Porsche,Carrera GT,2016,34786.96,Miami,Ebony Ickovicz,4/5/2000,Vikky Botfield,vbotfieldph@sogou.com,Online
+Lexus,IS,1981,21428.69,Miami,La verne McPhillimey,5/30/2018,Giffer Blakeborough,gblakeboroughpi@canalblog.com,Dealership
+Saab,9-3,1952,98158.93,New York,Calv Roskrug,8/10/2002,Arthur Rowntree,arowntreepj@dagondesign.com,Auction
+Mazda,626,1962,63144.15,Miami,Shari Callander,6/4/2010,Margarete Ewbanke,mewbankepk@unicef.org,Auction
+Chevrolet,TrailBlazer,1957,84984.8,Chicago,Kory Prator,8/26/2006,Dorolice Elijahu,delijahupl@twitpic.com,Auction
+Pontiac,Grand Prix,1950,71627.62,Houston,Davita Amesbury,11/18/2022,Daisie Lowman,dlowmanpm@hc360.com,Auction
+Volkswagen,Golf,1950,55578.75,New York,Jacki O'Hartagan,4/25/2004,Dahlia Skellen,dskellenpn@wired.com,Dealership
+Honda,Passport,1982,68625.98,Houston,Junia Handrek,7/15/2005,Quent Lattin,qlattinpo@theglobeandmail.com,Auction
+Panoz,Esperante,1911,40312.56,Chicago,Harlan Winman,12/21/2022,Mordy Manuely,mmanuelypp@cam.ac.uk,Auction
+BMW,X5 M,1952,59134.02,Miami,Renado McGlade,12/18/2018,Olivia Kurdani,okurdanipq@usda.gov,Auction
+Subaru,SVX,1907,57689.09,Miami,Novelia Gronav,11/12/2010,Tobias Bestar,tbestarpr@about.com,Auction
+Aston Martin,Vantage,2005,70352.57,Miami,Montgomery Butterley,10/6/2015,Morrie Puckham,mpuckhamps@printfriendly.com,Dealership
+Chevrolet,Silverado 2500,2008,7732.69,Los Angeles,Ernaline Sinnett,8/10/2012,Dorelia Taber,dtaberpt@ehow.com,Dealership
+Infiniti,QX,1987,36753.45,Miami,Laryssa Bunten,12/9/2020,Robbin Kear,rkearpu@smugmug.com,Online
+Pontiac,G6,1938,50574.3,Miami,Brand Iashvili,2/28/2016,Twila Gillis,tgillispv@japanpost.jp,Auction
+Ford,Mustang,1982,29220.79,Chicago,Deeann Cornell,5/7/2001,Ara Le Breton,alepw@virginia.edu,Auction
+Honda,Civic Si,1991,2300.9,New York,Vinni Oddboy,11/25/2019,Conn Broxis,cbroxispx@irs.gov,Online
+Ford,Explorer,2007,68430.49,Chicago,Simon Pyrah,2/17/2017,Paton Hullin,phullinpy@moonfruit.com,Online
+Ford,E-Series,2018,30481.36,New York,Rosie Batty,12/13/2009,Romona Dufton,rduftonpz@webnode.com,Online
+Audi,Coupe GT,2021,72642.84,Los Angeles,Ashley Batham,7/2/2022,Erinn Bleasdille,ebleasdilleq0@cisco.com,Auction
+Chevrolet,Camaro,2010,83884.1,Houston,Ibbie Beamont,3/20/2018,Justinn Benedick,jbenedickq1@clickbank.net,Online
+Bentley,Continental Super,2011,52202.52,Los Angeles,Yvette Kiebes,1/15/2012,Shelbi Kertess,skertessq2@fotki.com,Auction
+Hyundai,Scoupe,1972,66647.2,New York,Enrico Casemore,12/14/2015,Chevalier Tomes,ctomesq3@rakuten.co.jp,Dealership
+Saturn,Outlook,1928,97518.93,New York,Aldo Blodgetts,1/3/2013,Loralee Hunnybun,lhunnybunq4@spiegel.de,Auction
+Dodge,Durango,2022,83613.57,Houston,Ailey Daniel,2/26/2015,Sibylle Lies,sliesq5@cnet.com,Dealership
+Ford,E-Series,1975,58065.16,Houston,Monika Braund,9/23/2018,Ruy Coggon,rcoggonq6@prweb.com,Dealership
+Cadillac,Escalade ESV,1938,12508.55,New York,Anallise McVie,12/26/2008,Farra Tattoo,ftattooq7@theguardian.com,Online
+Mazda,MPV,1964,61872.84,New York,Tildy Alywin,5/27/2017,Seth Mc Kellen,smcq8@photobucket.com,Auction
+Chevrolet,S10,1913,66629.29,Miami,Jerry Albert,10/2/2006,Thadeus Francesconi,tfrancesconiq9@multiply.com,Auction
+Saab,9000,1948,74388.76,New York,Catie Brahan,4/17/2006,Lazarus Odney,lodneyqa@cnn.com,Dealership
+Maserati,Quattroporte,1942,80671.43,New York,Cody Ohrtmann,12/6/2012,Corliss Adamkiewicz,cadamkiewiczqb@nymag.com,Online
+Mitsubishi,Chariot,1973,29892.75,Miami,Celine Effemy,4/18/2010,Laureen Liepmann,lliepmannqc@goo.gl,Dealership
+Subaru,SVX,1969,2913.21,Chicago,Winnie Grocott,11/20/2020,Timmie Jenne,tjenneqd@cnet.com,Dealership
+BMW,530,1995,85087.08,Chicago,Franky Gallyon,10/22/2021,Tove Hightown,thightownqe@about.com,Dealership
+Acura,SLX,1998,95657.26,Houston,Vin Woodwing,9/12/2007,Drusy Dorrian,ddorrianqf@dailymotion.com,Auction
+Ford,E250,1909,69109.24,New York,Alaric Snel,8/15/2010,Francene Bottomer,fbottomerqg@acquirethisname.com,Dealership
+Kia,Sephia,1921,14944.48,Miami,Filip Javes,9/12/2001,Mia Mance,mmanceqh@apache.org,Auction
+Pontiac,Grand Prix,2011,53616.03,Miami,Arden Sine,8/12/2015,Layla Todeo,ltodeoqi@tmall.com,Dealership
+Land Rover,Defender,2014,4691.59,Miami,Gareth Levy,6/9/2003,Shani Dowda,sdowdaqj@java.com,Dealership
+Maserati,Spyder,1951,72705.2,Chicago,Gil Cavee,3/28/2008,Ketti Gunter,kgunterqk@miibeian.gov.cn,Auction
+Ford,Econoline E250,2015,90246.55,Chicago,Joyce Danneil,2/16/2022,Amos Malyan,amalyanql@webnode.com,Auction
+Buick,Reatta,1914,62621.98,Houston,Skipp Rist,5/9/2016,Rickie Hailwood,rhailwoodqm@prweb.com,Dealership
+Toyota,Solara,1935,64725.94,Miami,Hamnet Grady,8/15/2003,Mordy Tweed,mtweedqn@columbia.edu,Dealership
+Honda,Prelude,1975,88797.94,Houston,Natty Bolte,5/29/2007,Roxi Lachaize,rlachaizeqo@dot.gov,Online
+Chevrolet,Avalanche,1928,79361.7,Chicago,Hewet O'Fallone,9/21/2001,Tarrah Measey,tmeaseyqp@naver.com,Dealership
+Ford,Focus,1911,98081.79,New York,Bernhard Dyne,1/18/2022,Adelaide Kempson,akempsonqq@hud.gov,Dealership
+Volkswagen,Fox,2016,55870.36,Miami,Shellie Fullerlove,10/11/2008,Marje Dowe,mdoweqr@army.mil,Online
+Lexus,RX Hybrid,1948,48568.74,New York,Debor Hawker,2/24/2013,Elora Casero,ecaseroqs@livejournal.com,Auction
+Audi,A3,1905,37833.87,Chicago,Jonathon Halsey,9/8/2019,Rahal Struan,rstruanqt@baidu.com,Auction
+Pontiac,Grand Prix Turbo,1988,94451.17,Los Angeles,Denyse Eixenberger,2/2/2009,Hermine Henryson,hhenrysonqu@so-net.ne.jp,Dealership
+Dodge,Monaco,2006,8986.26,Houston,Derril Aharoni,9/11/2018,Claresta Verman,cvermanqv@furl.net,Dealership
+GMC,Savana 2500,1930,34093.28,Miami,Ferne Rau,5/11/2001,Daryl Clement,dclementqw@purevolume.com,Dealership
+Chevrolet,G-Series 1500,1939,28265.39,Houston,Gabriell Imlen,9/5/2022,Emmerich Kroon,ekroonqx@japanpost.jp,Auction
+Subaru,Legacy,2011,18357.96,Miami,Seward Aulsford,5/30/2003,Romy Dicke,rdickeqy@rediff.com,Online
+Dodge,Avenger,1983,39645.68,Los Angeles,Julietta Ibbetson,5/30/2003,Obie Wedlock,owedlockqz@mayoclinic.com,Auction
+Honda,Prelude,1992,41085.66,Los Angeles,Berny Lavington,6/2/2013,Eloise Oherlihy,eoherlihyr0@wiley.com,Auction
+Ford,Ranger,2015,39061.29,New York,Timothy Del Dello,2/7/2013,Grissel Tranckle,gtranckler1@census.gov,Online
+GMC,Safari,1993,76975.03,New York,Aila Egdal,4/5/2001,Samaria Rebeiro,srebeiror2@kickstarter.com,Online
+Volvo,V70,1927,89448.58,Houston,Erica Gaitone,10/23/2016,Wallas Spieck,wspieckr3@sciencedirect.com,Dealership
+GMC,Yukon,1912,11092.44,New York,Niko Spino,1/13/2002,Talya Mangam,tmangamr4@usatoday.com,Online
+Toyota,Celica,1949,33259.77,Los Angeles,Allix Bineham,7/11/2004,Reidar Coutthart,rcoutthartr5@salon.com,Dealership
+Infiniti,Q,1900,81815.94,Miami,Shawn Blees,4/26/2017,Averill Chudleigh,achudleighr6@mapy.cz,Online
+Saab,9000,1996,56550.02,Houston,Roddy Morgon,8/3/2003,Kimbra O'Mullaney,komullaneyr7@paginegialle.it,Dealership
+Kia,Optima,1999,93087.57,New York,Theodora Daville,12/3/2008,Nevil Corzor,ncorzorr8@1und1.de,Dealership
+GMC,Sierra 2500,1942,17351.3,Miami,Lezlie Thredder,4/1/2016,Pammy Kildale,pkildaler9@linkedin.com,Dealership
+Pontiac,Firebird,1914,82630.38,Los Angeles,Dynah Conibear,6/3/2010,Horatius McPhillimey,hmcphillimeyra@fda.gov,Dealership
+Dodge,Intrepid,1933,57588.67,New York,Perl McNay,4/1/2010,Burtie Bendare,bbendarerb@rediff.com,Auction
+BMW,7 Series,1959,98187.07,New York,Godart Rodie,3/27/2011,Abbe Chiswell,achiswellrc@squarespace.com,Online
+Mitsubishi,Cordia,2017,35818.78,Miami,Noami Swanborough,10/11/2020,Marris McColley,mmccolleyrd@gravatar.com,Dealership
+Hummer,H1,1930,96696.42,Chicago,Salome Beccera,10/18/2006,Fleming Skunes,fskunesre@woothemes.com,Auction
+Ford,E-Series,1922,43523.22,Miami,Kimbra Ortes,11/5/2000,Dalila Oven,dovenrf@google.es,Online
+Mercedes-Benz,E-Class,1926,62671.74,Los Angeles,Blinnie Dressell,3/28/2010,Travers Challenor,tchallenorrg@sbwire.com,Online
+Audi,A8,1920,43838.63,Houston,Trstram Reef,4/19/2020,Nefen Dinzey,ndinzeyrh@dedecms.com,Online
+Ford,Transit Connect,1989,15198.62,Chicago,Rudie Davidde,1/26/2011,Maryanne Couronne,mcouronneri@huffingtonpost.com,Online
+Subaru,Forester,1984,56465.31,Los Angeles,Johnath Deesly,10/18/2007,Enid Keach,ekeachrj@photobucket.com,Online
+Lexus,SC,1908,84058.41,Chicago,Gilles Herries,9/18/2017,Perkin Bezemer,pbezemerrk@netscape.com,Auction
+Cadillac,Escalade EXT,1978,91149.82,Miami,Odille Creaser,4/16/2021,Sibbie Lushey,slusheyrl@geocities.com,Online
+Acura,NSX,2014,92132.66,Los Angeles,Anabal Gave,12/12/2010,Merlina Vogl,mvoglrm@taobao.com,Auction
+Toyota,4Runner,1985,76003.64,Los Angeles,Zsa zsa Vanyard,7/17/2002,Bellanca Snipe,bsnipern@mit.edu,Online
+Acura,TL,1933,79382.95,Houston,Vidovik Egle,1/11/2001,Conny Simoneton,csimonetonro@arizona.edu,Auction
+BMW,Z3,1927,5726.44,Miami,Emmalyn Mollon,11/23/2010,Noak Mackrill,nmackrillrp@behance.net,Dealership
+Chevrolet,Suburban 1500,1989,74131.55,Houston,Marijo Featley,5/21/2021,Bear Jarville,bjarvillerq@tamu.edu,Dealership
+Pontiac,Torrent,1988,24188.07,New York,Linzy Thornebarrow,5/8/2006,Tansy Summerley,tsummerleyrr@gizmodo.com,Online

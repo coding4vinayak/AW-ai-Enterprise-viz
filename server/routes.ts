@@ -183,7 +183,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.put("/api/dashboards/:id", authenticateUser, requireRole(['customer_admin', 'analyst', 'super_admin']), async (req, res) => {
     try {
       const customerId = req.user!.customerId;
-      const dashboard = await storage.updateDashboard(req.params.id, req.body, customerId);
+      const dashboard = await storage.updateDashboard(req.params.id, customerId, req.body);
       if (!dashboard) {
         return res.status(404).json({ error: "Dashboard not found" });
       }
@@ -210,7 +210,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const customerId = req.user!.customerId;
       const validated = insertChartSchema.parse(req.body);
-      const chart = await storage.createChart({...validated, customerId});
+      const chart = await storage.createChart(validated, customerId);
       res.json(chart);
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -225,11 +225,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const customerId = req.user!.customerId;
       const { dashboardId } = req.query;
-      if (!dashboardId || typeof dashboardId !== "string") {
-        return res.status(400).json({ error: "dashboardId is required" });
-      }
-      const charts = await storage.getCharts(dashboardId, customerId);
-      res.json(charts);
+      const allCharts = await storage.getCharts(customerId);
+      const filteredCharts = dashboardId && typeof dashboardId === "string" 
+        ? allCharts.filter(chart => chart.dashboardId === dashboardId)
+        : allCharts;
+      res.json(filteredCharts);
     } catch (error) {
       console.error("Get charts error:", error);
       res.status(500).json({ error: "Failed to fetch charts" });
@@ -239,7 +239,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.put("/api/charts/:id", authenticateUser, requireRole(['customer_admin', 'analyst', 'super_admin']), async (req, res) => {
     try {
       const customerId = req.user!.customerId;
-      const chart = await storage.updateChart(req.params.id, req.body, customerId);
+      const chart = await storage.updateChart(req.params.id, customerId, req.body);
       if (!chart) {
         return res.status(404).json({ error: "Chart not found" });
       }
@@ -306,8 +306,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const customerId = req.user!.customerId;
       const limit = req.query.limit ? parseInt(req.query.limit as string) : 10;
       const datasetId = req.query.datasetId as string | undefined;
-      const insights = await storage.getInsights(customerId, limit, datasetId);
-      res.json(insights);
+      const dashboardId = req.query.dashboardId as string | undefined;
+      const allInsights = await storage.getInsights(customerId, dashboardId, datasetId);
+      const limitedInsights = allInsights.slice(0, limit);
+      res.json(limitedInsights);
     } catch (error) {
       console.error("Get insights error:", error);
       res.status(500).json({ error: "Failed to fetch insights" });

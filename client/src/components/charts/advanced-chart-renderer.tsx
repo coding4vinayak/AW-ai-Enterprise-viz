@@ -24,12 +24,21 @@ const COLOR_SCHEMES = {
 };
 
 export function AdvancedChartRenderer({ config, data, height = 400 }: AdvancedChartRendererProps) {
-  const colors = config.colors || COLOR_SCHEMES[config.colorScheme || 'default'];
+  const colors = config?.colors || COLOR_SCHEMES[config?.colorScheme || 'default'];
   
   const chartData = useMemo(() => {
     // Data is already processed by the backend
+    if (!Array.isArray(data)) return [];
     return data;
   }, [data]);
+
+  if (!config || !chartData || chartData.length === 0) {
+    return (
+      <div className="w-full h-full flex items-center justify-center text-muted-foreground">
+        No data available
+      </div>
+    );
+  }
 
   const commonProps = {
     data: chartData,

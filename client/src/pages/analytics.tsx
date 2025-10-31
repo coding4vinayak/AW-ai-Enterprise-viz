@@ -22,10 +22,18 @@ export default function AnalyticsPage() {
 
   const handleDatasetChange = (datasetId: string) => {
     setSelectedDataset(datasetId);
+    setXField('');
+    setYField('');
+    setTrendData(null);
+    setAnomalies([]);
+    
     const dataset = datasets?.find(d => d.id === datasetId);
     if (dataset) {
-      const cols = dataset.columns || Object.keys((dataset.uploadedData as any[])[0] || {});
+      const data = dataset.uploadedData as any[];
+      const cols = dataset.columns || (Array.isArray(data) && data.length > 0 ? Object.keys(data[0]) : []);
       setColumns(cols);
+    } else {
+      setColumns([]);
     }
   };
 

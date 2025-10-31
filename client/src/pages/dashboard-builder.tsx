@@ -95,7 +95,11 @@ export default function DashboardBuilder() {
       id: w.id,
       name: w.title,
       type: w.chartType,
-      config: {},
+      config: {
+        series: [{ field: 'value', name: w.title, type: w.chartType }],
+        xAxis: { field: 'name' },
+        yAxis: { field: 'value' }
+      },
       datasetId: '',
       createdAt: new Date(),
       updatedAt: new Date()

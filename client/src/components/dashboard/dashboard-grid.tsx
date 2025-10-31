@@ -7,6 +7,7 @@ import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import type { Chart } from '@shared/types';
+import { AdvancedChartRenderer } from '@/components/charts/advanced-chart-renderer';
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
@@ -180,7 +181,7 @@ export function DashboardGrid({
         <Card className="col-span-full">
           <CardHeader className="flex flex-row items-center justify-between pb-3">
             <CardTitle className="text-lg">
-              {charts.find(c => c.id === expandedChart)?.name}
+              {charts?.find(c => c.id === expandedChart)?.name || 'Chart'}
             </CardTitle>
             <Button
               variant="ghost"
@@ -191,9 +192,12 @@ export function DashboardGrid({
             </Button>
           </CardHeader>
           <CardContent className="h-[600px]">
-            <AdvancedChartRenderer 
-              chart={charts.find(c => c.id === expandedChart)!} 
-            />
+            {charts?.find(c => c.id === expandedChart) && (
+              <AdvancedChartRenderer 
+                config={charts.find(c => c.id === expandedChart)!.config}
+                data={[]}
+              />
+            )}
           </CardContent>
         </Card>
       ) : (
@@ -237,11 +241,6 @@ export function DashboardGrid({
       )}
     </div>
   );
-}
-
-// A placeholder for AdvancedChartRenderer. In a real application, this would be imported or defined.
-function AdvancedChartRenderer({ chart }: { chart: Chart }) {
-  return <div className="w-full h-full flex items-center justify-center text-muted-foreground">Chart Renderer for {chart.name}</div>;
 }
 
 export type { GridItem };

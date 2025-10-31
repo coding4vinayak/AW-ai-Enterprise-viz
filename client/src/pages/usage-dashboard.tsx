@@ -93,6 +93,9 @@ export default function UsageDashboard() {
     );
   }
 
+  const safeUsageStats = usageStats || { api_calls: 0, ai_tokens: 0, storage: 0 };
+  const safeCustomerData = customerData || { datasets: 0, dashboards: 0, charts: 0, users: 0 };
+
   return (
     <div className="flex flex-col gap-6 p-6" data-testid="page-usage-dashboard">
       <div className="flex items-center justify-between">
@@ -120,7 +123,7 @@ export default function UsageDashboard() {
             <Activity className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold" data-testid="text-api-calls">{usageStats?.api_calls?.toLocaleString() || 0}</div>
+            <div className="text-2xl font-bold" data-testid="text-api-calls">{safeUsageStats.api_calls.toLocaleString()}</div>
             <p className="text-xs text-muted-foreground">Total requests in period</p>
           </CardContent>
         </Card>
@@ -131,7 +134,7 @@ export default function UsageDashboard() {
             <MessageSquare className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold" data-testid="text-ai-tokens">{usageStats?.ai_tokens?.toLocaleString() || 0}</div>
+            <div className="text-2xl font-bold" data-testid="text-ai-tokens">{safeUsageStats.ai_tokens.toLocaleString()}</div>
             <p className="text-xs text-muted-foreground">Tokens consumed</p>
           </CardContent>
         </Card>
@@ -142,7 +145,7 @@ export default function UsageDashboard() {
             <Database className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold" data-testid="text-datasets">{customerData?.datasets || 0}</div>
+            <div className="text-2xl font-bold" data-testid="text-datasets">{safeCustomerData.datasets}</div>
             <p className="text-xs text-muted-foreground">Total datasets created</p>
           </CardContent>
         </Card>
@@ -153,7 +156,7 @@ export default function UsageDashboard() {
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold" data-testid="text-active-users">{customerData?.users || 0}</div>
+            <div className="text-2xl font-bold" data-testid="text-active-users">{safeCustomerData.users}</div>
             <p className="text-xs text-muted-foreground">Team members</p>
           </CardContent>
         </Card>
@@ -175,10 +178,10 @@ export default function UsageDashboard() {
             <CardContent className="h-80">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={[
-                  { name: 'Datasets', value: customerData?.datasets || 0 },
-                  { name: 'Dashboards', value: customerData?.dashboards || 0 },
-                  { name: 'Charts', value: customerData?.charts || 0 },
-                  { name: 'Users', value: customerData?.users || 0 },
+                  { name: 'Datasets', value: safeCustomerData.datasets },
+                  { name: 'Dashboards', value: safeCustomerData.dashboards },
+                  { name: 'Charts', value: safeCustomerData.charts },
+                  { name: 'Users', value: safeCustomerData.users },
                 ]}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="name" />
@@ -200,8 +203,8 @@ export default function UsageDashboard() {
             <CardContent className="h-80">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={[
-                  { name: 'API Calls', value: usageStats?.api_calls || 0 },
-                  { name: 'AI Tokens', value: (usageStats?.ai_tokens || 0) / 1000 }, // Scale down for visibility
+                  { name: 'API Calls', value: safeUsageStats.api_calls },
+                  { name: 'AI Tokens', value: Math.round(safeUsageStats.ai_tokens / 1000) },
                 ]}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="name" />

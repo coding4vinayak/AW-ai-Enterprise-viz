@@ -244,5 +244,4 @@ function AdvancedChartRenderer({ chart }: { chart: Chart }) {
   return <div className="w-full h-full flex items-center justify-center text-muted-foreground">Chart Renderer for {chart.name}</div>;
 }
 
-export { DashboardGrid };
 export type { GridItem };

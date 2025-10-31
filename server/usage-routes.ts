@@ -7,9 +7,9 @@ import { requireRole } from './middleware/rbac';
 const router = Router();
 
 // Get usage statistics for a customer
-router.get('/customers/:customerId/usage-stats', authenticateUser, async (req, res) => {
+router.get('/usage/stats', authenticateUser, async (req, res) => {
   try {
-    const { customerId } = req.params;
+    const customerId = req.user!.customerId;
     const period = (req.query.period as 'day' | 'week' | 'month') || 'week';
 
     // Check permissions
@@ -26,9 +26,9 @@ router.get('/customers/:customerId/usage-stats', authenticateUser, async (req, r
 });
 
 // Get quota information for a customer
-router.get('/customers/:customerId/quotas', authenticateUser, requireRole(['customer_admin', 'super_admin']), async (req, res) => {
+router.get('/usage/quotas', authenticateUser, requireRole(['customer_admin', 'super_admin']), async (req, res) => {
   try {
-    const { customerId } = req.params;
+    const customerId = req.user!.customerId;
 
     // Check permissions
     if (req.user!.role !== 'super_admin' && req.user!.customerId !== customerId) {

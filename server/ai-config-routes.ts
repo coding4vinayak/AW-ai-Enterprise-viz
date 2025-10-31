@@ -21,7 +21,8 @@ router.get('/llm-providers', authenticateUser, async (req, res) => {
 });
 
 // Get customer's AI configuration
-router.get('/customers/:customerId/ai-config', authenticateUser, async (req, res) => {
+router.get('/ai-config', authenticateUser, async (req, res) => {
+  const customerId = req.user!.customerId;
   try {
     const { customerId } = req.params;
 
@@ -50,9 +51,9 @@ router.get('/customers/:customerId/ai-config', authenticateUser, async (req, res
 });
 
 // Create or update customer's AI configuration
-router.post('/customers/:customerId/ai-config', authenticateUser, requireRole(['customer_admin', 'super_admin']), async (req, res) => {
+router.post('/ai-config', authenticateUser, requireRole(['customer_admin', 'super_admin']), async (req, res) => {
   try {
-    const { customerId } = req.params;
+    const customerId = req.user!.customerId;
     const { providerId, apiKey, model, settings, isDefault } = req.body;
 
     // Check permissions
@@ -103,9 +104,9 @@ router.post('/customers/:customerId/ai-config', authenticateUser, requireRole(['
 });
 
 // Test AI configuration
-router.post('/customers/:customerId/ai-config/test', authenticateUser, async (req, res) => {
+router.post('/ai-config/test', authenticateUser, async (req, res) => {
   try {
-    const { customerId } = req.params;
+    const customerId = req.user!.customerId;
     const { providerId, apiKey, model } = req.body;
 
     // Check permissions

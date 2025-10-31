@@ -26,16 +26,19 @@ export default function UsageDashboard() {
   const [period, setPeriod] = useState<'day' | 'week' | 'month'>('week');
 
   // Fetch usage stats
-  const { data: usageStats } = useQuery<UsageStats>({
+  const { data: usageStats, isLoading: statsLoading, error: statsError } = useQuery<UsageStats>({
     queryKey: ['/api/usage/stats', period],
-    enabled: !!user,
+    enabled: !!user && user.role !== 'viewer',
   });
 
   // Fetch customer usage data
-  const { data: customerData } = useQuery<CustomerUsageData>({
+  const { data: customerData, isLoading: customerLoading, error: customerError } = useQuery<CustomerUsageData>({
     queryKey: ['/api/usage/customer'],
-    enabled: !!user,
+    enabled: !!user && user.role !== 'viewer',
   });
+
+  const isLoading = statsLoading || customerLoading;
+  const hasError = statsError || customerError;
 
   if (user?.role === "viewer") {
     return (
@@ -44,6 +47,46 @@ export default function UsageDashboard() {
           <CardHeader>
             <CardTitle>Access Denied</CardTitle>
             <CardDescription>Only admins can view usage statistics.</CardDescription>
+          </CardHeader>
+        </Card>
+      </div>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-col gap-6 p-6">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl font-bold">Usage Dashboard</h1>
+            <p className="text-muted-foreground">Loading usage metrics...</p>
+          </div>
+        </div>
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {[1, 2, 3, 4].map((i) => (
+            <Card key={i}>
+              <CardHeader className="pb-2">
+                <div className="h-4 w-24 bg-muted animate-pulse rounded" />
+              </CardHeader>
+              <CardContent>
+                <div className="h-8 w-16 bg-muted animate-pulse rounded" />
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (hasError) {
+    return (
+      <div className="flex items-center justify-center h-full">
+        <Card className="w-96">
+          <CardHeader>
+            <CardTitle>Error Loading Data</CardTitle>
+            <CardDescription>
+              Failed to load usage statistics. Please try again later.
+            </CardDescription>
           </CardHeader>
         </Card>
       </div>

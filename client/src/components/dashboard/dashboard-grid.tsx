@@ -47,15 +47,16 @@ export function DashboardGrid({
   const savedLayoutsSnapshot = useRef<Layouts>({ lg: initialLayout });
   const { toast } = useToast();
   const [expandedChart, setExpandedChart] = useState<string | null>(null);
+  const [internalIsEditMode, setIsEditMode] = useState<boolean>(isEditMode);
 
   useEffect(() => {
     setCurrentLayout(initialLayout);
     const newLayouts = { lg: initialLayout };
     setCurrentLayouts(newLayouts);
-    if (!isEditMode) {
+    if (!internalIsEditMode) {
       savedLayoutsSnapshot.current = JSON.parse(JSON.stringify(newLayouts));
     }
-  }, [initialLayout, isEditMode]);
+  }, [initialLayout, internalIsEditMode]);
 
   const handleLayoutChange = useCallback(
     (newLayout: RGLLayout[], allLayouts: Layouts) => {
@@ -75,11 +76,11 @@ export function DashboardGrid({
       setCurrentLayout(formattedLayout);
       setCurrentLayouts(allLayouts);
 
-      if (isEditMode && onLayoutChange) {
+      if (internalIsEditMode && onLayoutChange) {
         onLayoutChange(formattedLayout);
       }
     },
-    [isEditMode, onLayoutChange]
+    [internalIsEditMode, onLayoutChange]
   );
 
   const handleSave = () => {
@@ -126,11 +127,11 @@ export function DashboardGrid({
       {editable && (
         <div className="mb-4 flex items-center justify-between rounded-lg border border-border p-4 bg-card">
           <div className="flex items-center gap-2">
-            <div className={`w-2 h-2 rounded-full ${isEditMode ? "bg-orange-500" : "bg-green-500"}`} />
+            <div className={`w-2 h-2 rounded-full ${internalIsEditMode ? "bg-orange-500" : "bg-green-500"}`} />
             <span className="text-sm font-medium">
-              {isEditMode ? "Edit Mode Active" : "View Mode"}
+              {internalIsEditMode ? "Edit Mode Active" : "View Mode"}
             </span>
-            {isEditMode && (
+            {internalIsEditMode && (
               <span className="text-xs text-muted-foreground">
                 Drag charts to rearrange • Resize from corners
               </span>
@@ -138,7 +139,7 @@ export function DashboardGrid({
           </div>
 
           <div className="flex gap-2">
-            {!isEditMode ? (
+            {!internalIsEditMode ? (
               <Button
                 variant="outline"
                 size="sm"
@@ -202,8 +203,8 @@ export function DashboardGrid({
           breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
           cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
           rowHeight={80}
-          isDraggable={isEditMode}
-          isResizable={isEditMode}
+          isDraggable={internalIsEditMode}
+          isResizable={internalIsEditMode}
           onLayoutChange={handleLayoutChange}
           compactType="vertical"
           preventCollision={false}
@@ -214,7 +215,7 @@ export function DashboardGrid({
             <Card key={chart.id} className="overflow-hidden group">
               <CardHeader className="flex flex-row items-center justify-between pb-3">
                 <CardTitle className="text-lg flex items-center gap-2">
-                  {isEditMode && <GripVertical className="h-4 w-4 text-muted-foreground cursor-move" />}
+                  {internalIsEditMode && <GripVertical className="h-4 w-4 text-muted-foreground cursor-move" />}
                   {chart.name}
                 </CardTitle>
                 <Button
@@ -238,14 +239,10 @@ export function DashboardGrid({
   );
 }
 
-export function createDefaultLayout(items: number): GridItem[] {
-  return Array.from({ length: items }, (_, i) => ({
-    i: `item-${i}`,
-    x: (i % 3) * 4,
-    y: Math.floor(i / 3) * 2,
-    w: 4,
-    h: 2,
-    minW: 2,
-    minH: 2,
-  }));
+// A placeholder for AdvancedChartRenderer. In a real application, this would be imported or defined.
+function AdvancedChartRenderer({ chart }: { chart: Chart }) {
+  return <div className="w-full h-full flex items-center justify-center text-muted-foreground">Chart Renderer for {chart.name}</div>;
 }
+
+export { DashboardGrid };
+export type { GridItem };

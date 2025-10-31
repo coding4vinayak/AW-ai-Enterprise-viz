@@ -27,14 +27,14 @@ export default function UsageDashboard() {
 
   // Fetch usage stats
   const { data: usageStats } = useQuery<UsageStats>({
-    queryKey: [`/api/customers/${user?.customerId}/usage-stats`, period],
-    enabled: !!user?.customerId,
+    queryKey: ['/api/usage/stats', period],
+    enabled: !!user,
   });
 
   // Fetch customer usage data
   const { data: customerData } = useQuery<CustomerUsageData>({
-    queryKey: [`/api/customers/${user?.customerId}/usage`],
-    enabled: !!user?.customerId,
+    queryKey: ['/api/usage/customer'],
+    enabled: !!user,
   });
 
   if (user?.role === "viewer") {

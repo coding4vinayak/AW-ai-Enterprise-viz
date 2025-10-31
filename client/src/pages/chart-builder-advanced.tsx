@@ -8,11 +8,22 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { ChartTypeSelector } from '@/components/charts/chart-type-selector';
 import { AdvancedChartRenderer } from '@/components/charts/advanced-chart-renderer';
-import { CalculatedFieldBuilder } from '@/components/data/calculated-field-builder';
 import { useDatasets } from '@/lib/api-hooks';
 import { useToast } from '@/hooks/use-toast';
 import { ArrowLeft, Save } from 'lucide-react';
-import type { AdvancedChartConfig } from '@shared/types';
+
+type AdvancedChartConfig = {
+  datasetId: string;
+  xAxis?: { field: string };
+  yAxis?: { field: string };
+  series?: Array<{ field: string }>;
+  legend?: { show: boolean; position: string };
+  tooltip?: { show: boolean };
+  showDataLabels?: boolean;
+  stacked?: boolean;
+  smooth?: boolean;
+  colorScheme?: string;
+};
 
 export default function ChartBuilderAdvanced() {
   const [, navigate] = useLocation();

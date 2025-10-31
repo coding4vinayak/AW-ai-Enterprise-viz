@@ -1,8 +1,9 @@
 
 import { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Label } from '@/components/ui/label';
 import { useDatasets } from '@/lib/api-hooks';
 import { TrendChart } from '@/components/analytics/trend-chart';
 import { useToast } from '@/hooks/use-toast';

@@ -53,8 +53,8 @@ export default function AISettingsPage() {
 
   // Fetch current customer config
   const { data: currentConfig } = useQuery<CustomerLlmConfig>({
-    queryKey: [`/api/customers/${user?.customerId}/ai-config`],
-    enabled: !!user?.customerId,
+    queryKey: ['/api/ai-config'],
+    enabled: !!user,
   });
 
   // Update config when data loads
@@ -73,7 +73,7 @@ export default function AISettingsPage() {
   // Save configuration
   const saveConfig = useMutation({
     mutationFn: async () => {
-      const res = await fetch(`/api/customers/${user?.customerId}/ai-config`, {
+      const res = await fetch('/api/ai-config', {
         method: currentConfig ? "PUT" : "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -92,7 +92,7 @@ export default function AISettingsPage() {
       return res.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [`/api/customers/${user?.customerId}/ai-config`] });
+      queryClient.invalidateQueries({ queryKey: ['/api/ai-config'] });
       toast({ title: "AI configuration saved successfully" });
     },
     onError: (error: Error) => {
@@ -104,7 +104,7 @@ export default function AISettingsPage() {
   const testConfig = async () => {
     setTesting(true);
     try {
-      const res = await fetch(`/api/customers/${user?.customerId}/ai-config/test`, {
+      const res = await fetch('/api/ai-config/test', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { DashboardGrid, GridItem, createDefaultLayout } from "@/components/dashboard/dashboard-grid";
+import { DashboardGrid, GridItem } from "@/components/dashboard/dashboard-grid";
 import { ChartCard } from "@/components/dashboard/chart-card";
 import { KPICard } from "@/components/dashboard/kpi-card";
 import { Button } from "@/components/ui/button";

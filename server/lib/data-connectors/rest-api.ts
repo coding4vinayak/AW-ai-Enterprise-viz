@@ -26,7 +26,7 @@ interface RestApiConfig {
 
 export class RestApiConnector extends BaseDataConnector {
   private client: AxiosInstance | null = null;
-  private config: RestApiConfig;
+  protected config: RestApiConfig;
   
   constructor(config: RestApiConfig, customerId: string) {
     super(config, customerId);

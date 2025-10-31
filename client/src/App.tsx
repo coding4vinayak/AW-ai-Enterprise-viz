@@ -16,6 +16,7 @@ import Insights from "@/pages/insights";
 import Analytics from "@/pages/analytics";
 import Settings from "@/pages/settings";
 import Login from "@/pages/login";
+import Landing from "@/pages/landing";
 import AdminPage from "./pages/admin";
 import AISettingsPage from "@/pages/ai-settings";
 import UsageDashboard from "@/pages/usage-dashboard";
@@ -71,9 +72,13 @@ function ProtectedRoutes() {
     return user ? <Navigate to="/" /> : <Login />;
   }
 
-  // Protected routes - redirect to login if not authenticated
+  if (location === '/landing') {
+    return user ? <Navigate to="/" /> : <Landing />;
+  }
+
+  // Protected routes - redirect to landing page if not authenticated
   if (!user) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/landing" />;
   }
 
   // Main app layout with sidebar

@@ -1,12 +1,12 @@
-
 import { useQuery } from "@tanstack/react-query";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import { Activity, Database, MessageSquare, Users, TrendingUp } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useState } from "react";
+import type { Chart } from '@shared/types';
 
 type UsageStats = {
   api_calls: number;

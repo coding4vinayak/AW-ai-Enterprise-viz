@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -13,7 +12,7 @@ import { Badge } from '@/components/ui/badge';
 export default function AnalyticsPage() {
   const { data: datasets } = useDatasets();
   const { toast } = useToast();
-  
+
   const [selectedDataset, setSelectedDataset] = useState('');
   const [xField, setXField] = useState('');
   const [yField, setYField] = useState('');
@@ -38,13 +37,13 @@ export default function AnalyticsPage() {
         credentials: 'include',
         body: JSON.stringify({ datasetId: selectedDataset, xField, yField })
       });
-      
+
       if (!response.ok) throw new Error('Failed to analyze trend');
-      
+
       const data = await response.json();
       const dataset = datasets?.find(d => d.id === selectedDataset);
       setTrendData({ ...data, dataset: dataset?.uploadedData });
-      
+
       toast({
         title: 'Success',
         description: 'Trend analysis completed'
@@ -66,12 +65,12 @@ export default function AnalyticsPage() {
         credentials: 'include',
         body: JSON.stringify({ datasetId: selectedDataset, field: yField, sensitivity: 2 })
       });
-      
+
       if (!response.ok) throw new Error('Failed to detect anomalies');
-      
+
       const data = await response.json();
       setAnomalies(data.anomalies);
-      
+
       toast({
         title: 'Success',
         description: `Found ${data.count} anomalies`

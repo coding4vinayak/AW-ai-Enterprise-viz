@@ -27,7 +27,7 @@ type Widget = KPIWidget | ChartWidget;
 
 export default function DashboardBuilder() {
   const { toast } = useToast();
-  
+
   const initialWidgets: Widget[] = [
     { id: "kpi-1", type: "kpi", title: "Total Revenue", value: "$125,430", change: 12.5, trend: "up" },
     { id: "kpi-2", type: "kpi", title: "Active Users", value: "8,542", change: -3.2, trend: "down" },
@@ -55,7 +55,7 @@ export default function DashboardBuilder() {
 
   const handleSave = (newLayout: GridItem[]) => {
     console.log("Saving layout:", newLayout);
-    
+
     toast({
       title: "Dashboard saved",
       description: "Your dashboard layout has been saved successfully.",
@@ -88,22 +88,36 @@ export default function DashboardBuilder() {
     return null;
   };
 
+  // Convert widgets to chart format for DashboardGrid
+  const chartsFromWidgets = widgets
+    .filter(w => w.type === 'chart')
+    .map(w => ({
+      id: w.id,
+      name: w.title,
+      type: w.chartType,
+      config: {},
+      datasetId: '',
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }));
+
   return (
     <div className="flex flex-col h-full">
+      {/* Page Header */}
       <div className="flex flex-col gap-4 p-8 border-b border-border">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <div>
-            <div className="flex items-center gap-3 mb-2">
-              <Link href="/dashboard">
-                <Button variant="ghost" size="icon" data-testid="button-back">
-                  <ArrowLeft className="h-5 w-5" />
-                </Button>
-              </Link>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <Link href="/dashboard">
+              <Button variant="ghost" size="icon" data-testid="button-back">
+                <ArrowLeft className="h-5 w-5" />
+              </Button>
+            </Link>
+            <div>
               <h1 className="text-4xl font-bold">Dashboard Builder</h1>
+              <p className="text-base text-muted-foreground">
+                Customize your dashboard layout with drag-and-drop
+              </p>
             </div>
-            <p className="text-base text-muted-foreground">
-              Customize your dashboard layout with drag-and-drop
-            </p>
           </div>
           <div className="flex gap-2">
             <Button variant="outline" size="default" data-testid="button-add-widget">
@@ -114,6 +128,7 @@ export default function DashboardBuilder() {
         </div>
       </div>
 
+      {/* Main Content */}
       <div className="flex-1 overflow-auto p-8">
         <div className="max-w-screen-2xl mx-auto">
           <DashboardGrid
@@ -121,6 +136,7 @@ export default function DashboardBuilder() {
             onLayoutChange={handleLayoutChange}
             onSave={handleSave}
             editable={true}
+            charts={chartsFromWidgets}
           >
             {widgets.map((widget) => (
               <div key={widget.id} data-grid={layout.find((l) => l.i === widget.id)}>

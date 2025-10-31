@@ -211,7 +211,7 @@ export function DashboardGrid({
           margin={[16, 16]}
           containerPadding={[0, 0]}
         >
-          {charts.map((chart) => (
+          {charts && charts.length > 0 ? charts.map((chart) => (
             <Card key={chart.id} className="overflow-hidden group">
               <CardHeader className="flex flex-row items-center justify-between pb-3">
                 <CardTitle className="text-lg flex items-center gap-2">
@@ -231,7 +231,7 @@ export function DashboardGrid({
                 <AdvancedChartRenderer chart={chart} />
               </CardContent>
             </Card>
-          ))}
+          )) : null}
           {children}
         </ResponsiveGridLayout>
       )}

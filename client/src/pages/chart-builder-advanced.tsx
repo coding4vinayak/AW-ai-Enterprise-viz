@@ -58,6 +58,15 @@ export default function ChartBuilderAdvanced() {
   }, [selectedDataset, datasets]);
 
   const handlePreview = async () => {
+    if (!config.xAxis?.field || !config.yAxis?.field) {
+      toast({
+        title: 'Missing Configuration',
+        description: 'Please select both X-Axis and Y-Axis fields',
+        variant: 'destructive'
+      });
+      return;
+    }
+    
     try {
       const response = await fetch('/api/charts/process-data', {
         method: 'POST',
@@ -66,20 +75,55 @@ export default function ChartBuilderAdvanced() {
         body: JSON.stringify(config)
       });
       
-      if (!response.ok) throw new Error('Failed to process data');
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to process data');
+      }
       
       const result = await response.json();
       setPreviewData(result.data);
-    } catch (error) {
+      
+      toast({
+        title: 'Success',
+        description: 'Preview generated successfully'
+      });
+    } catch (error: any) {
       toast({
         title: 'Error',
-        description: 'Failed to generate preview',
+        description: error.message || 'Failed to generate preview',
         variant: 'destructive'
       });
     }
   };
 
   const handleSave = async () => {
+    if (!chartTitle.trim()) {
+      toast({
+        title: 'Validation Error',
+        description: 'Please enter a chart title',
+        variant: 'destructive'
+      });
+      return;
+    }
+    
+    if (!selectedDataset) {
+      toast({
+        title: 'Validation Error',
+        description: 'Please select a dataset',
+        variant: 'destructive'
+      });
+      return;
+    }
+    
+    if (!config.xAxis?.field || !config.yAxis?.field) {
+      toast({
+        title: 'Validation Error',
+        description: 'Please configure X-Axis and Y-Axis',
+        variant: 'destructive'
+      });
+      return;
+    }
+    
     try {
       const response = await fetch('/api/charts/advanced', {
         method: 'POST',
@@ -89,21 +133,24 @@ export default function ChartBuilderAdvanced() {
           title: chartTitle,
           type: chartType,
           config,
-          dashboardId: 'default' // You can make this dynamic
+          dashboardId: 'default'
         })
       });
       
-      if (!response.ok) throw new Error('Failed to save chart');
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to save chart');
+      }
       
       toast({
         title: 'Success',
         description: 'Chart saved successfully'
       });
       navigate('/dashboard');
-    } catch (error) {
+    } catch (error: any) {
       toast({
         title: 'Error',
-        description: 'Failed to save chart',
+        description: error.message || 'Failed to save chart',
         variant: 'destructive'
       });
     }

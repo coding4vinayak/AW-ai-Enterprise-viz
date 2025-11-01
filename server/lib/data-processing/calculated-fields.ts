@@ -51,8 +51,14 @@ export class CalculatedFieldsEngine {
     }
   }
 
-  static validateFormula(formula: string, sampleRow: any): { valid: boolean; error?: string } {
+  static validateFormula(formula: string, sampleRow: any = {}): { valid: boolean; error?: string } {
     try {
+      // Check if formula contains field references
+      const fieldMatches = formula.match(/\{([^}]+)\}/g);
+      if (fieldMatches && Object.keys(sampleRow).length === 0) {
+        return { valid: false, error: 'No data available to validate formula' };
+      }
+      
       this.evaluateFormula(formula, sampleRow);
       return { valid: true };
     } catch (error: any) {

@@ -15,6 +15,7 @@ import { db, pool } from "./db";
 import { sql } from "drizzle-orm";
 import { authenticateUser } from "./middleware/auth";
 import { trackAPICall } from "./middleware/usage-tracker";
+import chartBuilderRoutes from './chart-builder-routes';
 
 const app = express();
 const PgSession = connectPgSimple(session);

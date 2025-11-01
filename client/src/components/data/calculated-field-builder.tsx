@@ -29,6 +29,11 @@ export function CalculatedFieldBuilder({ datasetId, columns, onSave }: Calculate
   const [validationResult, setValidationResult] = useState<{ valid: boolean; error?: string } | null>(null);
 
   const validateFormula = async () => {
+    if (!currentField.formula.trim()) {
+      setValidationResult({ valid: false, error: 'Formula cannot be empty' });
+      return;
+    }
+    
     try {
       const response = await fetch(`/api/datasets/${datasetId}/validate-formula`, {
         method: 'POST',
@@ -37,10 +42,16 @@ export function CalculatedFieldBuilder({ datasetId, columns, onSave }: Calculate
         credentials: 'include'
       });
       
+      if (!response.ok) {
+        const error = await response.json();
+        setValidationResult({ valid: false, error: error.error || 'Validation failed' });
+        return;
+      }
+      
       const result = await response.json();
       setValidationResult(result);
     } catch (error) {
-      setValidationResult({ valid: false, error: 'Validation failed' });
+      setValidationResult({ valid: false, error: 'Network error during validation' });
     }
   };
 

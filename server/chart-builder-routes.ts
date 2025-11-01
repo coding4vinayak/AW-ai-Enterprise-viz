@@ -8,6 +8,27 @@ import type { AdvancedChartConfig } from '../shared/types';
 
 const router = Router();
 
+// Create advanced chart
+router.post('/api/charts/advanced', authenticateUser, async (req, res) => {
+  try {
+    const customerId = req.user!.customerId;
+    const { title, type, config, dashboardId } = req.body;
+    
+    const chart = await storage.createChart({
+      title,
+      type,
+      config,
+      dashboardId: dashboardId || 'default',
+      customerId
+    });
+    
+    res.json(chart);
+  } catch (error: any) {
+    console.error('Chart creation error:', error);
+    res.status(400).json({ error: error.message });
+  }
+});
+
 // Process data for chart visualization
 router.post('/api/charts/process-data', authenticateUser, async (req, res) => {
   try {

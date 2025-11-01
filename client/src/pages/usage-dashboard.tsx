@@ -28,13 +28,29 @@ export default function UsageDashboard() {
   // Fetch usage stats
   const { data: usageStats, isLoading: statsLoading, error: statsError } = useQuery<UsageStats>({
     queryKey: ['/api/usage/stats', period],
+    queryFn: async () => {
+      const res = await fetch(`/api/usage/stats?period=${period}`, {
+        credentials: 'include',
+      });
+      if (!res.ok) throw new Error('Failed to fetch usage stats');
+      return res.json();
+    },
     enabled: !!user && user.role !== 'viewer',
+    retry: 1,
   });
 
   // Fetch customer usage data
   const { data: customerData, isLoading: customerLoading, error: customerError } = useQuery<CustomerUsageData>({
     queryKey: ['/api/usage/customer'],
+    queryFn: async () => {
+      const res = await fetch('/api/usage/customer', {
+        credentials: 'include',
+      });
+      if (!res.ok) throw new Error('Failed to fetch customer usage data');
+      return res.json();
+    },
     enabled: !!user && user.role !== 'viewer',
+    retry: 1,
   });
 
   const isLoading = statsLoading || customerLoading;
@@ -79,13 +95,14 @@ export default function UsageDashboard() {
   }
 
   if (hasError) {
+    const errorMessage = statsError?.message || customerError?.message || 'Unknown error';
     return (
       <div className="flex items-center justify-center h-full">
         <Card className="w-96">
           <CardHeader>
             <CardTitle>Error Loading Data</CardTitle>
             <CardDescription>
-              Failed to load usage statistics. Please try again later.
+              Failed to load usage statistics: {errorMessage}
             </CardDescription>
           </CardHeader>
         </Card>

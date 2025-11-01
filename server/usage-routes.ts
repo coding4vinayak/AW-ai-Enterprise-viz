@@ -12,8 +12,8 @@ router.get('/usage/stats', authenticateUser, async (req, res) => {
     const customerId = req.user!.customerId;
     const period = (req.query.period as 'day' | 'week' | 'month') || 'week';
 
-    // Check permissions
-    if (req.user!.role !== 'super_admin' && req.user!.customerId !== customerId) {
+    // Check permissions - viewers cannot access usage stats
+    if (req.user!.role === 'viewer') {
       return res.status(403).json({ error: 'Access denied' });
     }
 
@@ -30,8 +30,8 @@ router.get('/usage/customer', authenticateUser, async (req, res) => {
   try {
     const customerId = req.user!.customerId;
 
-    // Check permissions
-    if (req.user!.role !== 'super_admin' && req.user!.customerId !== customerId) {
+    // Check permissions - viewers cannot access usage data
+    if (req.user!.role === 'viewer') {
       return res.status(403).json({ error: 'Access denied' });
     }
 
@@ -56,14 +56,9 @@ router.get('/usage/customer', authenticateUser, async (req, res) => {
 });
 
 // Get quota information for a customer
-router.get('/usage/quotas', authenticateUser, requireRole(['customer_admin', 'super_admin']), async (req, res) => {
+router.get('/usage/quotas', authenticateUser, requireRole(['customer_admin', 'super_admin', 'analyst']), async (req, res) => {
   try {
     const customerId = req.user!.customerId;
-
-    // Check permissions
-    if (req.user!.role !== 'super_admin' && req.user!.customerId !== customerId) {
-      return res.status(403).json({ error: 'Access denied' });
-    }
 
     const quotas = await storage.getCustomerQuotas(customerId);
     res.json(quotas);

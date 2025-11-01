@@ -90,6 +90,15 @@ export default function DashboardBuilder() {
     return null;
   };
 
+  // Sample data for chart preview
+  const sampleData = [
+    { name: 'Jan', value: 400 },
+    { name: 'Feb', value: 300 },
+    { name: 'Mar', value: 600 },
+    { name: 'Apr', value: 800 },
+    { name: 'May', value: 500 },
+  ];
+
   // Convert widgets to chart format for DashboardGrid
   const chartsFromWidgets = widgets
     .filter(w => w.type === 'chart')
@@ -102,33 +111,11 @@ export default function DashboardBuilder() {
         xAxis: { field: 'name' },
         yAxis: { field: 'value' }
       },
+      data: sampleData,
       datasetId: '',
       createdAt: new Date(),
       updatedAt: new Date()
     }));
-
-  // Add loading state and error handling for charts
-  if (isLoading) {
-    return (
-      <div className="flex flex-col h-full p-8">
-        <div className="max-w-screen-2xl mx-auto w-full">
-          <div className="grid grid-cols-12 gap-6">
-            {[...Array(7)].map((_, i) => (
-              <Skeleton key={i} className="col-span-6 h-64 rounded-lg" />
-            ))}
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (!chartsFromWidgets || chartsFromWidgets.length === 0) {
-    return (
-      <div className="flex flex-col h-full items-center justify-center p-8">
-        <p className="text-muted-foreground">No charts found. Add some widgets to get started.</p>
-      </div>
-    );
-  }
 
   return (
     <div className="flex flex-col h-full">
@@ -166,13 +153,8 @@ export default function DashboardBuilder() {
             onSave={handleSave}
             editable={true}
             charts={chartsFromWidgets}
-          >
-            {widgets.map((widget) => (
-              <div key={widget.id} data-grid={layout.find((l) => l.i === widget.id)}>
-                {renderWidget(widget)}
-              </div>
-            ))}
-          </DashboardGrid>
+            isEditMode={true}
+          />
         </div>
       </div>
     </div>

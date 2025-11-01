@@ -42,6 +42,7 @@ export default function AISettingsPage() {
     providerId: "",
     apiKey: "",
     model: "",
+    baseUrl: "",
     temperature: 0.7,
     maxTokens: 1000,
   });
@@ -64,6 +65,7 @@ export default function AISettingsPage() {
         providerId: currentConfig.providerId,
         apiKey: currentConfig.apiKey,
         model: currentConfig.model,
+        baseUrl: currentConfig.settings?.baseUrl ?? "",
         temperature: currentConfig.settings?.temperature ?? 0.7,
         maxTokens: currentConfig.settings?.maxTokens ?? 1000,
       });
@@ -80,9 +82,11 @@ export default function AISettingsPage() {
           providerId: config.providerId,
           apiKey: config.apiKey,
           model: config.model,
+          baseUrl: config.baseUrl,
           settings: {
             temperature: config.temperature,
             maxTokens: config.maxTokens,
+            baseUrl: config.baseUrl,
           },
           isDefault: true,
         }),
@@ -111,6 +115,7 @@ export default function AISettingsPage() {
           providerId: config.providerId,
           apiKey: config.apiKey,
           model: config.model,
+          baseUrl: config.baseUrl,
         }),
         credentials: "include",
       });
@@ -196,6 +201,20 @@ export default function AISettingsPage() {
               placeholder="gpt-4"
               data-testid="input-model"
             />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="baseUrl">Base URL (Optional)</Label>
+            <Input
+              id="baseUrl"
+              value={config.baseUrl}
+              onChange={(e) => setConfig({ ...config, baseUrl: e.target.value })}
+              placeholder="https://api.openai.com/v1 (leave empty for default)"
+              data-testid="input-base-url"
+            />
+            <p className="text-xs text-muted-foreground">
+              For OpenAI-compatible APIs (e.g., local models, Azure OpenAI)
+            </p>
           </div>
 
           <div className="space-y-2">

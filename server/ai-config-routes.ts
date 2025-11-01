@@ -54,7 +54,7 @@ router.get('/ai-config', authenticateUser, async (req, res) => {
 router.post('/ai-config', authenticateUser, requireRole(['customer_admin', 'super_admin']), async (req, res) => {
   try {
     const customerId = req.user!.customerId;
-    const { providerId, apiKey, model, settings, isDefault } = req.body;
+    const { providerId, apiKey, model, settings, isDefault, baseUrl } = req.body;
 
     // Check permissions
     if (req.user!.role !== 'super_admin' && req.user!.customerId !== customerId) {
@@ -78,7 +78,10 @@ router.post('/ai-config', authenticateUser, requireRole(['customer_admin', 'supe
         providerId,
         apiKey: encryptedApiKey,
         model,
-        settings,
+        settings: {
+          ...settings,
+          baseUrl: baseUrl || settings?.baseUrl,
+        },
         isDefault: isDefault ?? true,
       });
     } else {
@@ -89,7 +92,10 @@ router.post('/ai-config', authenticateUser, requireRole(['customer_admin', 'supe
         providerId,
         apiKey: encryptedApiKey,
         model,
-        settings,
+        settings: {
+          ...settings,
+          baseUrl: baseUrl || settings?.baseUrl,
+        },
         isDefault: isDefault ?? true,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -107,7 +113,7 @@ router.post('/ai-config', authenticateUser, requireRole(['customer_admin', 'supe
 router.post('/ai-config/test', authenticateUser, async (req, res) => {
   try {
     const customerId = req.user!.customerId;
-    const { providerId, apiKey, model } = req.body;
+    const { providerId, apiKey, model, baseUrl } = req.body;
 
     // Check permissions
     if (req.user!.role !== 'super_admin' && req.user!.customerId !== customerId) {
@@ -122,7 +128,10 @@ router.post('/ai-config/test', authenticateUser, async (req, res) => {
 
     // Test connection based on provider type
     if (provider.type === 'openai') {
-      const client = new OpenAI({ apiKey });
+      const client = new OpenAI({ 
+        apiKey,
+        baseURL: baseUrl || undefined,
+      });
       await client.models.list();
       res.json({ success: true, message: 'Connection successful' });
     } else {

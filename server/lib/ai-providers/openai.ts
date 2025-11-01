@@ -14,6 +14,7 @@ export class OpenAIProvider extends BaseAIProvider {
     super(config);
     this.client = new OpenAI({
       apiKey: this.apiKey,
+      baseURL: this.settings.baseUrl || undefined,
     });
   }
 

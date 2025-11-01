@@ -29,8 +29,19 @@ export function CalculatedFieldBuilder({ datasetId, columns, onSave }: Calculate
   const [validationResult, setValidationResult] = useState<{ valid: boolean; error?: string } | null>(null);
 
   const validateFormula = async () => {
+    if (!currentField.name.trim()) {
+      setValidationResult({ valid: false, error: 'Field name cannot be empty' });
+      return;
+    }
+    
     if (!currentField.formula.trim()) {
       setValidationResult({ valid: false, error: 'Formula cannot be empty' });
+      return;
+    }
+    
+    // Check for duplicate field names
+    if (fields.some(f => f.name === currentField.name)) {
+      setValidationResult({ valid: false, error: 'Field name already exists' });
       return;
     }
     

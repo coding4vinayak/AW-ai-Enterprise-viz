@@ -35,6 +35,14 @@ export default function ChartBuilderAdvanced() {
   const [selectedDataset, setSelectedDataset] = useState('');
   const [columns, setColumns] = useState<string[]>([]);
   const [previewData, setPreviewData] = useState<any[]>([]);
+
+  const handleChartTypeChange = (type: string) => {
+    setChartType(type);
+    setConfig(prev => ({
+      ...prev,
+      series: prev.series?.map(s => ({ ...s, type })) || []
+    }));
+  };
   
   const [config, setConfig] = useState<AdvancedChartConfig>({
     datasetId: '',
@@ -43,7 +51,8 @@ export default function ChartBuilderAdvanced() {
     showDataLabels: false,
     stacked: false,
     smooth: true,
-    colorScheme: 'default'
+    colorScheme: 'default',
+    series: []
   });
 
   useEffect(() => {
@@ -215,7 +224,7 @@ export default function ChartBuilderAdvanced() {
               <CardTitle>Chart Type</CardTitle>
             </CardHeader>
             <CardContent>
-              <ChartTypeSelector selected={chartType} onSelect={setChartType} />
+              <ChartTypeSelector selected={chartType} onSelect={handleChartTypeChange} />
             </CardContent>
           </Card>
 
@@ -252,7 +261,7 @@ export default function ChartBuilderAdvanced() {
                     onValueChange={(field) => setConfig(prev => ({
                       ...prev,
                       yAxis: { field },
-                      series: [{ field }]
+                      series: [{ field, type: chartType }]
                     }))}
                   >
                     <SelectTrigger>
@@ -277,15 +286,19 @@ export default function ChartBuilderAdvanced() {
               <CardTitle>Chart Preview</CardTitle>
             </CardHeader>
             <CardContent>
-              {previewData.length > 0 ? (
+              {previewData.length > 0 && config.xAxis?.field && config.series && config.series.length > 0 ? (
                 <AdvancedChartRenderer
-                  config={{ ...config, series: config.series || [{ field: config.yAxis?.field || '' }] }}
+                  config={config}
                   data={previewData}
                   height={500}
                 />
               ) : (
                 <div className="h-[500px] flex items-center justify-center border-2 border-dashed rounded-lg">
-                  <p className="text-muted-foreground">Configure chart and click Preview to see visualization</p>
+                  <p className="text-muted-foreground">
+                    {previewData.length === 0 
+                      ? 'Configure chart and click Preview to see visualization'
+                      : 'Please configure X-Axis and Y-Axis fields'}
+                  </p>
                 </div>
               )}
             </CardContent>

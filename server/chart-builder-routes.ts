@@ -120,4 +120,36 @@ router.get('/api/charts/:id/data', authenticateUser, async (req, res) => {
   }
 });
 
+// Process chart data endpoint
+router.post('/process-data', async (req, res) => {
+  try {
+    const { datasetId, xAxis, yAxis } = req.body;
+    
+    if (!datasetId || !xAxis?.field || !yAxis?.field) {
+      return res.status(400).json({ 
+        error: 'Missing required fields: datasetId, xAxis, yAxis' 
+      });
+    }
+    
+    const dataset = await storage.getDataset(datasetId);
+    if (!dataset) {
+      return res.status(404).json({ error: 'Dataset not found' });
+    }
+    
+    const data = dataset.uploadedData as any[];
+    
+    res.json({ 
+      data,
+      summary: {
+        totalRows: data.length,
+        xField: xAxis.field,
+        yField: yAxis.field
+      }
+    });
+  } catch (error) {
+    console.error('Chart data processing error:', error);
+    res.status(500).json({ error: 'Failed to process chart data' });
+  }
+});
+
 export default router;

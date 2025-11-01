@@ -10,6 +10,10 @@ interface AdvancedChartRendererProps {
   config: AdvancedChartConfig;
   data: any[];
   height?: number;
+  chart?: {
+    config: AdvancedChartConfig;
+    data: any[];
+  };
 }
 
 const COLOR_SCHEMES = {
@@ -18,32 +22,37 @@ const COLOR_SCHEMES = {
   green: ['#22c55e', '#4ade80', '#86efac', '#bbf7d0', '#15803d'],
   red: ['#ef4444', '#f87171', '#fca5a5', '#fecaca', '#b91c1c'],
   purple: ['#a855f7', '#c084fc', '#d8b4fe', '#e9d5ff', '#7e22ce'],
-  gradient: ['#f59e0b', '#f97316', '#ef4444', '#ec4899', '#a855f7']
+  gradient: ['#f59e0b', '#f97316', '#ef4444', '#ec4899', '#a78bfa']
 };
 
-export function AdvancedChartRenderer({ config, data, height = 400 }: AdvancedChartRendererProps) {
+export function AdvancedChartRenderer({ config, data, height = 400, chart }: AdvancedChartRendererProps) {
+  if (chart) {
+    config = chart.config;
+    data = chart.data || [];
+  }
+
+  if (!config || !data || data.length === 0) {
+    return (
+      <div className="flex items-center justify-center h-full text-muted-foreground">
+        {!config ? 'No configuration' : 'No data available'}
+      </div>
+    );
+  }
+
+  if (!config.xAxis?.field || !config.series?.[0]?.field) {
+    return (
+      <div className="flex items-center justify-center h-full text-muted-foreground">
+        Chart configuration incomplete
+      </div>
+    );
+  }
+
   const colors = config?.colors || COLOR_SCHEMES[config?.colorScheme || 'default'];
 
   const chartData = useMemo(() => {
     if (!Array.isArray(data)) return [];
     return data;
   }, [data]);
-
-  if (!config) {
-    return (
-      <div className="w-full h-full flex items-center justify-center text-muted-foreground">
-        No chart configuration
-      </div>
-    );
-  }
-
-  if (!chartData || chartData.length === 0) {
-    return (
-      <div className="w-full h-full flex items-center justify-center text-muted-foreground">
-        No data available
-      </div>
-    );
-  }
 
   const commonProps = {
     data: chartData,

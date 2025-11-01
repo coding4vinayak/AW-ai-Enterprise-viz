@@ -58,6 +58,15 @@ export default function ChartBuilderAdvanced() {
   }, [selectedDataset, datasets]);
 
   const handlePreview = async () => {
+    if (!selectedDataset) {
+      toast({
+        title: 'Missing Dataset',
+        description: 'Please select a dataset first',
+        variant: 'destructive'
+      });
+      return;
+    }
+    
     if (!config.xAxis?.field || !config.yAxis?.field) {
       toast({
         title: 'Missing Configuration',
@@ -68,20 +77,14 @@ export default function ChartBuilderAdvanced() {
     }
     
     try {
-      const response = await fetch('/api/charts/process-data', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify(config)
-      });
-      
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error || 'Failed to process data');
+      // Get the dataset directly for preview
+      const dataset = datasets?.find(d => d.id === selectedDataset);
+      if (!dataset || !dataset.uploadedData) {
+        throw new Error('Dataset not found or has no data');
       }
       
-      const result = await response.json();
-      setPreviewData(result.data);
+      const data = dataset.uploadedData as any[];
+      setPreviewData(data);
       
       toast({
         title: 'Success',

@@ -116,7 +116,10 @@ export default function Dashboard() {
               variant="outline"
               size="sm"
               data-testid="button-export"
-              onClick={() => setIsExportDialogOpen(true)}
+              onClick={(e) => {
+                e.preventDefault();
+                setIsExportDialogOpen(true);
+              }}
             >
               <Download className="h-4 w-4 sm:mr-2" />
               <span className="hidden sm:inline">Export</span>
@@ -124,7 +127,10 @@ export default function Dashboard() {
             <Button
               variant="default"
               size="sm"
-              onClick={() => setIsCreateDialogOpen(true)}
+              onClick={(e) => {
+                e.preventDefault();
+                setIsCreateDialogOpen(true);
+              }}
               data-testid="button-add-chart"
             >
               <Plus className="h-4 w-4 sm:mr-2" />

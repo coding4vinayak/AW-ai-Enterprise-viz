@@ -34,25 +34,31 @@ export function CalculatedFieldBuilder({ datasetId, columns, onSave }: Calculate
       return;
     }
     
-    try {
-      const response = await fetch(`/api/datasets/${datasetId}/validate-formula`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ formula: currentField.formula }),
-        credentials: 'include'
+    // Basic validation - check if formula references valid columns
+    const columnRefs = currentField.formula.match(/\{([^}]+)\}/g) || [];
+    const invalidColumns = columnRefs
+      .map(ref => ref.replace(/[{}]/g, ''))
+      .filter(col => !columns.includes(col));
+    
+    if (invalidColumns.length > 0) {
+      setValidationResult({ 
+        valid: false, 
+        error: `Invalid columns: ${invalidColumns.join(', ')}` 
       });
-      
-      if (!response.ok) {
-        const error = await response.json();
-        setValidationResult({ valid: false, error: error.error || 'Validation failed' });
-        return;
-      }
-      
-      const result = await response.json();
-      setValidationResult(result);
-    } catch (error) {
-      setValidationResult({ valid: false, error: 'Network error during validation' });
+      return;
     }
+    
+    // Check for basic operators
+    const validOperators = /^[0-9a-zA-Z{}+\-*/().\s]+$/;
+    if (!validOperators.test(currentField.formula)) {
+      setValidationResult({ 
+        valid: false, 
+        error: 'Formula contains invalid characters' 
+      });
+      return;
+    }
+    
+    setValidationResult({ valid: true });
   };
 
   const addField = () => {

@@ -35,6 +35,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import DashboardWizard from "@/pages/dashboard-wizard";
 import DashboardBuilder from "@/pages/dashboard-builder";
+import ChartBuilderAdvanced from "@/pages/chart-builder-advanced";
 import { lazy } from "react";
 import DataConnectors from "@/pages/data-connectors";
 import GraphQLConnector from "@/pages/data-connectors-graphql";
@@ -125,7 +126,8 @@ function ProtectedRoutes() {
             <Switch>
               <Route path="/" component={Dashboard} />
               <Route path="/dashboard-builder" component={DashboardBuilder} />
-              <Route path="/chart-builder" component={lazy(() => import('./pages/chart-builder-advanced'))} />
+              <Route path="/chart-builder" component={ChartBuilderAdvanced} />
+              <Route path="/analytics/advanced-charts" component={ChartBuilderAdvanced} />
               <Route path="/data-sources" component={DataSources} />
               <Route path="/data-connectors" component={DataConnectors} />
               <Route path="/data-connectors/graphql" component={GraphQLConnector} />

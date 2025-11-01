@@ -1,4 +1,4 @@
-import { 
+import {
   LayoutDashboard, Database, Sparkles, Settings, TrendingUp, Shield, Brain,
   ChevronRight, FileSpreadsheet, Webhook, Link as LinkIcon, Mail, Share2,
   Filter, BarChart3, PieChart, LineChart, Calculator, Zap, Globe, Code
@@ -65,7 +65,16 @@ const menuItems: MenuItem[] = [
     icon: TrendingUp,
     testId: "link-analytics",
     subItems: [
-      { title: "Chart Builder", url: "/analytics", icon: BarChart3, testId: "link-analytics-builder" },
+      {
+        title: "Chart Builder",
+        icon: BarChart3,
+        url: "/analytics",
+      },
+      {
+        title: "Chart Builder",
+        icon: BarChart3,
+        url: "/chart-builder",
+      },
       { title: "Advanced Charts", url: "/chart-builder-advanced", icon: PieChart },
       { title: "Trends & Forecasts", url: "/analytics/trends", icon: LineChart },
       { title: "Calculated Fields", url: "/analytics/calculated-fields", icon: Calculator },
@@ -106,8 +115,8 @@ export function AppSidebar() {
   const [openSections, setOpenSections] = useState<string[]>(["Data Sources", "Analytics", "Dashboards"]);
 
   const toggleSection = (title: string) => {
-    setOpenSections(prev => 
-      prev.includes(title) 
+    setOpenSections(prev =>
+      prev.includes(title)
         ? prev.filter(t => t !== title)
         : [...prev, title]
     );

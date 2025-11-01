@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useLocation } from 'wouter';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -29,12 +28,13 @@ export default function ChartBuilderAdvanced() {
   const [, navigate] = useLocation();
   const { data: datasets } = useDatasets();
   const { toast } = useToast();
-  
+
   const [chartTitle, setChartTitle] = useState('');
   const [chartType, setChartType] = useState('line');
   const [selectedDataset, setSelectedDataset] = useState('');
   const [columns, setColumns] = useState<string[]>([]);
   const [previewData, setPreviewData] = useState<any[]>([]);
+  const [processedData, setProcessedData] = useState<any[]>([]);
 
   const handleChartTypeChange = (type: string) => {
     setChartType(type);
@@ -43,7 +43,7 @@ export default function ChartBuilderAdvanced() {
       series: prev.series?.map(s => ({ ...s, type })) || []
     }));
   };
-  
+
   const [config, setConfig] = useState<AdvancedChartConfig>({
     datasetId: '',
     legend: { show: true, position: 'top' },
@@ -75,7 +75,7 @@ export default function ChartBuilderAdvanced() {
       });
       return;
     }
-    
+
     if (!config.xAxis?.field || !config.yAxis?.field) {
       toast({
         title: 'Missing Configuration',
@@ -84,17 +84,16 @@ export default function ChartBuilderAdvanced() {
       });
       return;
     }
-    
+
     try {
-      // Get the dataset directly for preview
       const dataset = datasets?.find(d => d.id === selectedDataset);
       if (!dataset || !dataset.uploadedData) {
         throw new Error('Dataset not found or has no data');
       }
-      
+
       const data = dataset.uploadedData as any[];
       setPreviewData(data);
-      
+
       toast({
         title: 'Success',
         description: 'Preview generated successfully'
@@ -117,7 +116,7 @@ export default function ChartBuilderAdvanced() {
       });
       return;
     }
-    
+
     if (!selectedDataset) {
       toast({
         title: 'Validation Error',
@@ -126,7 +125,7 @@ export default function ChartBuilderAdvanced() {
       });
       return;
     }
-    
+
     if (!config.xAxis?.field || !config.yAxis?.field) {
       toast({
         title: 'Validation Error',
@@ -135,7 +134,7 @@ export default function ChartBuilderAdvanced() {
       });
       return;
     }
-    
+
     try {
       const response = await fetch('/api/charts/advanced', {
         method: 'POST',
@@ -148,12 +147,12 @@ export default function ChartBuilderAdvanced() {
           dashboardId: 'default'
         })
       });
-      
+
       if (!response.ok) {
         const error = await response.json();
         throw new Error(error.error || 'Failed to save chart');
       }
-      
+
       toast({
         title: 'Success',
         description: 'Chart saved successfully'
@@ -167,6 +166,29 @@ export default function ChartBuilderAdvanced() {
       });
     }
   };
+
+  const currentDataset = datasets?.find((ds) => ds.id === selectedDataset);
+
+  // Get fields from actual uploaded data
+  const availableFields = currentDataset 
+    ? (currentDataset.columns && currentDataset.columns.length > 0 
+        ? currentDataset.columns 
+        : (currentDataset.uploadedData as any[] || []).length > 0 
+          ? Object.keys((currentDataset.uploadedData as any[])[0])
+          : [])
+    : [];
+
+  // Update preview data when dataset changes
+  useEffect(() => {
+    if (currentDataset) {
+      const data = (currentDataset.uploadedData as any[]) || [];
+      setPreviewData(data.slice(0, 100)); // Show first 100 rows
+      setProcessedData(data);
+    } else {
+      setPreviewData([]);
+      setProcessedData([]);
+    }
+  }, [currentDataset]);
 
   return (
     <div className="space-y-6">
@@ -202,7 +224,7 @@ export default function ChartBuilderAdvanced() {
                   placeholder="My Chart"
                 />
               </div>
-              
+
               <div>
                 <Label>Dataset</Label>
                 <Select value={selectedDataset} onValueChange={setSelectedDataset}>
@@ -288,8 +310,19 @@ export default function ChartBuilderAdvanced() {
             <CardContent>
               {previewData.length > 0 && config.xAxis?.field && config.series && config.series.length > 0 ? (
                 <AdvancedChartRenderer
-                  config={config}
-                  data={previewData}
+                  data={processedData.length > 0 ? processedData : previewData}
+                  config={{
+                    datasetId: selectedDataset,
+                    xAxis: config.xAxis?.field ? { field: config.xAxis.field } : undefined,
+                    yAxis: config.yAxis?.field ? { field: config.yAxis.field } : undefined,
+                    series: config.yAxis?.field ? [{ field: config.yAxis.field, type: chartType }] : undefined,
+                    legend: config.legend,
+                    tooltip: config.tooltip,
+                    showDataLabels: config.showDataLabels,
+                    stacked: config.stacked,
+                    smooth: config.smooth,
+                    colorScheme: config.colorScheme,
+                  }}
                   height={500}
                 />
               ) : (

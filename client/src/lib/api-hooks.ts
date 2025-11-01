@@ -8,6 +8,8 @@ import { useToast } from "@/hooks/use-toast";
 export function useDatasets() {
   return useQuery<Dataset[]>({
     queryKey: ["/api/datasets"],
+    refetchOnMount: true,
+    refetchOnWindowFocus: true,
   });
 }
 

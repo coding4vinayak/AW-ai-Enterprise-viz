@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/hooks/use-toast";
 import { useUploadDataset } from "@/lib/api-hooks";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface DataUploadZoneProps {
   onUploadComplete?: () => void;
@@ -15,6 +16,7 @@ export function DataUploadZone({ onUploadComplete }: DataUploadZoneProps) {
   const [uploadingFile, setUploadingFile] = useState<string | null>(null);
   const { toast } = useToast();
   const uploadMutation = useUploadDataset();
+  const queryClient = useQueryClient();
 
   const handleDrag = useCallback((e: React.DragEvent) => {
     e.preventDefault();
@@ -78,6 +80,9 @@ export function DataUploadZone({ onUploadComplete }: DataUploadZoneProps) {
     try {
       await uploadMutation.mutateAsync(file);
       setUploadProgress(100);
+      
+      // Invalidate queries to refresh data across the app
+      await queryClient.invalidateQueries({ queryKey: ["/api/datasets"] });
       
       setTimeout(() => {
         setUploadingFile(null);

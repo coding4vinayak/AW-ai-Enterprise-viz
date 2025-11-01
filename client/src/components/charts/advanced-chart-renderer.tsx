@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useEffect, useState } from 'react';
 import {
   LineChart, Line, BarChart, Bar, PieChart, Pie, Cell,
   AreaChart, Area, ScatterChart, Scatter, RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis,
@@ -49,10 +49,42 @@ export function AdvancedChartRenderer({ config, data, height = 400, chart }: Adv
 
   const colors = config?.colors || COLOR_SCHEMES[config?.colorScheme || 'default'];
 
-  const chartData = useMemo(() => {
-    if (!Array.isArray(data)) return [];
-    return data;
-  }, [data]);
+  const [chartData, setChartData] = useState<any[]>([]);
+
+  useEffect(() => {
+    if (!data || data.length === 0) {
+      setChartData([]);
+      return;
+    }
+
+    // Use the actual uploaded data
+    let processedData = [...data];
+
+    // Apply filters if configured
+    if (config.filters && config.filters.length > 0) {
+      processedData = processedData.filter(row => {
+        return config.filters!.every(filter => {
+          const value = row[filter.field];
+          switch (filter.operator) {
+            case 'equals':
+              return value == filter.value;
+            case 'not_equals':
+              return value != filter.value;
+            case 'greater_than':
+              return Number(value) > Number(filter.value);
+            case 'less_than':
+              return Number(value) < Number(filter.value);
+            case 'contains':
+              return String(value).toLowerCase().includes(String(filter.value).toLowerCase());
+            default:
+              return true;
+          }
+        });
+      });
+    }
+
+    setChartData(processedData);
+  }, [data, config]);
 
   const commonProps = {
     data: chartData,

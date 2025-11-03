@@ -33,9 +33,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import OriginalDashboard from "@/pages/dashboard";
+import UserFriendlyDashboard from "@/pages/user-friendly-dashboard";
 import DashboardWizard from "@/pages/dashboard-wizard";
 import DashboardBuilder from "@/pages/dashboard-builder";
 import ChartBuilderAdvanced from "@/pages/chart-builder-advanced";
+import SimpleChartBuilder from "@/pages/simple-chart-builder";
+import CustomerAnalytics from "@/pages/customer-analytics";
 import { lazy } from "react";
 import DataConnectors from "@/pages/data-connectors";
 import GraphQLConnector from "@/pages/data-connectors-graphql";
@@ -124,10 +128,12 @@ function ProtectedRoutes() {
           </header>
           <main className="flex-1 overflow-auto">
             <Switch>
-              <Route path="/" component={Dashboard} />
+              <Route path="/" component={UserFriendlyDashboard} />
               <Route path="/dashboard-builder" component={DashboardBuilder} />
               <Route path="/chart-builder" component={ChartBuilderAdvanced} />
               <Route path="/analytics/advanced-charts" component={ChartBuilderAdvanced} />
+              <Route path="/chart-builder" component={SimpleChartBuilder} />
+              <Route path="/analytics/customer" component={CustomerAnalytics} />
               <Route path="/data-sources" component={DataSources} />
               <Route path="/data-connectors" component={DataConnectors} />
               <Route path="/data-connectors/graphql" component={GraphQLConnector} />

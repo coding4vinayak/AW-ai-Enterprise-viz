@@ -65,19 +65,36 @@ const menuItems: MenuItem[] = [
     icon: TrendingUp,
     testId: "link-analytics",
     subItems: [
-      {
-        title: "Chart Builder",
-        icon: BarChart3,
-        url: "/analytics",
+      { 
+        title: "Simple Chart Builder", 
+        icon: BarChart3, 
+        url: "/chart-builder" 
       },
-      {
-        title: "Chart Builder",
-        icon: BarChart3,
-        url: "/chart-builder",
+      { 
+        title: "Advanced Charts", 
+        url: "/analytics", 
+        icon: PieChart 
       },
-      { title: "Advanced Charts", url: "/chart-builder-advanced", icon: PieChart },
-      { title: "Trends & Forecasts", url: "/analytics/trends", icon: LineChart },
-      { title: "Calculated Fields", url: "/analytics/calculated-fields", icon: Calculator },
+      { 
+        title: "Chart Builder (Advanced)", 
+        url: "/chart-builder-advanced", 
+        icon: PieChart 
+      },
+      { 
+        title: "Trends & Forecasts", 
+        url: "/analytics/trends", 
+        icon: LineChart 
+      },
+      { 
+        title: "Calculated Fields", 
+        url: "/analytics/calculated-fields", 
+        icon: Calculator 
+      },
+      { 
+        title: "Customer Analytics", 
+        url: "/analytics/customer", 
+        icon: BarChart3 
+      },
     ],
   },
   {

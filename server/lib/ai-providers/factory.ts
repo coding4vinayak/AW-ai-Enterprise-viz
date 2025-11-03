@@ -2,6 +2,7 @@
 import { storage } from '../../storage';
 import { AIProvider } from './base';
 import { OpenAIProvider } from './openai';
+import { OpenAICompatibleProvider } from './openai-compatible';
 import { decryptApiKey } from '../encryption';
 
 export async function getAIProvider(customerId: string): Promise<AIProvider | null> {
@@ -26,6 +27,14 @@ export async function getAIProvider(customerId: string): Promise<AIProvider | nu
     switch (provider.type) {
       case 'openai':
         return new OpenAIProvider({
+          customerId,
+          apiKey,
+          model: config.model || provider.defaultModel,
+          settings: config.settings || {},
+        });
+      
+      case 'openai-compatible':
+        return new OpenAICompatibleProvider({
           customerId,
           apiKey,
           model: config.model || provider.defaultModel,

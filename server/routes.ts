@@ -267,10 +267,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const customerId = req.user!.customerId;
       const { datasetId, dashboardId, type = "summary" } = req.body;
 
-      if (!isOpenAIConfigured()) {
+      // Check if AI is configured for this customer
+      const provider = await import('./lib/ai-providers/factory').then(f => f.getAIProvider(customerId));
+      if (!provider) {
         return res.json({
           configured: false,
-          message: "OpenAI API key not configured. Please add your API key in Settings.",
+          message: "AI provider not configured. Please configure your AI provider in Settings.",
         });
       }
 
@@ -284,7 +286,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       }
 
-      const content = await generateInsight(dataContext);
+      const { generateInsight } = await import('./lib/openai');
+      const content = await generateInsight(customerId, dataContext);
 
       const newInsight = await storage.createInsight({
         type,
@@ -322,10 +325,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const customerId = req.user!.customerId;
       const { messages, datasetId } = req.body;
 
-      if (!isOpenAIConfigured()) {
+      // Check if AI is configured for this customer
+      const provider = await import('./lib/ai-providers/factory').then(f => f.getAIProvider(customerId));
+      if (!provider) {
         return res.json({
           configured: false,
-          message: "To enable AI-powered responses, please configure your OpenAI API key in Settings. Once configured, I'll be able to analyze your data and provide intelligent insights based on your questions.",
+          message: "To enable AI-powered responses, please configure your AI provider in Settings. Once configured, I'll be able to analyze your data and provide intelligent insights based on your questions.",
         });
       }
 
@@ -339,7 +344,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       }
 
-      const response = await chatWithAI(messages, dataContext);
+      const { chatWithAI } = await import('./lib/openai');
+      const response = await chatWithAI(customerId, messages, dataContext);
       res.json({ configured: true, message: response });
     } catch (error) {
       console.error("Chat error:", error);
@@ -415,8 +421,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Check AI configuration status
-  app.get("/api/ai/status", async (req, res) => {
-    res.json({ configured: isOpenAIConfigured() });
+  app.get("/api/ai/status", authenticateUser, async (req, res) => {
+    const customerId = req.user!.customerId;
+    const provider = await import('./lib/ai-providers/factory').then(f => f.getAIProvider(customerId));
+    res.json({ configured: !!provider });
   });
 
   const httpServer = createServer(app);

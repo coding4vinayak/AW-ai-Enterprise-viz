@@ -7,17 +7,18 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { ChartTypeSelector } from '@/components/charts/chart-type-selector';
 import { AdvancedChartRenderer } from '@/components/charts/advanced-chart-renderer';
-import { AdvancedChartWithExplanation } from '@/components/charts/advanced-chart-with-explanation';
+import { VisualizationTemplates } from '@/components/charts/visualization-templates';
+import { AIChartAssistant } from '@/components/ai/ai-chart-assistant';
 import { useDatasets } from '@/lib/api-hooks';
 import { useToast } from '@/hooks/use-toast';
-import { ArrowLeft, Save } from 'lucide-react';
-import { AIChartAssistant } from '@/components/ai/ai-chart-assistant';
+import { ArrowLeft, Save, Zap, BarChart3, Sparkles } from 'lucide-react';
+import type { Template } from '@/components/charts/visualization-templates';
 
 type AdvancedChartConfig = {
   datasetId: string;
   xAxis?: { field: string };
   yAxis?: { field: string };
-  series?: Array<{ field: string }>;
+  series?: Array<{ field: string; type: string }>;
   legend?: { show: boolean; position: string };
   tooltip?: { show: boolean };
   showDataLabels?: boolean;
@@ -26,7 +27,7 @@ type AdvancedChartConfig = {
   colorScheme?: string;
 };
 
-export default function ChartBuilderAdvanced() {
+export default function SimpleChartBuilder() {
   const [, navigate] = useLocation();
   const { data: datasets } = useDatasets();
   const { toast } = useToast();
@@ -37,14 +38,7 @@ export default function ChartBuilderAdvanced() {
   const [columns, setColumns] = useState<string[]>([]);
   const [previewData, setPreviewData] = useState<any[]>([]);
   const [processedData, setProcessedData] = useState<any[]>([]);
-
-  const handleChartTypeChange = (type: string) => {
-    setChartType(type);
-    setConfig(prev => ({
-      ...prev,
-      series: prev.series?.map(s => ({ ...s, type })) || []
-    }));
-  };
+  const [activeTab, setActiveTab] = useState<'templates' | 'ai' | 'manual'>('templates');
 
   const [config, setConfig] = useState<AdvancedChartConfig>({
     datasetId: '',
@@ -67,6 +61,14 @@ export default function ChartBuilderAdvanced() {
       }
     }
   }, [selectedDataset, datasets]);
+
+  const handleChartTypeChange = (type: string) => {
+    setChartType(type);
+    setConfig(prev => ({
+      ...prev,
+      series: prev.series?.map(s => ({ ...s, type })) || [{ field: prev.yAxis?.field || '', type }]
+    }));
+  };
 
   const handlePreview = async () => {
     if (!selectedDataset) {
@@ -192,6 +194,25 @@ export default function ChartBuilderAdvanced() {
     }
   }, [currentDataset]);
 
+  // Handle template selection
+  const handleTemplateSelect = (template: Template) => {
+    setChartTitle(template.chartConfig.title);
+    setChartType(template.chartConfig.type);
+    
+    setConfig(prev => ({
+      ...prev,
+      xAxis: { field: template.chartConfig.xAxis },
+      yAxis: { field: template.chartConfig.yAxis },
+      series: [{ field: template.chartConfig.yAxis, type: template.chartConfig.type }]
+    }));
+    
+    setActiveTab('manual');
+    toast({
+      title: 'Template Applied',
+      description: `Applied ${template.name} template`
+    });
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -199,7 +220,7 @@ export default function ChartBuilderAdvanced() {
           <Button variant="ghost" size="icon" onClick={() => navigate('/dashboard')}>
             <ArrowLeft className="h-4 w-4" />
           </Button>
-          <h1 className="text-3xl font-bold">Advanced Chart Builder</h1>
+          <h1 className="text-3xl font-bold">Chart Builder</h1>
         </div>
         <div className="flex gap-2">
           <Button onClick={handlePreview} variant="outline">Preview</Button>
@@ -215,18 +236,9 @@ export default function ChartBuilderAdvanced() {
         <div className="lg:col-span-1 space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle>Basic Settings</CardTitle>
+              <CardTitle>Dataset & Title</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div>
-                <Label>Chart Title</Label>
-                <Input
-                  value={chartTitle}
-                  onChange={(e) => setChartTitle(e.target.value)}
-                  placeholder="My Chart"
-                />
-              </div>
-
               <div>
                 <Label>Dataset</Label>
                 <Select value={selectedDataset} onValueChange={setSelectedDataset}>
@@ -240,160 +252,190 @@ export default function ChartBuilderAdvanced() {
                   </SelectContent>
                 </Select>
               </div>
+
+              <div>
+                <Label>Chart Title</Label>
+                <Input
+                  value={chartTitle}
+                  onChange={(e) => setChartTitle(e.target.value)}
+                  placeholder="Chart Title"
+                />
+              </div>
             </CardContent>
           </Card>
 
+          {/* Quick Actions */}
           <Card>
             <CardHeader>
-              <CardTitle>Chart Type</CardTitle>
+              <CardTitle>Quick Actions</CardTitle>
             </CardHeader>
-            <CardContent>
-              <ChartTypeSelector selected={chartType} onSelect={handleChartTypeChange} />
+            <CardContent className="space-y-3">
+              <Button 
+                variant={activeTab === 'templates' ? 'default' : 'outline'} 
+                className="w-full justify-start"
+                onClick={() => setActiveTab('templates')}
+              >
+                <Zap className="h-4 w-4 mr-2" />
+                Use Template
+              </Button>
+              <Button 
+                variant={activeTab === 'ai' ? 'default' : 'outline'} 
+                className="w-full justify-start"
+                onClick={() => setActiveTab('ai')}
+              >
+                <Sparkles className="h-4 w-4 mr-2" />
+                AI Assistant
+              </Button>
+              <Button 
+                variant={activeTab === 'manual' ? 'default' : 'outline'} 
+                className="w-full justify-start"
+                onClick={() => setActiveTab('manual')}
+              >
+                <BarChart3 className="h-4 w-4 mr-2" />
+                Manual Setup
+              </Button>
             </CardContent>
           </Card>
 
-          {selectedDataset && columns.length > 0 && (
+          {/* Template/AI/Manual sections based on active tab */}
+          {activeTab === 'templates' && (
+            <VisualizationTemplates 
+              datasetColumns={columns} 
+              onSelectTemplate={handleTemplateSelect}
+              className="mt-4"
+            />
+          )}
+
+          {activeTab === 'ai' && (
+            <AIChartAssistant
+              datasetId={selectedDataset}
+              datasetName={datasets?.find(ds => ds.id === selectedDataset)?.name || ''}
+              datasetColumns={columns}
+              currentConfig={config}
+              onDataProcessed={(newConfig) => {
+                setChartTitle(newConfig.title || chartTitle);
+                setChartType(newConfig.type || chartType);
+                setConfig(prev => ({
+                  ...prev,
+                  ...newConfig
+                }));
+              }}
+              onExplanationReceived={(explanation) => {
+                toast({
+                  title: "Chart Explanation",
+                  description: explanation,
+                  duration: 10000
+                });
+              }}
+            />
+          )}
+
+          {activeTab === 'manual' && (
             <Card>
               <CardHeader>
-                <CardTitle>Data Configuration</CardTitle>
+                <CardTitle>Manual Setup</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <Label>X-Axis</Label>
-                  <Select
-                    value={config.xAxis?.field}
-                    onValueChange={(field) => setConfig(prev => ({
-                      ...prev,
-                      xAxis: { field }
-                    }))}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select field" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {columns.map(col => (
-                        <SelectItem key={col} value={col}>{col}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  <Label>Chart Type</Label>
+                  <ChartTypeSelector 
+                    selected={chartType} 
+                    onSelect={handleChartTypeChange} 
+                  />
                 </div>
 
-                <div>
-                  <Label>Y-Axis / Metric</Label>
-                  <Select
-                    value={config.yAxis?.field}
-                    onValueChange={(field) => setConfig(prev => ({
-                      ...prev,
-                      yAxis: { field },
-                      series: [{ field, type: chartType }]
-                    }))}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select field" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {columns.map(col => (
-                        <SelectItem key={col} value={col}>{col}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
+                {selectedDataset && columns.length > 0 && (
+                  <>
+                    <div>
+                      <Label>X-Axis</Label>
+                      <Select
+                        value={config.xAxis?.field}
+                        onValueChange={(field) => setConfig(prev => ({
+                          ...prev,
+                          xAxis: { field }
+                        }))}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select field" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {columns.map(col => (
+                            <SelectItem key={col} value={col}>{col}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    <div>
+                      <Label>Y-Axis / Metric</Label>
+                      <Select
+                        value={config.yAxis?.field}
+                        onValueChange={(field) => setConfig(prev => ({
+                          ...prev,
+                          yAxis: { field },
+                          series: [{ field, type: chartType }]
+                        }))}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select field" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {columns.map(col => (
+                            <SelectItem key={col} value={col}>{col}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </>
+                )}
               </CardContent>
             </Card>
           )}
         </div>
 
         {/* Preview Panel */}
-        <div className="lg:col-span-2">
+        <div className="lg:col-span-3">
           <Card>
             <CardHeader>
               <CardTitle>Chart Preview</CardTitle>
-              <div className="flex justify-between items-center">
-                <h3 className="font-semibold">Preview</h3>
-                {selectedDataset && (
-                  <Button 
-                    variant="outline" 
-                    size="sm"
-                    onClick={handlePreview}
-                  >
-                    Refresh Preview
-                  </Button>
-                )}
-              </div>
             </CardHeader>
             <CardContent>
               {previewData.length > 0 && config.xAxis?.field && config.series && config.series.length > 0 ? (
-                <AdvancedChartWithExplanation
-                  data={processedData.length > 0 ? processedData : previewData}
-                  config={{
-                    datasetId: selectedDataset,
-                    xAxis: config.xAxis?.field ? { field: config.xAxis.field } : undefined,
-                    yAxis: config.yAxis?.field ? { field: config.yAxis.field } : undefined,
-                    series: config.yAxis?.field ? [{ field: config.yAxis.field, type: chartType }] : undefined,
-                    legend: config.legend,
-                    tooltip: config.tooltip,
-                    showDataLabels: config.showDataLabels,
-                    stacked: config.stacked,
-                    smooth: config.smooth,
-                    colorScheme: config.colorScheme,
-                  }}
-                  height={500}
-                />
+                <div className="h-[500px]">
+                  <AdvancedChartRenderer
+                    data={processedData.length > 0 ? processedData : previewData}
+                    config={{
+                      datasetId: selectedDataset,
+                      xAxis: config.xAxis?.field ? { field: config.xAxis.field } : undefined,
+                      yAxis: config.yAxis?.field ? { field: config.yAxis.field } : undefined,
+                      series: config.yAxis?.field ? [{ field: config.yAxis.field, type: chartType }] : undefined,
+                      legend: config.legend,
+                      tooltip: config.tooltip,
+                      showDataLabels: config.showDataLabels,
+                      stacked: config.stacked,
+                      smooth: config.smooth,
+                      colorScheme: config.colorScheme,
+                    }}
+                    height={500}
+                  />
+                </div>
               ) : (
                 <div className="h-[500px] flex items-center justify-center border-2 border-dashed rounded-lg">
-                  <p className="text-muted-foreground">
-                    {previewData.length === 0 
-                      ? 'Configure chart and click Preview to see visualization'
-                      : 'Please configure X-Axis and Y-Axis fields'}
-                  </p>
+                  <div className="text-center">
+                    <BarChart3 className="h-12 w-12 text-muted-foreground mx-auto mb-3" />
+                    <p className="text-muted-foreground mb-2">
+                      {previewData.length === 0 
+                        ? 'Select a dataset and configure chart settings'
+                        : 'Configure X-Axis and Y-Axis fields'}
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      Choose a template, use AI, or configure manually
+                    </p>
+                  </div>
                 </div>
               )}
             </CardContent>
           </Card>
-        </div>
-
-        {/* AI Assistant Panel */}
-        <div className="lg:col-span-1">
-          <AIChartAssistant
-            datasetId={selectedDataset}
-            datasetName={datasets?.find(ds => ds.id === selectedDataset)?.name || ''}
-            datasetColumns={columns}
-            currentConfig={{
-              datasetId: selectedDataset,
-              xAxis: config.xAxis,
-              yAxis: config.yAxis,
-              series: config.series,
-              legend: config.legend,
-              tooltip: config.tooltip,
-              showDataLabels: config.showDataLabels,
-              stacked: config.stacked,
-              smooth: config.smooth,
-              colorScheme: config.colorScheme
-            }}
-            onDataProcessed={(newConfig) => {
-              setChartTitle(newConfig.title || chartTitle);
-              setChartType(newConfig.type || chartType);
-              setConfig(prev => ({
-                ...prev,
-                xAxis: newConfig.xAxis,
-                yAxis: newConfig.yAxis,
-                series: newConfig.series || prev.series,
-                legend: newConfig.legend || prev.legend,
-                tooltip: newConfig.tooltip || prev.tooltip,
-                showDataLabels: newConfig.showDataLabels ?? prev.showDataLabels,
-                stacked: newConfig.stacked ?? prev.stacked,
-                smooth: newConfig.smooth ?? prev.smooth,
-                colorScheme: newConfig.colorScheme || prev.colorScheme
-              }));
-            }}
-            onExplanationReceived={(explanation) => {
-              toast({
-                title: "Chart Explanation",
-                description: explanation,
-                duration: 10000
-              });
-            }}
-          />
         </div>
       </div>
     </div>

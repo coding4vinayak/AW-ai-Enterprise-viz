@@ -1,6 +1,8 @@
 // Database connection setup following javascript_database blueprint
 import { Pool, neonConfig } from '@neondatabase/serverless';
 import { drizzle } from 'drizzle-orm/neon-serverless';
+import { drizzle as sqliteDrizzle } from 'drizzle-orm/better-sqlite3';
+import Database from 'better-sqlite3';
 import ws from "ws";
 import * as schema from "@shared/schema";
 
@@ -34,27 +36,32 @@ function getDatabaseUrl(): string {
   return databaseUrl;
 }
 
+// Determine if we're using SQLite based on the URL
+const isSQLite = getDatabaseUrl().startsWith('file:');
+
 // Lazy initialization - only create pool when first accessed
 let _pool: Pool | null = null;
-let _db: ReturnType<typeof drizzle> | null = null;
+let _sqlite: Database.Database | null = null;
+let _db: any | null = null;
 
-export const pool = new Proxy({} as Pool, {
-  get(target, prop) {
-    if (!_pool) {
-      _pool = new Pool({ connectionString: getDatabaseUrl() });
-    }
-    return (_pool as any)[prop];
-  }
-});
+// Initialize based on database type
+if (isSQLite) {
+  // Initialize SQLite
+  const dbPath = getDatabaseUrl().replace('file:', '');
+  const sqliteInstance = new Database(dbPath);
+  _db = sqliteDrizzle(sqliteInstance, { schema });
+  // Set _sqlite to the instance so we can potentially export it if needed
+  _sqlite = sqliteInstance;
+} else {
+  // Initialize PostgreSQL/Neon
+  const poolInstance = new Pool({ connectionString: getDatabaseUrl() });
+  _db = drizzle({ client: poolInstance, schema });
+  // Set _pool to the instance so we can export it
+  _pool = poolInstance;
+}
 
-export const db = new Proxy({} as ReturnType<typeof drizzle>, {
-  get(target, prop) {
-    if (!_db) {
-      if (!_pool) {
-        _pool = new Pool({ connectionString: getDatabaseUrl() });
-      }
-      _db = drizzle({ client: _pool, schema });
-    }
-    return (_db as any)[prop];
-  }
-});
+// Export the database instance
+export const db = _db;
+
+// Export both, but only one will be initialized based on the database type
+export const pool = _pool; // This will be null for SQLite

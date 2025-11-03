@@ -127,10 +127,10 @@ router.post('/ai-config/test', authenticateUser, async (req, res) => {
     }
 
     // Test connection based on provider type
-    if (provider.type === 'openai') {
+    if (provider.type === 'openai' || provider.type === 'openai-compatible') {
       const client = new OpenAI({ 
         apiKey,
-        baseURL: baseUrl || undefined,
+        baseURL: baseUrl || provider.baseUrl || undefined,
       });
       await client.models.list();
       res.json({ success: true, message: 'Connection successful' });

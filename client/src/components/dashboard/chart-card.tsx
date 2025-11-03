@@ -1,6 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { MoreVertical, Maximize2, Download, Settings } from "lucide-react";
+import { MoreVertical, Maximize2, Download, Settings, Sparkles } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -32,6 +32,7 @@ interface ChartCardProps {
   title: string;
   type: "line" | "bar" | "pie" | "area";
   description?: string;
+  data?: any[]; // Optional data for AI analysis
 }
 
 export function ChartCard({ title, type, description }: ChartCardProps) {

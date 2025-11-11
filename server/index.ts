@@ -2,6 +2,7 @@ import 'dotenv/config';
 import express, { type Request, Response, NextFunction } from "express";
 import session from "express-session";
 import connectPgSimple from "connect-pg-simple";
+import rateLimit from "express-rate-limit";
 import { registerRoutes } from "./routes";
 import authRoutes from "./auth-routes";
 import dashboardTemplatesRoutes from "./dashboard-templates-routes";
@@ -10,18 +11,55 @@ import dataProcessingRoutes from './data-processing-routes';
 import dashboardSharingRoutes from './dashboard-sharing-routes';
 import emailReportsRoutes from './email-reports-routes';
 import webhookRoutes from './webhook-routes';
+import fileUploadRoutes from './file-upload-routes';
 import { setupVite, serveStatic, log } from "./vite";
 import { seedDatabase } from "./seed";
 import { db, pool } from "./db";
 import { sql } from "drizzle-orm";
-import { authenticateUser } from "./middleware/auth";
-import { trackAPICall } from "./middleware/usage-tracker";
+import { authenticateUser, sessionSecurity } from "./middleware/auth";
+import { trackAPICall, trackAPICallDetailed } from "./middleware/usage-tracker";
 import chartBuilderRoutes from './chart-builder-routes';
+import { logger, requestLogger } from "./middleware/logging";
 
 const app = express();
 const PgSession = connectPgSimple(session);
 
-// Session configuration
+// Rate limiting configuration (increased limits for development)
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 500, // Limit each IP to 500 requests per windowMs (increased for development)
+  message: 'Too many requests from this IP, please try again later.',
+  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+});
+
+// Apply rate limiting to all requests
+app.use(limiter);
+
+// Add security headers
+app.use((req, res, next) => {
+  // Prevent MIME type sniffing
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  // Prevent clickjacking
+  res.setHeader('X-Frame-Options', 'DENY');
+  // Cross-site scripting protection
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+  // Force HTTPS in production
+  if (process.env.NODE_ENV === 'production') {
+    res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
+  }
+  next();
+});
+
+import cookieParser from 'cookie-parser';
+
+// ... (existing imports)
+
+// ... (existing code)
+
+app.use(cookieParser());
+
+// Session configuration with enhanced security
 app.use(
   session({
     store: new PgSession({
@@ -33,13 +71,35 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+      maxAge: 24 * 60 * 60 * 1000, // 24 hours (reduced from 30 days for security)
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
+      secure: process.env.NODE_ENV === 'production', // Set to true in production
+      sameSite: 'lax', // Helps with CSRF protection
+      path: '/', // Apply to entire site
     },
   })
 );
+
+// Enhanced session security checks
+import csrf from '@dr.pogodin/csurf';
+
+// ... (existing imports)
+
+// ... (existing code)
+
+const csrfProtection = csrf({
+  cookie: {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'strict'
+  }
+});
+
+app.use(csrfProtection);
+
+app.get('/api/csrf-token', (req, res) => {
+  res.json({ csrfToken: req.csrfToken() });
+});
 
 declare module 'http' {
   interface IncomingMessage {
@@ -57,6 +117,10 @@ app.use(express.urlencoded({ extended: false, limit: '50mb' }));
 // Usage tracking middleware (should be before routes)
 app.use(trackAPICall);
 
+// Use structured logging middleware
+app.use(requestLogger);
+
+// Enhanced API call tracking with detailed logging
 app.use((req, res, next) => {
   const start = Date.now();
   const path = req.path;
@@ -71,16 +135,16 @@ app.use((req, res, next) => {
   res.on("finish", () => {
     const duration = Date.now() - start;
     if (path.startsWith("/api")) {
-      let logLine = `${req.method} ${path} ${res.statusCode} in ${duration}ms`;
-      if (capturedJsonResponse) {
-        logLine += ` :: ${JSON.stringify(capturedJsonResponse)}`;
-      }
-
-      if (logLine.length > 80) {
-        logLine = logLine.slice(0, 79) + "…";
-      }
-
-      log(logLine);
+      // Use the new detailed tracking function
+      trackAPICallDetailed({
+        userId: (req as any).user?.id || null,
+        customerId: (req as any).user?.customerId || null,
+        endpoint: path,
+        method: req.method,
+        status: res.statusCode,
+        duration,
+        response: capturedJsonResponse
+      });
     }
   });
 
@@ -119,8 +183,17 @@ app.use((req, res, next) => {
       });
   }
 
-  // Register auth routes
-  app.use('/api/auth', authRoutes);
+  // More restrictive rate limiting for auth endpoints to prevent brute force attacks
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 5, // Limit each IP to 5 requests per windowMs for auth
+  message: 'Too many auth attempts from this IP, please try again later.',
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+// Register auth routes with more restrictive rate limiting
+app.use('/api/auth', authLimiter, authRoutes);
 
   // Register admin routes
   const adminRoutesModule = (await import('./admin-routes')).default;
@@ -152,6 +225,9 @@ app.use((req, res, next) => {
   const analyticsRoutes = (await import('./analytics-routes')).default;
   app.use('/api', analyticsRoutes);
 
+  const aiInsightsRoutes = (await import('./ai-insights-routes')).default;
+  app.use('/api', aiInsightsRoutes);
+
   // Register new routes for dashboard sharing, email reports, and webhooks
   app.use('/api', dashboardSharingRoutes);
   app.use('/api', emailReportsRoutes);
@@ -160,6 +236,13 @@ app.use((req, res, next) => {
   // Register dashboard export routes
   const dashboardExportRoutes = (await import('./dashboard-export-routes')).default;
   app.use('/api', dashboardExportRoutes);
+
+  // Register file upload routes
+  app.use('/api/files', authenticateUser, fileUploadRoutes);
+
+  // Register health check routes (public, no authentication required)
+  const healthRoutes = (await import('./health-routes')).default;
+  app.use('/health', healthRoutes);
 
   const server = await registerRoutes(app);
 

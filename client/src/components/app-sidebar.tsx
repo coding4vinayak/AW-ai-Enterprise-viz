@@ -90,12 +90,16 @@ const menuItems: MenuItem[] = [
         url: "/analytics/calculated-fields", 
         icon: Calculator 
       },
-      { 
-        title: "Customer Analytics", 
-        url: "/analytics/customer", 
-        icon: BarChart3 
-      },
-    ],
+      {
+              title: "Customer Analytics", 
+              url: "/analytics/customer", 
+              icon: BarChart3 
+            },
+            {
+              title: "Chart Templates",
+              url: "/chart-templates",
+              icon: PieChart
+            },    ],
   },
   {
     title: "Dashboards",

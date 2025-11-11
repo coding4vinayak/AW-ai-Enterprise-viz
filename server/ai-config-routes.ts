@@ -22,9 +22,8 @@ router.get('/llm-providers', authenticateUser, async (req, res) => {
 
 // Get customer's AI configuration
 router.get('/ai-config', authenticateUser, async (req, res) => {
-  const customerId = req.user!.customerId;
   try {
-    const { customerId } = req.params;
+    const customerId = req.user!.customerId;
 
     // Check permissions
     if (req.user!.role !== 'super_admin' && req.user!.customerId !== customerId) {

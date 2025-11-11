@@ -54,7 +54,6 @@ export const customerLlmConfigs = pgTable("customer_llm_configs", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   customerId: varchar("customer_id").notNull().references(() => customers.id),
   providerId: varchar("provider_id").notNull().references(() => llmProviders.id),
-  apiKey: text("api_key").notNull(),
   model: text("model"),
   settings: jsonb("settings"),
   isDefault: boolean("is_default").notNull().default(false),

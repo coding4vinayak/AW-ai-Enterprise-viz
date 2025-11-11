@@ -27,17 +27,37 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       console.log("Dataset upload request:", { name, type, dataType: typeof data, dataLength: Array.isArray(data) ? data.length : 'not array' });
 
+      // Validate inputs
       if (!name || !type || !data) {
-        return res.status(400).json({ error: "Missing required fields" });
+        return res.status(400).json({ error: "Missing required fields: name, type, and data are required" });
+      }
+
+      // Validate name and type
+      if (typeof name !== 'string' || name.trim().length === 0 || name.trim().length > 100) {
+        return res.status(400).json({ error: "Name must be a string between 1 and 100 characters" });
+      }
+
+      if (!['csv', 'excel', 'json'].includes(type)) {
+        return res.status(400).json({ error: "Type must be 'csv', 'excel', or 'json'" });
+      }
+
+      // Validate data structure
+      if (typeof data !== 'object' || data === null) {
+        return res.status(400).json({ error: "Data must be a valid object or array" });
       }
 
       // Parse the data to detect schema
       let parsedData: any[] = [];
       let columns: any[] = [];
 
-      if (type === "csv" || type === "excel") {
+      if (type === "csv" || type === "excel" || type === "json") {
         // Data should be already parsed from frontend
         if (Array.isArray(data)) {
+          // Limit the number of rows for security
+          if (data.length > 100000) { // 100k rows max
+            return res.status(400).json({ error: "Data too large: maximum 100,000 rows allowed" });
+          }
+          
           parsedData = data;
         } else if (typeof data === 'string') {
           // If data is a string, try to parse it as CSV
@@ -47,7 +67,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
             dynamicTyping: true,
             skipEmptyLines: true
           });
-          parsedData = parseResult.data;
+          
+          if (parseResult.errors.length > 0) {
+            console.error("CSV parsing errors:", parseResult.errors);
+            return res.status(400).json({ 
+              error: "Error parsing CSV data", 
+              details: parseResult.errors 
+            });
+          }
+          
+          parsedData = parseResult.data as any[];
+          
+          if (parsedData.length > 100000) { // 100k rows max
+            return res.status(400).json({ error: "Data too large: maximum 100,000 rows allowed" });
+          }
+          
           console.log("Parsed data rows:", parsedData.length);
         } else {
           return res.status(400).json({ error: "Invalid data format" });
@@ -58,20 +92,40 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ error: "No data rows found in file" });
       }
 
+      // Sanitize data to prevent security issues (like prototype pollution)
+      const sanitizedData = parsedData.map(row => {
+        const sanitizedRow: any = {};
+        for (const [key, value] of Object.entries(row)) {
+          // Check for potentially dangerous keys
+          if (key === '__proto__' || key === 'constructor' || key === 'prototype') {
+            throw new Error(`Invalid key detected in data: ${key}`);
+          }
+          sanitizedRow[key] = value;
+        }
+        return sanitizedRow;
+      });
+
       // Detect schema from first few rows
-      const firstRow = parsedData[0];
+      const firstRow = sanitizedData[0];
       columns = Object.keys(firstRow).map((key) => {
+        // Check for potentially dangerous keys
+        if (key === '__proto__' || key === 'constructor' || key === 'prototype') {
+          throw new Error(`Invalid column name detected: ${key}`);
+        }
+        
         const sample = firstRow[key];
         let colType: "string" | "number" | "date" | "boolean" = "string";
 
-        if (typeof sample === "number") {
+        if (typeof sample === "number" && !isNaN(sample)) {
           colType = "number";
         } else if (typeof sample === "boolean") {
           colType = "boolean";
         } else if (sample && !isNaN(Date.parse(String(sample)))) {
-          // Check if it looks like a date
+          // Additional date format checks
           const dateStr = String(sample);
-          if (dateStr.match(/^\d{1,2}\/\d{1,2}\/\d{4}$/)) {
+          if (dateStr.match(/^\d{1,2}\/\d{1,2}\/\d{4}$/) || 
+              dateStr.match(/^\d{4}-\d{2}-\d{2}$/) ||
+              dateStr.match(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/)) {
             colType = "date";
           }
         }
@@ -83,15 +137,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
         };
       });
 
-      console.log("Creating dataset with", parsedData.length, "rows and", columns.length, "columns");
+      console.log("Creating dataset with", sanitizedData.length, "rows and", columns.length, "columns");
 
       // Create the dataset with tenant isolation
       const dataset = await storage.createDataset({
-        name,
+        name: name.trim(),
         type,
-        uploadedData: parsedData,
+        uploadedData: sanitizedData,
         schemaInfo: { columns },
-        rowCount: parsedData.length,
+        rowCount: sanitizedData.length,
       }, customerId);
 
       console.log("Dataset created successfully:", dataset.id);

@@ -83,7 +83,7 @@ export interface IStorage {
   // Dashboard methods
   createDashboard(dashboard: InsertDashboard, customerId: string): Promise<Dashboard>;
   getDashboards(customerId: string, userId?: string): Promise<Dashboard[]>;
-  getDashboard(id: string, customerId: string): Promise<Dashboard | undefined>;
+  getDashboard(id: string, customerId: string): Promise<(Dashboard & { charts: Chart[] }) | undefined>;
   updateDashboard(id: string, customerId: string, dashboard: Partial<InsertDashboard>): Promise<Dashboard | undefined>;
   deleteDashboard(id: string, customerId: string): Promise<void>;
 
@@ -128,6 +128,18 @@ export interface IStorage {
 }
 
 export class DatabaseStorage implements IStorage {
+  // Helper function to validate tenant access - ensures data isolation
+  private async validateTenantAccess(resourceCustomerId: string, requestingCustomerId: string): Promise<boolean> {
+    // Super admin access is handled outside of storage layer
+    // This function assumes it's called from authenticated context
+    if (requestingCustomerId === resourceCustomerId) {
+      return true;
+    }
+    // For this method, we return true if the customer IDs match, 
+    // otherwise authorization must be verified at a higher level
+    return false;
+  }
+
   // Customer methods
   async createCustomer(customer: InsertCustomer): Promise<Customer> {
     const [result] = await db.insert(customers).values(customer).returning();
@@ -257,10 +269,31 @@ export class DatabaseStorage implements IStorage {
         eq(customerLlmConfigs.customerId, customerId),
         eq(customerLlmConfigs.isDefault, true)
       ));
+
+    if (config) {
+      config.apiKey = process.env.OPENAI_API_KEY || '';
+    }
+
     return config || undefined;
   }
 
   async updateCustomerLlmConfig(id: string, configUpdate: Partial<InsertCustomerLlmConfig>): Promise<CustomerLlmConfig | undefined> {
+    // First, get the existing config to check if it belongs to the right customer
+    const existingConfig = await db
+      .select()
+      .from(customerLlmConfigs)
+      .where(eq(customerLlmConfigs.id, id))
+      .limit(1);
+
+    if (!existingConfig[0]) {
+      return undefined; // Config doesn't exist
+    }
+
+    // Verify customer ownership before updating
+    if (configUpdate.customerId && configUpdate.customerId !== existingConfig[0].customerId) {
+      throw new Error('Cannot transfer LLM config to a different customer');
+    }
+
     const [updated] = await db
       .update(customerLlmConfigs)
       .set({ ...configUpdate, updatedAt: new Date() })
@@ -353,15 +386,17 @@ export class DatabaseStorage implements IStorage {
       .orderBy(desc(dashboards.updatedAt));
   }
 
-  async getDashboard(id: string, customerId: string): Promise<Dashboard | undefined> {
-    const [dashboard] = await db
-      .select()
-      .from(dashboards)
-      .where(and(
+  async getDashboard(id: string, customerId: string): Promise<(Dashboard & { charts: Chart[] }) | undefined> {
+    const dashboard = await db.query.dashboards.findFirst({
+      where: and(
         eq(dashboards.id, id),
         eq(dashboards.customerId, customerId)
-      ));
-    return dashboard || undefined;
+      ),
+      with: {
+        charts: true,
+      },
+    });
+    return dashboard;
   }
 
   async updateDashboard(
@@ -369,6 +404,20 @@ export class DatabaseStorage implements IStorage {
     customerId: string,
     dashboardUpdate: Partial<InsertDashboard>
   ): Promise<Dashboard | undefined> {
+    // Verify the dashboard belongs to the correct customer before updating
+    const existingDashboard = await db
+      .select()
+      .from(dashboards)
+      .where(and(
+        eq(dashboards.id, id),
+        eq(dashboards.customerId, customerId)
+      ))
+      .limit(1);
+
+    if (!existingDashboard[0]) {
+      return undefined; // Dashboard doesn't exist or doesn't belong to customer
+    }
+
     const [updated] = await db
       .update(dashboards)
       .set({ ...dashboardUpdate, updatedAt: new Date() })
@@ -420,6 +469,20 @@ export class DatabaseStorage implements IStorage {
     customerId: string,
     chartUpdate: Partial<InsertChart>
   ): Promise<Chart | undefined> {
+    // Verify the chart belongs to the correct customer before updating
+    const existingChart = await db
+      .select()
+      .from(charts)
+      .where(and(
+        eq(charts.id, id),
+        eq(charts.customerId, customerId)
+      ))
+      .limit(1);
+
+    if (!existingChart[0]) {
+      return undefined; // Chart doesn't exist or doesn't belong to customer
+    }
+
     const [updated] = await db
       .update(charts)
       .set({ ...chartUpdate, updatedAt: new Date() })
@@ -673,6 +736,20 @@ export class DatabaseStorage implements IStorage {
   }
 
   async updateDataSource(id: string, updates: any): Promise<any> {
+    // Verify the data source belongs to the correct customer before updating
+    const existingSource = await db
+      .select()
+      .from(dataSources)
+      .where(and(
+        eq(dataSources.id, id),
+        eq(dataSources.customerId, updates.customerId)
+      ))
+      .limit(1);
+
+    if (!existingSource[0]) {
+      throw new Error('Cannot update data source: does not exist or does not belong to customer');
+    }
+
     const [result] = await db.update(dataSources)
       .set({ ...updates, updatedAt: new Date() })
       .where(eq(dataSources.id, id))

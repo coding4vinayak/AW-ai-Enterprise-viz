@@ -40,6 +40,7 @@ import DashboardBuilder from "@/pages/dashboard-builder";
 import ChartBuilderAdvanced from "@/pages/chart-builder-advanced";
 import SimpleChartBuilder from "@/pages/simple-chart-builder";
 import CustomerAnalytics from "@/pages/customer-analytics";
+import { ChartTemplatesPage } from "@/pages/chart-templates";
 import { lazy } from "react";
 import DataConnectors from "@/pages/data-connectors";
 import GraphQLConnector from "@/pages/data-connectors-graphql";
@@ -52,6 +53,17 @@ const Navigate = ({ to }: { to: string }) => {
 
 function ProtectedRoutes() {
   const [location] = useLocation();
+  const getPageTitle = () => {
+    const path = location.pathname;
+    if (path === '/') return 'Dashboard';
+    if (path.startsWith('/analytics')) return 'Analytics';
+    if (path.startsWith('/data-sources')) return 'Data Sources';
+    if (path.startsWith('/insights')) return 'Insights';
+    if (path.startsWith('/settings')) return 'Settings';
+    if (path.startsWith('/admin')) return 'Admin';
+    if (path.startsWith('/chart-templates')) return 'Chart Templates';
+    return 'Dashboard';
+  };
   const authContext = useAuth();
 
   if (!authContext) {
@@ -98,7 +110,10 @@ function ProtectedRoutes() {
         <AppSidebar />
         <div className="flex flex-col flex-1">
           <header className="flex items-center justify-between p-2 border-b" data-testid="header-main">
-            <SidebarTrigger data-testid="button-sidebar-toggle" />
+            <div className="flex items-center gap-2">
+              <SidebarTrigger data-testid="button-sidebar-toggle" />
+              <h1 className="text-lg font-semibold">{getPageTitle()}</h1>
+            </div>
             <div className="flex items-center gap-2">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -145,6 +160,7 @@ function ProtectedRoutes() {
               <Route path="/admin" component={AdminPage} />
               <Route path="/ai-settings" component={AISettingsPage} />
               <Route path="/usage" component={UsageDashboard} />
+              <Route path="/chart-templates" component={ChartTemplatesPage} />
               <Route path="/dashboard-wizard" component={DashboardWizard} />
               <Route path="/dashboard/share" component={Dashboard} />
               <Route path="/dashboard/reports" component={Dashboard} />

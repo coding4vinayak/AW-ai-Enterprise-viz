@@ -1,3 +1,4 @@
+import { SafeExpressionParser } from './safe-expression-parser';
 
 export interface CalculatedField {
   name: string;
@@ -39,13 +40,7 @@ export class CalculatedFieldsEngine {
     
     // Evaluate the formula safely
     try {
-      // Only allow mathematical operations and basic functions
-      const allowedOperations = /^[\d+\-*/(). ]+$/;
-      if (!allowedOperations.test(processedFormula)) {
-        throw new Error('Invalid formula');
-      }
-      
-      return Function(`"use strict"; return (${processedFormula})`)();
+      return SafeExpressionParser.evaluate(processedFormula);
     } catch (error) {
       throw new Error(`Formula evaluation failed: ${error}`);
     }

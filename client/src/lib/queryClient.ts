@@ -7,14 +7,22 @@ async function throwIfResNotOk(res: Response) {
   }
 }
 
+import { getCookie } from './cookies';
+
 export async function apiRequest(
   method: string,
   url: string,
   data?: unknown | undefined,
 ): Promise<Response> {
+  const csrfToken = getCookie('csrf-token');
+  const headers: HeadersInit = data ? { "Content-Type": "application/json" } : {};
+  if (csrfToken) {
+    headers['X-CSRF-Token'] = csrfToken;
+  }
+
   const res = await fetch(url, {
     method,
-    headers: data ? { "Content-Type": "application/json" } : {},
+    headers,
     body: data ? JSON.stringify(data) : undefined,
     credentials: "include",
   });

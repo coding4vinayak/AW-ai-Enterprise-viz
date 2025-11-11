@@ -2,19 +2,18 @@ import { Router } from 'express';
 import { storage } from './storage';
 import { hashPassword, verifyPassword, authenticateUser } from './middleware/auth';
 import { randomUUID } from 'crypto';
+import { userValidationRules, handleValidationErrors } from './middleware/validation';
+import { body } from 'express-validator';
+import { logger } from './middleware/logging';
 
 const router = Router();
 
 // Register new user
-router.post('/register', async (req, res) => {
+router.post('/register', userValidationRules(), handleValidationErrors, async (req, res) => {
   try {
     const { email, username, password, customerId } = req.body;
 
-    if (!email || !username || !password) {
-      return res.status(400).json({ error: 'Email, username, and password are required' });
-    }
-
-    // Check if user already exists
+    // Check if user already exists (after validation)
     const existingEmail = await storage.getUserByEmail(email);
     if (existingEmail) {
       return res.status(409).json({ error: 'Email already registered' });
@@ -67,13 +66,14 @@ router.post('/register', async (req, res) => {
 });
 
 // Login
-router.post('/login', async (req, res) => {
+router.post('/login', [
+  // Basic validation for login
+  body('identifier').trim().isLength({ min: 1, max: 255 }).withMessage('Identifier is required and must be less than 255 characters'),
+  body('password').trim().isLength({ min: 1 }).withMessage('Password is required'),
+  handleValidationErrors
+], async (req, res) => {
   try {
     const { identifier, password } = req.body;
-
-    if (!identifier || !password) {
-      return res.status(400).json({ error: 'Email/username and password are required' });
-    }
 
     // Find user by email or username
     let user = await storage.getUserByEmail(identifier);
@@ -82,6 +82,15 @@ router.post('/login', async (req, res) => {
     }
 
     if (!user) {
+      // Log security event
+      logger.warn({
+        type: 'security-event',
+        event: 'failed-login',
+        identifier,
+        ip: req.ip || req.connection.remoteAddress,
+        userAgent: req.get('User-Agent')
+      }, 'Failed login attempt');
+      
       return res.status(401).json({ error: 'Invalid credentials' });
     }
 
@@ -92,19 +101,36 @@ router.post('/login', async (req, res) => {
     // Verify password
     const isValid = await verifyPassword(password, user.password);
     if (!isValid) {
+      // Log security event
+      logger.warn({
+        type: 'security-event',
+        event: 'failed-login',
+        userId: user.id,
+        identifier,
+        ip: req.ip || req.connection.remoteAddress
+      }, 'Failed login attempt with invalid password');
+      
       return res.status(401).json({ error: 'Invalid credentials' });
     }
 
-    // Update last login (Note: lastLoginAt is not in InsertUser schema, so we skip this for now)
-    // This field is auto-managed by the database or would need custom SQL
-
     // Set session
     req.session.userId = user.id;
+    req.session.createdAt = new Date().toISOString(); // Add creation timestamp for security
     req.session.save((err) => {
       if (err) {
         console.error('Session save error:', err);
         return res.status(500).json({ error: 'Failed to create session' });
       }
+
+      // Log successful login
+      logger.info({
+        type: 'security-event',
+        event: 'successful-login',
+        userId: user.id,
+        customerId: user.customerId,
+        ip: req.ip || req.connection.remoteAddress,
+        userAgent: req.get('User-Agent')
+      }, 'Successful login');
 
       res.json({
         user: {

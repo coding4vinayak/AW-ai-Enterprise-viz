@@ -2,7 +2,7 @@
   "id": "FEAT-001",
   "type": "feat",
   "description": "Add additional chart types (Heatmap, Funnel, Waterfall, Bubble, Polar Area) to the AdvancedChartRenderer and update shared types to include the new chart types. Also implement drill-down and cross-chart filtering UI components.",
-  "status": "in_progress",
+  "status": "completed",
   "steps": [
     "1. Update shared/types.ts: Add 'funnel', 'waterfall', 'treemap', 'gauge' to the ChartType union. Add a CrossFilterConfig interface with fields: enabled (boolean), sourceChartId (string), targetChartIds (string[]), filterField (string). Add CrossFilterConfig to AdvancedChartConfig as an optional crossFilter field.",
     "2. Update client/src/components/charts/advanced-chart-renderer.tsx: Add new case handlers in the renderChart() switch for 'heatmap' (use a grid of colored cells rendered via Recharts ScatterChart with custom shapes), 'funnel' (horizontal bar chart with decreasing widths using BarChart), 'waterfall' (stacked BarChart with invisible base bars), 'bubble' (ScatterChart with ZAxis for bubble size), and 'polarArea' (RadarChart/PieChart with polar coordinates). Import any additional Recharts components needed (ZAxis, etc). Each chart type should render meaningful visualizations using the config.series and config.xAxis/yAxis fields.",
@@ -24,5 +24,5 @@
     "npx vite build --outDir dist/public"
   ],
   "blocked_reason": null,
-  "findings": ""
+  "findings": "Pre-existing TS errors in project: Chart type imported from @shared/types in usage-dashboard.tsx and dashboard-builder.tsx (should be @shared/schema), test files missing @testing-library deps, server files with missing storage methods. vitest ^1.7.3 version was unavailable - updated to ^2.0.0. Fixed dashboard-grid.tsx to use chart.title instead of chart.name (schema uses title field). Added chart prop support to AdvancedChartRenderer to support existing dashboard-grid usage pattern."
 }

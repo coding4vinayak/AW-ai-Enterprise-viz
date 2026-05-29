@@ -9,6 +9,8 @@ import dataProcessingRoutes from './data-processing-routes';
 import dashboardSharingRoutes from './dashboard-sharing-routes';
 import emailReportsRoutes from './email-reports-routes';
 import webhookRoutes from './webhook-routes';
+import embedRoutes from './embed-routes';
+import { setupWebSocket } from './realtime-routes';
 import { setupVite, serveStatic, log } from "./vite";
 import { seedDatabase } from "./seed";
 import { db, pool } from "./db";
@@ -159,7 +161,12 @@ app.use((req, res, next) => {
   const dashboardExportRoutes = (await import('./dashboard-export-routes')).default;
   app.use('/api', dashboardExportRoutes);
 
+  // Register embed routes (public, no auth required)
+  app.use('/api', embedRoutes);
+
   const server = await registerRoutes(app);
+
+  setupWebSocket(server);
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;

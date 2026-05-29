@@ -3,7 +3,8 @@ import { Card } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { 
   LineChart, BarChart3, PieChart, AreaChart, 
-  ScatterChart, RadarIcon, Activity, Gauge 
+  ScatterChart, RadarIcon, Activity, Gauge,
+  Circle, Waves, Target
 } from 'lucide-react';
 
 interface ChartType {
@@ -25,7 +26,10 @@ const CHART_TYPES: ChartType[] = [
   { id: 'heatmap', name: 'Heatmap', icon: Activity, description: 'Show data density and patterns' },
   { id: 'funnel', name: 'Funnel Chart', icon: Activity, description: 'Track conversion stages' },
   { id: 'gauge', name: 'Gauge Chart', icon: Gauge, description: 'Show progress towards goal' },
-  { id: 'treemap', name: 'Treemap', icon: Activity, description: 'Hierarchical data visualization' }
+  { id: 'treemap', name: 'Treemap', icon: Activity, description: 'Hierarchical data visualization' },
+  { id: 'waterfall', name: 'Waterfall Chart', icon: Waves, description: 'Show cumulative effect of values' },
+  { id: 'bubble', name: 'Bubble Chart', icon: Circle, description: 'Scatter plot with sized bubbles' },
+  { id: 'polarArea', name: 'Polar Area', icon: Target, description: 'Radial chart with equal angles' }
 ];
 
 interface ChartTypeSelectorProps {

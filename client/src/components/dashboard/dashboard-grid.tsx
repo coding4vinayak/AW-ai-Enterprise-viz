@@ -6,8 +6,10 @@ import { useToast } from "@/hooks/use-toast";
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import type { Chart } from '@shared/types';
+import type { Chart } from '@shared/schema';
+import type { AdvancedChartConfig } from '@shared/types';
 import { AdvancedChartRenderer } from '@/components/charts/advanced-chart-renderer';
+import { CrossFilterProvider } from './cross-chart-filter';
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
@@ -123,6 +125,7 @@ export function DashboardGrid({
   };
 
   return (
+    <CrossFilterProvider>
     <div className="relative">
       {/* Edit Mode Controls */}
       {editable && (
@@ -181,7 +184,7 @@ export function DashboardGrid({
         <Card className="col-span-full">
           <CardHeader className="flex flex-row items-center justify-between pb-3">
             <CardTitle className="text-lg">
-              {charts?.find(c => c.id === expandedChart)?.name || 'Chart'}
+              {charts?.find(c => c.id === expandedChart)?.title || 'Chart'}
             </CardTitle>
             <Button
               variant="ghost"
@@ -194,7 +197,7 @@ export function DashboardGrid({
           <CardContent className="h-[600px]">
             {charts?.find(c => c.id === expandedChart) && (
               <AdvancedChartRenderer 
-                config={charts.find(c => c.id === expandedChart)!.config}
+                config={charts.find(c => c.id === expandedChart)!.config as AdvancedChartConfig}
                 data={[]}
               />
             )}
@@ -223,7 +226,7 @@ export function DashboardGrid({
                   <CardHeader className="flex flex-row items-center justify-between pb-3">
                     <CardTitle className="text-lg flex items-center gap-2">
                       {internalIsEditMode && <GripVertical className="h-4 w-4 text-muted-foreground cursor-move" />}
-                      {chart.name || 'Untitled Chart'}
+                      {chart.title || 'Untitled Chart'}
                     </CardTitle>
                     <Button
                       variant="ghost"
@@ -245,7 +248,6 @@ export function DashboardGrid({
         </ResponsiveGridLayout>
       )}
     </div>
+    </CrossFilterProvider>
   );
 }
-
-export type { GridItem };

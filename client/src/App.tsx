@@ -39,6 +39,8 @@ import { lazy } from "react";
 import DataConnectors from "@/pages/data-connectors";
 import GraphQLConnector from "@/pages/data-connectors-graphql";
 
+const LayoutEditorPage = lazy(() => import('./pages/layout-editor'));
+
 // Navigate component for redirects
 const Navigate = ({ to }: { to: string }) => {
   window.location.href = to;
@@ -138,6 +140,7 @@ function ProtectedRoutes() {
               <Route path="/ai-settings" component={AISettingsPage} />
               <Route path="/usage" component={UsageDashboard} />
               <Route path="/dashboard-wizard" component={DashboardWizard} />
+              <Route path="/dashboard/layout-editor" component={LayoutEditorPage} />
               <Route path="/dashboard/share" component={Dashboard} />
               <Route path="/dashboard/reports" component={Dashboard} />
               <Route path="/dashboard/filters" component={Dashboard} />

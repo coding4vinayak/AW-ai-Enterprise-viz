@@ -1,0 +1,34 @@
+{
+  "id": "FEAT-002",
+  "type": "feat",
+  "description": "Implement drag-and-drop dashboard layout editor with save/restore, dashboard versioning, advanced export (PDF/PNG), and the server-side caching layer. Also add embed routes and WebSocket real-time updates infrastructure.",
+  "status": "completed",
+  "steps": [
+    "1. Create server/lib/cache.ts: Implement an in-memory TTL cache class (CacheManager) with methods: get(key), set(key, value, ttlMs), delete(key), clear(), has(key). Use a Map internally with setTimeout-based expiry. Export a singleton instance. Add a middleware factory function createCacheMiddleware(ttlMs) that caches GET API responses by URL+query.",
+    "2. Create server/embed-routes.ts: A Router with endpoints for embeddable chart/dashboard views. GET /api/embed/chart/:shareToken - returns chart config + data for embedding in iframes. GET /api/embed/dashboard/:shareToken - returns dashboard layout + charts for embedding. These use the dashboardShares table for token validation (no auth required for public shares). Register this router in server/index.ts.",
+    "3. Create server/realtime-routes.ts: Set up WebSocket support using the existing 'ws' package. Export a function setupWebSocket(server) that creates a WebSocket.Server on the HTTP server with path '/ws'. Handle connections, authenticate via session cookie, and support message types: 'subscribe' (to a dashboard/dataset channel), 'unsubscribe', 'data-update' (broadcast to subscribers). Register in server/index.ts by calling setupWebSocket(server) after createServer.",
+    "4. Create client/src/components/dashboard/layout-editor.tsx: A full drag-and-drop layout editor component using react-grid-layout (already installed). Features: add widget button (opens a dialog to pick chart type + dataset), remove widget button on each card, resize handles, layout presets (1x1, 2x2, 3 column, sidebar+main). Includes a toolbar with save, reset, and preset buttons. This is a standalone page component that wraps the existing DashboardGrid with additional editing capabilities.",
+    "5. Create client/src/components/dashboard/version-control.tsx: A component that shows dashboard version history. Uses a local state approach (stores versions as JSON snapshots in dashboard.layout field with version metadata). Provides: version list with timestamps, restore button, diff indicator (shows which widgets changed). Uses the existing dashboard update API (PUT /api/dashboards/:id) to save versions.",
+    "6. Create client/src/components/dashboard/advanced-export.tsx: A dialog component for exporting dashboards. Options: format (PDF, PNG, CSV, JSON), page size (A4, Letter, Custom), orientation, include/exclude filters, title page toggle. Uses html2canvas (already installed) for PNG capture, jspdf (already installed) for PDF generation. Renders a preview of the export before downloading.",
+    "7. Update client/src/App.tsx: Add routes for the layout editor page (/dashboard/layout-editor) and ensure the new components are accessible from navigation.",
+    "8. Update server/index.ts: Import and register embed-routes and realtime-routes. Call setupWebSocket on the HTTP server after it's created."
+  ],
+  "acceptance_criteria": [
+    "server/lib/cache.ts exports CacheManager class with get/set/delete/clear/has methods and createCacheMiddleware factory",
+    "server/embed-routes.ts provides GET /api/embed/chart/:token and GET /api/embed/dashboard/:token endpoints",
+    "server/realtime-routes.ts exports setupWebSocket function that creates a WebSocket server on /ws path",
+    "Layout editor component renders with add widget, remove, resize, and preset controls",
+    "Version control component renders version history list with restore functionality",
+    "Advanced export dialog provides PDF/PNG options using html2canvas and jspdf",
+    "App.tsx includes route for /dashboard/layout-editor",
+    "server/index.ts registers embed routes and calls setupWebSocket",
+    "TypeScript compilation passes (npx tsc --noEmit)",
+    "Vite build succeeds (npx vite build --outDir dist/public)"
+  ],
+  "verification": [
+    "npx tsc --noEmit",
+    "npx vite build --outDir dist/public"
+  ],
+  "blocked_reason": null,
+  "findings": "All new files pass TypeScript compilation with zero new errors. Vite build succeeds. Pre-existing errors remain in test files, api-hooks.ts, ai-chat-panel.tsx, dashboard-sharing-routes.ts, dashboard-export-routes.ts, ai-config-routes.ts (all documented as expected). The layout-editor page is code-split via lazy import."
+}

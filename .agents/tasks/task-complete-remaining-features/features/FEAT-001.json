@@ -1,0 +1,28 @@
+{
+  "id": "FEAT-001",
+  "type": "feat",
+  "description": "Add additional chart types (Heatmap, Funnel, Waterfall, Bubble, Polar Area) to the AdvancedChartRenderer and update shared types to include the new chart types. Also implement drill-down and cross-chart filtering UI components.",
+  "status": "in_progress",
+  "steps": [
+    "1. Update shared/types.ts: Add 'funnel', 'waterfall', 'treemap', 'gauge' to the ChartType union. Add a CrossFilterConfig interface with fields: enabled (boolean), sourceChartId (string), targetChartIds (string[]), filterField (string). Add CrossFilterConfig to AdvancedChartConfig as an optional crossFilter field.",
+    "2. Update client/src/components/charts/advanced-chart-renderer.tsx: Add new case handlers in the renderChart() switch for 'heatmap' (use a grid of colored cells rendered via Recharts ScatterChart with custom shapes), 'funnel' (horizontal bar chart with decreasing widths using BarChart), 'waterfall' (stacked BarChart with invisible base bars), 'bubble' (ScatterChart with ZAxis for bubble size), and 'polarArea' (RadarChart/PieChart with polar coordinates). Import any additional Recharts components needed (ZAxis, etc). Each chart type should render meaningful visualizations using the config.series and config.xAxis/yAxis fields.",
+    "3. Update client/src/components/charts/chart-type-selector.tsx: Add entries for 'waterfall', 'bubble', and 'polarArea' chart types (heatmap, funnel, gauge, treemap already exist in the selector). Use appropriate lucide-react icons.",
+    "4. Create client/src/components/charts/drill-down-panel.tsx: A panel component that shows when a user clicks a data point. It receives a drillDown config (from AdvancedChartConfig.drillDown), the clicked data point, and an onDrillDown callback. Renders a slide-out panel (use Sheet from shadcn/ui) showing filtered data for the clicked dimension. Include a breadcrumb trail for navigation back.",
+    "5. Create client/src/components/dashboard/cross-chart-filter.tsx: A context provider and hook (CrossFilterProvider, useCrossFilter) that manages active filters across charts on a dashboard. When a user clicks a data point on a source chart, it broadcasts a filter event to target charts. The provider stores activeFilters as a Map<chartId, {field: string, value: any}>. Expose applyFilter(chartId, field, value) and clearFilter(chartId) functions.",
+    "6. Update client/src/components/dashboard/dashboard-grid.tsx: Import and wrap the grid content with CrossFilterProvider. Pass cross-filter context to each chart card so AdvancedChartRenderer can filter its data based on active cross-filters."
+  ],
+  "acceptance_criteria": [
+    "shared/types.ts includes funnel, waterfall, treemap, gauge in ChartType and has CrossFilterConfig interface",
+    "AdvancedChartRenderer handles heatmap, funnel, waterfall, bubble, and polarArea chart types without runtime errors",
+    "ChartTypeSelector shows all new chart types with appropriate icons",
+    "DrillDownPanel component exists and renders a Sheet with breadcrumb navigation",
+    "CrossFilterProvider and useCrossFilter hook exist and manage filter state",
+    "TypeScript compilation passes (npx tsc --noEmit)"
+  ],
+  "verification": [
+    "npx tsc --noEmit",
+    "npx vite build --outDir dist/public"
+  ],
+  "blocked_reason": null,
+  "findings": ""
+}

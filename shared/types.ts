@@ -11,6 +11,10 @@ export type ChartType =
   | 'polarArea'
   | 'bubble'
   | 'heatmap'
+  | 'funnel'
+  | 'waterfall'
+  | 'treemap'
+  | 'gauge'
   | 'kpi';
 
 export interface ChartSeries {
@@ -42,6 +46,13 @@ export interface DrillDownConfig {
   enabled: boolean;
   targetField?: string;
   targetDashboard?: string;
+}
+
+export interface CrossFilterConfig {
+  enabled: boolean;
+  sourceChartId?: string;
+  targetChartIds?: string[];
+  filterField?: string;
 }
 
 export interface AdvancedChartConfig {
@@ -76,6 +87,7 @@ export interface AdvancedChartConfig {
   
   // Interactivity
   drillDown?: DrillDownConfig;
+  crossFilter?: CrossFilterConfig;
   
   // Display
   showDataLabels?: boolean;

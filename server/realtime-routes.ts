@@ -9,6 +9,18 @@ interface WSMessage {
 
 const channels: Map<string, Set<WebSocket>> = new Map();
 
+const MAX_MESSAGE_SIZE = 65536; // 64KB
+const CHANNEL_NAME_PATTERN = /^[a-zA-Z0-9-]+$/;
+const MAX_CHANNEL_NAME_LENGTH = 128;
+
+function isValidChannelName(channel: string): boolean {
+  return (
+    channel.length > 0 &&
+    channel.length <= MAX_CHANNEL_NAME_LENGTH &&
+    CHANNEL_NAME_PATTERN.test(channel)
+  );
+}
+
 export function setupWebSocket(server: Server): void {
   const wss = new WebSocketServer({ server, path: '/ws' });
 
@@ -16,10 +28,20 @@ export function setupWebSocket(server: Server): void {
     const clientChannels = new Set<string>();
 
     ws.on('message', (rawMessage: Buffer | string) => {
+      const messageStr = typeof rawMessage === 'string' ? rawMessage : rawMessage.toString();
+
+      if (messageStr.length > MAX_MESSAGE_SIZE) {
+        ws.send(JSON.stringify({ type: 'error', message: 'Message exceeds maximum size of 64KB' }));
+        return;
+      }
+
       try {
-        const message: WSMessage = JSON.parse(
-          typeof rawMessage === 'string' ? rawMessage : rawMessage.toString()
-        );
+        const message: WSMessage = JSON.parse(messageStr);
+
+        if (message.channel && !isValidChannelName(message.channel)) {
+          ws.send(JSON.stringify({ type: 'error', message: 'Invalid channel name. Use alphanumeric characters and dashes only (max 128 chars).' }));
+          return;
+        }
 
         switch (message.type) {
           case 'subscribe': {

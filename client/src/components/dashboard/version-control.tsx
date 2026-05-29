@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -17,8 +17,44 @@ interface VersionControlProps {
   onRestore: (layout: any) => void;
 }
 
+function getStorageKey(dashboardId: string): string {
+  return `dashboard-versions-${dashboardId}`;
+}
+
+function loadVersions(dashboardId: string): DashboardVersion[] {
+  try {
+    const stored = localStorage.getItem(getStorageKey(dashboardId));
+    if (stored) {
+      return JSON.parse(stored);
+    }
+  } catch {
+    // Ignore parse errors
+  }
+  return [];
+}
+
+function saveVersions(dashboardId: string, versions: DashboardVersion[]): void {
+  try {
+    localStorage.setItem(getStorageKey(dashboardId), JSON.stringify(versions));
+  } catch {
+    // Ignore storage errors (e.g., quota exceeded)
+  }
+}
+
 export function VersionControl({ dashboardId, currentLayout, onRestore }: VersionControlProps) {
-  const [versions, setVersions] = useState<DashboardVersion[]>([]);
+  const [versions, setVersions] = useState<DashboardVersion[]>(() => loadVersions(dashboardId));
+
+  useEffect(() => {
+    setVersions(loadVersions(dashboardId));
+  }, [dashboardId]);
+
+  const updateVersions = useCallback((updater: (prev: DashboardVersion[]) => DashboardVersion[]) => {
+    setVersions((prev) => {
+      const next = updater(prev);
+      saveVersions(dashboardId, next);
+      return next;
+    });
+  }, [dashboardId]);
 
   const handleSaveVersion = () => {
     const newVersion: DashboardVersion = {
@@ -27,7 +63,7 @@ export function VersionControl({ dashboardId, currentLayout, onRestore }: Versio
       layout: JSON.parse(JSON.stringify(currentLayout)),
       label: `Version ${versions.length + 1}`,
     };
-    setVersions((prev) => [newVersion, ...prev]);
+    updateVersions((prev) => [newVersion, ...prev]);
   };
 
   const handleRestore = (version: DashboardVersion) => {
@@ -35,7 +71,7 @@ export function VersionControl({ dashboardId, currentLayout, onRestore }: Versio
   };
 
   const handleDelete = (versionId: string) => {
-    setVersions((prev) => prev.filter((v) => v.id !== versionId));
+    updateVersions((prev) => prev.filter((v) => v.id !== versionId));
   };
 
   const formatTimestamp = (iso: string) => {

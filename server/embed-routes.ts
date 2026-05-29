@@ -5,10 +5,16 @@ import { eq } from 'drizzle-orm';
 
 const router = Router();
 
+const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
 // Get embeddable chart by share token
 router.get('/embed/chart/:shareToken', async (req, res) => {
   try {
     const { shareToken } = req.params;
+
+    if (!UUID_PATTERN.test(shareToken)) {
+      return res.status(400).json({ error: 'Invalid token format' });
+    }
 
     const shares = await db
       .select()
@@ -47,6 +53,10 @@ router.get('/embed/chart/:shareToken', async (req, res) => {
 router.get('/embed/dashboard/:shareToken', async (req, res) => {
   try {
     const { shareToken } = req.params;
+
+    if (!UUID_PATTERN.test(shareToken)) {
+      return res.status(400).json({ error: 'Invalid token format' });
+    }
 
     const shares = await db
       .select()

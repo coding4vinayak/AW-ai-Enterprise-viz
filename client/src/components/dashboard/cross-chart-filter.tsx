@@ -12,7 +12,14 @@ interface CrossFilterContextValue {
   clearAll: () => void;
 }
 
-const CrossFilterContext = createContext<CrossFilterContextValue | null>(null);
+const defaultContextValue: CrossFilterContextValue = {
+  activeFilters: {},
+  applyFilter: () => {},
+  clearFilter: () => {},
+  clearAll: () => {},
+};
+
+const CrossFilterContext = createContext<CrossFilterContextValue>(defaultContextValue);
 
 interface CrossFilterProviderProps {
   children: ReactNode;
@@ -48,9 +55,5 @@ export function CrossFilterProvider({ children }: CrossFilterProviderProps) {
 }
 
 export function useCrossFilter(): CrossFilterContextValue {
-  const context = useContext(CrossFilterContext);
-  if (!context) {
-    throw new Error('useCrossFilter must be used within a CrossFilterProvider');
-  }
-  return context;
+  return useContext(CrossFilterContext);
 }

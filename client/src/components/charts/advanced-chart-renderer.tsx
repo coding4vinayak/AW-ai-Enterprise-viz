@@ -5,6 +5,7 @@ import {
   XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ZAxis
 } from 'recharts';
 import type { AdvancedChartConfig } from '@shared/types';
+import { useCrossFilter } from '@/components/dashboard/cross-chart-filter';
 
 interface AdvancedChartRendererProps {
   config?: AdvancedChartConfig;
@@ -26,11 +27,26 @@ export function AdvancedChartRenderer({ config: configProp, data: dataProp, heig
   const config = configProp || (chart?.config as AdvancedChartConfig | undefined);
   const data = dataProp || [];
   const colors = config?.colors || COLOR_SCHEMES[config?.colorScheme || 'default'];
+  const { activeFilters } = useCrossFilter();
 
   const chartData = useMemo(() => {
     if (!Array.isArray(data)) return [];
-    return data;
-  }, [data]);
+
+    // Apply cross-filter: check if any active filter targets this chart's data
+    const chartId = chart?.id;
+    const filtersToApply = Object.entries(activeFilters).filter(
+      ([sourceId]) => sourceId !== chartId
+    );
+
+    if (filtersToApply.length === 0) return data;
+
+    return data.filter((item) => {
+      return filtersToApply.every(([, filter]) => {
+        if (item[filter.field] === undefined) return true;
+        return item[filter.field] === filter.value;
+      });
+    });
+  }, [data, activeFilters, chart?.id]);
 
   if (!config) {
     return (

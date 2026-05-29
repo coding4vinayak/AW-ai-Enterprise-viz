@@ -56,7 +56,9 @@ export function createCacheMiddleware(ttlMs: number) {
 
     const originalJson = res.json.bind(res);
     res.json = function (body: any) {
-      cache.set(key, { body, statusCode: res.statusCode }, ttlMs);
+      if (res.statusCode >= 200 && res.statusCode < 400) {
+        cache.set(key, { body, statusCode: res.statusCode }, ttlMs);
+      }
       return originalJson(body);
     };
 

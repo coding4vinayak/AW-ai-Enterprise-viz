@@ -1,0 +1,43 @@
+{
+  "project_type": "Full-stack TypeScript app (Express backend + React/Vite frontend)",
+  "language": "TypeScript",
+  "build_system": "npm with Vite for client, tsx for server dev, tsc for server prod build",
+  "test_framework": "vitest",
+  "build_command": "npx vite build --outDir dist/public",
+  "test_command": "npx tsc --noEmit",
+  "verification_instructions": "1. Run `npx tsc --noEmit` to verify TypeScript compilation. 2. Run `npx vite build --outDir dist/public` to verify the client builds successfully.",
+  "snapshot_or_generated_files": null,
+  "setup_instructions": "npm install",
+  "environment_constraints": "OPEN_INTERNET network mode - full access to npm registry. Node.js 22 available. No database available for runtime testing (uses Neon PostgreSQL in prod). Validate using TypeScript type-checking and Vite build.",
+  "contribution_requirements": "TypeScript strict mode. Uses path aliases: @/* for client/src/*, @shared/* for shared/*. Express routes use authenticateUser middleware. Frontend uses shadcn/ui components, TanStack React Query for data fetching, wouter for routing.",
+  "key_patterns": {
+    "server_routes": "Each route file exports a default Router, registered in server/index.ts with app.use('/api', routeModule). Uses authenticateUser and requireRole middleware.",
+    "client_pages": "Pages are in client/src/pages/, imported in App.tsx and added to wouter Switch routes.",
+    "components": "UI components in client/src/components/ui/ (shadcn). Feature components in feature-specific folders (charts/, dashboard/, etc.)",
+    "data_fetching": "TanStack React Query with custom hooks in client/src/lib/api-hooks.ts. apiRequest helper in queryClient.ts.",
+    "chart_rendering": "AdvancedChartRenderer in client/src/components/charts/advanced-chart-renderer.tsx uses Recharts. Config follows AdvancedChartConfig interface in shared/types.ts.",
+    "types": "Shared types in shared/types.ts (chart config) and shared/schema.ts (DB schema + Drizzle types).",
+    "storage": "DatabaseStorage class in server/storage.ts implements IStorage interface with Drizzle ORM queries."
+  },
+  "relevant_files": [
+    "shared/types.ts",
+    "shared/schema.ts",
+    "client/src/App.tsx",
+    "client/src/components/charts/advanced-chart-renderer.tsx",
+    "client/src/components/charts/chart-type-selector.tsx",
+    "client/src/components/dashboard/dashboard-grid.tsx",
+    "client/src/pages/chart-builder-advanced.tsx",
+    "client/src/pages/dashboard-wizard.tsx",
+    "client/src/lib/queryClient.ts",
+    "client/src/lib/api-hooks.ts",
+    "server/index.ts",
+    "server/routes.ts",
+    "server/storage.ts",
+    "server/dashboard-export-routes.ts",
+    "server/lib/data-connectors/base.ts",
+    "server/lib/ai-providers/factory.ts",
+    "package.json",
+    "tsconfig.json"
+  ],
+  "directory_structure": "Root: package.json, tsconfig.json, shared/. Client: client/src/ with pages/, components/ (ui/, charts/, dashboard/, data/, ai/, analytics/), lib/. Server: server/ with *-routes.ts files, lib/ (ai-providers/, analytics/, data-connectors/, data-processing/), middleware/, storage.ts, db.ts."
+}
